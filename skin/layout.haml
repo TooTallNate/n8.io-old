@@ -1,0 +1,31 @@
+!!! Strict
+%html(lang="en" xmlns="http://www.w3.org/1999/xhtml")
+  %head
+    %meta(http-equiv="content-type" content="text/html; charset=UTF-8")
+    %title #{(title ? title + " - " : "")}TooTallNate.net
+    %link(href="http://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css")
+    %link(href="/space.css" rel="stylesheet")
+    %link(rel="alternate" type="application/rss+xml" title="RSS 2.0" href="/feed.xml")
+    %link(href="/favicon.ico" rel="icon" type="image/x-icon")
+  %body
+    #container
+      #header
+        %a{href: "/"}
+          %h1
+            TooTallNate.net
+          .tagline JavaScript; Shoot it From the Hip
+      = content
+      #footer
+        Site design, code and articles are &copy; 2010 to Nathan Rajlich under the MIT license.
+        %br
+        All code snippets used in the examples are in the public domain.
+        %br
+        Wheat running on node #{process.version}
+    :script
+      //var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+      //document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    :script
+      try {
+      //var pageTracker = _gat._getTracker("UA-12824411-1");
+      //pageTracker._trackPageview();
+      } catch(err) {}
