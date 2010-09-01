@@ -1,3 +1,0 @@
-[submodule "wheat"]
-	path = wheat
-	url = git://github.com/creationix/wheat.git
