@@ -43,6 +43,15 @@ Why does this work? Both iTunes and Safari use the same QuickTime decoder to
 playback the file. That being said, ANY file that iTunes can play, theoretically
 Safari can play as well.
 
+__UPDATE:__ `jsjohnst` in the comments has posted that this doesn't work with
+_video_ files on _desktop_ Safari for some reason. The proper dimensions are
+detected and you get a grey screen the size of the video, no audio is played
+either. What's also strange is that desktop Safari still acts like it's playing
+the video; the `currentTime` JavaScript property moves along at the expected
+rate, the `duration` is properly calculated, and the `play()` and `pause()`
+functions work, but you never get anything but a grey screen. I wonder if this
+was intentional by Apple?
+
 ## But what about everyone else?
 
 So the above news might be good enough if you're only intending on building an
@@ -59,15 +68,22 @@ got released a few days ago, and it supports up to iTunes 9.2.1! However, only
 a few hours later, Apple released iTunes 10, which now breaks __Requiem__ and
 we have to wait once more.
 
-What's nice about __Requiem__ is that is removed the DRM in a lossless way,
-so that the original media file is untouched. Even the ID3 tags identifying
-the original purchaser of the content is still there. The author of __Requiem__
-has stated that it is NOT meant to be used for piracy. I feel like __nTunes__
-is a quite legitimate use for the software.
+What's nice about __Requiem__ is that it removes the DRM in a lossless way,
+so that the produced file doesn't need to be "encoded" in any form. Even the
+ID3 tags identifying the original purchaser of the content is still there. The
+author of __Requiem__ has stated that it is NOT meant to be used for piracy. He
+only started on it so he could play his purchased content on his PS3 and other
+non-DRM hardware.
+
+I feel like __nTunes__ is a quite legitimate use for the software, as I intend
+for it to be locked down to pretty much yourself (maybe your family...), to
+give access to your iTunes library on other devices like an iPhone, etc.
+What do you think?
 
 So in nTunes, I am able to detect when the request track is a "protected" one,
 and then I can slip in Requiem's `decrypt` command to remove the DRM when the
-browser is something other than Safari.
+browser is something like Chrome, Opera, Firefox, or even a Safari that isn't
+authorized to play the protected track.
 
 
 [nTunes]: http://github.com/TooTallNate/nTunes
