@@ -68,6 +68,9 @@ got released a few days ago, and it supports up to iTunes 9.2.1! However, only
 a few hours later, Apple released iTunes 10, which now breaks __Requiem__ and
 we have to wait once more.
 
+__UPDATE:__ So as of 9/12/2010, Requiem is caught back up to the current
+iTunes version (10). So this is good news; at least for nTunes!
+
 What's nice about __Requiem__ is that it removes the DRM in a lossless way,
 so that the produced file doesn't need to be "encoded" in any form. Even the
 ID3 tags identifying the original purchaser of the content is still there. The
