@@ -92,6 +92,8 @@ song changes. The Node server then notifies all capable clients with the
 So now I've got a pretty sweet little Icecast clone working here. I still have
 plans for it though! I hope you enjoy the fruits of my labor!
 
+[https://github.com/TooTallNate/NodeFloyd][NodeFloydGitHub]
+
 Some future plans:
 
   * Spruce up the UI on the web client page; `text-shadow`, `color`, text gradients.
@@ -104,6 +106,7 @@ Don't stop the Floyd!
 [NodeJS]: http://nodejs.org/
 [Icecast]: http://en.wikipedia.org/wiki/Icecast
 [NodeFloyd]: http://tootallnate.net:5555/
+[NodeFloydGitHub]: https://github.com/TooTallNate/NodeFloyd
 [Pink Floyd]: http://en.wikipedia.org/wiki/Pink_Floyd
 [aacplusenc]: https://github.com/TooTallNate/aacplusenc
 [MailingList]: http://groups.google.com/group/nodejs/browse_thread/thread/1c0c1eb27aaf6534
