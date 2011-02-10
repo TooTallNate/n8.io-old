@@ -4,8 +4,8 @@ Location:   San Rafael, CA
 
 ---------
 
-I'm just another fellow programmer. A damn dedicated one though, if I
-do say so myself.
+I'm just another fellow programmer. A damn
+dedicated one though, if I do say so myself.
 
 I am the original author of<br>
 the [Simple Game Framework][].
