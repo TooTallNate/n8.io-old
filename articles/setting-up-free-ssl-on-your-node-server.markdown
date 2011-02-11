@@ -1,6 +1,6 @@
 Title: Setting up free SSL on your Node server
 Author: Nathan Rajlich
-Date: Mon Sep 16 2010 10:39:00 GMT-0700 (PDT)
+Date: Fri, 11 Feb 2011 00:59:08 GMT
 Node: v0.4.0
 
 
