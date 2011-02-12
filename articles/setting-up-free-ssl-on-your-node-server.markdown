@@ -21,7 +21,7 @@ server in Node, using a __FREE__ validated signed certificate from StartSSL.
 
 Consider this our "baseline" HTTP server. We're using the new `setHeader` API that has
 been introduced in `v0.4.0`, so it looks a little different than the version on the
-NodeJS homepage, however it acts exactly the same.
+[NodeJS][] homepage, however it acts exactly the same.
 
 So our goal is to convert this into an HTTPS server using the brand new `https` API.
 
@@ -36,7 +36,7 @@ not so much about the "features" the certificate offered. Thus, a barebones, _fr
 from StartSSL is the way we're going.
 
 
-## Register with StartSSL
+## Register with [StartSSL][]
 
 You will need to register with them first. Use Firefox for this, since their registration
 process involves installing a client certificate into your browser. This client cert is
@@ -64,8 +64,8 @@ series of like 5 questions like country code among others. Just answer them trut
 
 ## Send the CSR to StartSSL
 
-Now this `ssl.csr` file that you have is what we need to send to StartSSL. Copy it's contents
-to your clipboard. On OS X, this works:
+Now this `ssl.csr` file that you have is what we need to send to [StartSSL][]. Copy it's
+contents to your clipboard. On OS X, this works:
 
     $ pbcopy < ssl.csr
 
@@ -132,16 +132,23 @@ And in another terminal, we can `curl` it:
 Notice how we don't need the `-k` or `--insecure` switches anymore? That's the result of
 creating a signed cert over a self-signed cert.
 
-You can also try it in the web browser. Just open `https://localhost` or your IP address
-the address bar, and you should see it work!
+You can also try it in the web browser. Just enter `https://localhost` or your IP address
+into the address bar, and you should see it work!
 
 
 ## Conclusion
 
-The new SSL stuff in Node `v0.4.0` is _awesome_! In other words, this will make my employer
+The new SSL stuff in [NodeJS][] `v0.4.0` is _awesome_! In other words, this will make my employer
 very happy, and probably yours too!
 
 I upgraded this blog to HTTPS as a proof-of-concept, and to try out the new APIs. So far
-I am very pleased with the results.
+I am very pleased with the results. The only downside so far is that DISQUS, the guys
+providing the commenting system at the bottom, [doesn't offer an SSL endpoint
+_yet_](http://groups.google.com/group/disqus-dev/browse_thread/thread/37c9b5db95c7f0a1/3fc2fce8c28d5806),
+and so the blog currently is mixed with secure and insecure resources, with triggers
+similar warnings in some browsers...
 
 I've just given you the baseline, now it's your job to build on top of that!
+
+[NodeJS]: http://nodejs.org
+[StartSSL]: https://startssl.com
