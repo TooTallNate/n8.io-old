@@ -68,4 +68,4 @@ If you come up with any awesome uses for node on an iDevice, definitely let me k
 [N90AP]: http://theiphonewiki.com/wiki/index.php?title=N90ap
 [node-iOS]: https://github.com/TooTallNate/node-iOS
 [NodeJS]: http://nodejs.org
-[downloads: https://github.com/TooTallNate/node/downloads
+[downloads]: https://github.com/TooTallNate/node/downloads
