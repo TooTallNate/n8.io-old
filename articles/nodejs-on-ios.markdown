@@ -15,10 +15,10 @@ compiled a `.deb` file compatible with Cydia for your installing pleasure...
 
 So obviously you want to get it up and running first. I haven't done much testing
 as far as different devices, but I did install and uninstall this .deb from my
-girlfriend's iPhone as well and it worked well. I'll try and keep compiled NodeJS
-iOS .deb files on my node GitHub fork "downloads" page:
+girlfriend's iPhone as well and it worked well. I'll try and keep [compiled NodeJS
+iOS .deb files on my node GitHub fork "downloads" page][downloads]:
 
-https://github.com/TooTallNate/node/downloads
+[https://github.com/TooTallNate/node/downloads][downloads]
 
 The first thing I would do is SSH into your iPhone. Make sure you have the `dpkg`
 command installed, otherwise go back into Cydia and get it (I think it might be under
@@ -68,3 +68,4 @@ If you come up with any awesome uses for node on an iDevice, definitely let me k
 [N90AP]: http://theiphonewiki.com/wiki/index.php?title=N90ap
 [node-iOS]: https://github.com/TooTallNate/node-iOS
 [NodeJS]: http://nodejs.org
+[downloads: https://github.com/TooTallNate/node/downloads
