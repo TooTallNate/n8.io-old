@@ -1,5 +1,6 @@
 Email:      nathan@tootallnate.net
 Github:     TooTallNate
+Twitter:    TooTallNate
 Location:   San Rafael, CA
 
 ---------

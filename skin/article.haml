@@ -52,17 +52,7 @@
           %dt
             Node Version:
           %dd
-            %a{ href: "http://github.com/ry/node/tree/" + article.node }
-              node #{article.node}
-
-
-
-      :if article.sgf
-        %dl
-          %dt
-            Simple Game Framework Version:
-          %dd
-            %a{ href: "http://github.com/ry/node/tree/" + article.node }
+            %a{ href: "https://github.com/joyent/node/tree/" + article.node }
               node #{article.node}
 
 
@@ -125,6 +115,7 @@
   #disqus_thread.body
     
     :script
+        var disqus_shortname = 'tootallnate';
         var disqus_developer = 1;
         var disqus_url = "https://tootallnate.net/#{article.name}";
         
@@ -141,12 +132,14 @@
     
     :script
         (function() {
-        	var links = document.getElementsByTagName('a');
-        	var query = '?';
-        	for(var i = 0; i < links.length; i++) {
-        	    if(links[i].href.indexOf('#disqus_thread') >= 0) {
-        		    query += 'url' + i + '=' + encodeURIComponent(links[i].href) + '&amp;';
-        	    }
-        	}
-        	document.write('<script charset="utf-8" type="text/javascript" src="https://disqus.com/forums/tootallnate/get_num_replies.js' + query + '"></' + 'script>');
+          var links = document.getElementsByTagName('a');
+          var query = '?';
+          for (var i = 0; i < links.length; i++) {
+         	  if (links[i].href.indexOf('#disqus_thread') >= 0) {
+         	    query += 'url' + i + '=' + encodeURIComponent(links[i].href) + '&amp;';
+         	  }
+         	}
+          if (query !== '?') {
+            document.write('<script charset="utf-8" type="text/javascript" src="https://disqus.com/forums/tootallnate/get_num_replies.js' + query + '"></' + 'script>');
+          }
         })();
