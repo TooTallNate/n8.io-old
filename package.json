@@ -11,9 +11,6 @@
   "engines": {
     "node": ">= 0.4.0"
   },
-  "bin": {
-    "TooTallNate.net": "spark"
-  },
   "scripts": {
     "start": "spark"
   },
