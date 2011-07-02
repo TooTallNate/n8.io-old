@@ -9,4 +9,6 @@ Programmer / Nerd.
 
 Awesome at: JavaScript, Java, C, C#, C++, ObjC, HTML, CSS, Unix.
 
-JavaScript engineer at LearnBoost.
+JavaScript engineer at the revolutionary [LearnBoost][].
+
+[LearnBoost]: https://www.learnboost.com
