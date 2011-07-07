@@ -122,7 +122,8 @@ __Carbon__ Framework, which isn't on iOS.
 
 Duh! My fork makes this super simple now that we've done the dirty work above:
 
-    $ git clone git@github.com:TooTallNate/node.git && cd node
+    $ git clone git://github.com/TooTallNate/node.git
+    $ cd node
     $ ./configure
     $ make
 
