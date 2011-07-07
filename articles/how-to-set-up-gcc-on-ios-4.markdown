@@ -85,12 +85,12 @@ walkthough:
 
 On _the SSH session to your device_, run:
 
-    $ curl -O https://tootallnate.net/how-to-set-up-gcc-on-ios/fake-libgcc_1.0_iphoneos-arm.deb
+    $ curl -O https://tootallnate.net/how-to-set-up-gcc-on-ios-4/fake-libgcc_1.0_iphoneos-arm.deb
     $ dpkg -i fake-libgcc_1.0_iphoneos-arm.deb
 
 That gets the _"fake"_ libgcc package installed. Now run:
 
-    $ curl -O https://tootallnate.net/how-to-set-up-gcc-on-ios/iphone-gcc_4.2-20080604-1-8_iphoneos-arm.deb
+    $ curl -O https://tootallnate.net/how-to-set-up-gcc-on-ios-4/iphone-gcc_4.2-20080604-1-8_iphoneos-arm.deb
     $ dpkg -i iphone-gcc_4.2-20080604-1-8_iphoneos-arm.deb
 
 And that's pretty much it! You now have `gcc` installed with the needed header
