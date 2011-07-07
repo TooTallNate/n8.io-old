@@ -58,6 +58,7 @@ device:
     $ rsync -avz --ignore-existing -e ssh /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk/usr/include/ root@10.0.1.93:/usr/include
     $ rsync -avz --ignore-existing -e ssh /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk/System/Library/PrivateFrameworks/ root@10.0.1.93:/System/Library/PrivateFrameworks/
     $ rsync -avz --ignore-existing -e ssh /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk/System/Library/Frameworks/ root@10.0.1.93:/System/Library/Frameworks/
+    $ scp /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/usr/include/crt_externs.h root@10.0.1.93:/usr/include/crt_externs.h
 
 These `rsync` commands copy over the missing files from your iDevice's:
 
@@ -69,6 +70,10 @@ These `rsync` commands copy over the missing files from your iDevice's:
 directories from the official Apple SDK. This is a lot safer than blindly
 copying over some outdated tar file, and also copies over the header files
 needed to do iPhone App compilation (Foundation, UIKit, et al.)
+
+That last `scp` command copies over the `crt_externs.h` header file, which is
+needed to compile NodeJS, but strangely isn't anywhere in the Apple SDK for iOS,
+but _is_ available in the Simulator. So we just copy it over from there.
 
 
 ## Install gcc
