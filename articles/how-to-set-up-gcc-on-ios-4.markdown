@@ -103,7 +103,7 @@ Well a lot of build scripts of popular open source projects need more than just
 `gcc` to compile, so let's install some more (optional) packages from Cydia's
 repos:
 
-    $ apt-get install gawk make python inetutils git
+    $ apt-get install gawk make python coreutils inetutils git
 
 These packages will make your iDevice more "Unixey" by installing a lot of
 _standard_ Unix applications, that a lot of build scripts will depend on.
