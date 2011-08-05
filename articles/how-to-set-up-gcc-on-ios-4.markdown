@@ -120,7 +120,21 @@ available in **7.3**, so I wanted to compile that first:
     $ make
 
 Ironic, but `--diable-darwin` was required to disable trying to use the
-__Carbon__ Framework, which isn't on iOS.
+__Carbon__ Framework, which isn't available on iOS.
+
+
+### git
+
+Again, the version in Cydia's repo is super outdated, and git's versions move
+rather quickly, so being able to re-compile on-demand is useful:
+
+    $ curl -O http://kernel.org/pub/software/scm/git/git-1.7.6.tar.bz2
+    $ tar xjvf git-1.7.6.tar.bz2 && cd git-1.7.6
+    $ ./configure
+    $ make NO_PERL=1 NO_TCLTK=1
+
+It's necessary to tell the makefile to _not_ use Perl nor Tcl/Tk (GUI library)
+in order to build on iOS.
 
 
 ### [NodeJS][]
