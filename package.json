@@ -1,7 +1,8 @@
 {
+  "private": true,
   "author": "Nathan Rajlich <nathan@tootallnate.net> (http://tootallnate.net)",
   "name": "TooTallNate.net",
-  "description": "The Wheat blog git repo for \"tootallnate.net\"",
+  "description": "The git repo for the \"tootallnate.net\" blog",
   "version": "0.0.0",
   "homepage": "http://tootallnate.net",
   "repository": {
@@ -9,15 +10,14 @@
     "url": "nrajlich@tootallnate.net:TooTallNate.blog.git"
   },
   "engines": {
-    "node": ">= 0.4.0"
+    "node": ">= 0.8.0"
   },
   "scripts": {
     "start": "spark"
   },
   "dependencies": {
-    "spark": "*",
-    "connect": "*",
-    "wheat": "*"
+    "express": "3",
+    "ffi": "1"
   },
   "devDependencies": {}
 }
