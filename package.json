@@ -17,7 +17,9 @@
   },
   "dependencies": {
     "express": "3",
-    "ffi": "1"
+    "ffi": "1",
+    "ref": "0",
+    "ref-struct": "0"
   },
   "devDependencies": {}
 }
