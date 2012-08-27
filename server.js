@@ -125,7 +125,7 @@ app.get('*', function (req, res, next) {
     if (err) return next(err); // ffi error
     var full_sha = buf.toString('ascii');
     res.redirect('/' + full_sha + req.url);
-    git.git_commit_free.async(commit, function () {});
+    //git.git_commit_free.async(commit, function () {});
   }
 });
 
@@ -173,6 +173,8 @@ app.get('*', function (req, res, next) {
 
 function file (filepath) {
   return function (req, res, next) {
+    if (!req.files) req.files = {};
+
     // get "public/..." subtree
     var pub_tree = ref.alloc(ref.refType(git.git_tree));
     var err = git.git_tree_get_subtree(pub_tree, req.root_tree, filepath)
@@ -185,7 +187,7 @@ function file (filepath) {
     if (entry.isNull()) {
       // requested path does not exist in the "public" dir
       console.error('WARN: requested path does not exist for commit %s %j ', req.sha, filepath);
-      git.git_tree_free.async(pub_tree, function () {}); // free()
+      //git.git_tree_free.async(pub_tree, function () {}); // free()
       return next();
     }
 
@@ -199,10 +201,27 @@ function file (filepath) {
     var rawsize = git.git_blob_rawsize(entry_blob);
     var rawcontent = git.git_blob_rawcontent(entry_blob).reinterpret(rawsize);
 
-    if (!req.files) req.files = {};
     req.files[filepath] = rawcontent;
 
-    git.git_tree_free.async(pub_tree, function () {}); // free()
+    //git.git_tree_free.async(pub_tree, function () {}); // free()
+    next();
+  }
+}
+
+
+/**
+ * TODO: caching based on sha and filepath
+ */
+
+function compile (filepath) {
+  return function (req, res, next) {
+    if (!req.templates) req.templates = {};
+    var raw = req.files[filepath];
+    if (!raw) return next(new Error('no data available for: ' + filepath));
+
+    req.templates[filepath] = jade.compile(raw.toString(), {
+      filename: filepath
+    });
     next();
   }
 }
@@ -212,35 +231,21 @@ function file (filepath) {
  * Render the 10 most recent articles listing page.
  */
 
-app.get('/', articles, views, file('views/index.jade'), file('views/layout.jade'),
+app.get('/', articles, file('views/layout.jade'), file('views/index.jade'),
+compile('views/layout.jade'), //compile('views/index.jdae'),
 function (req, res, next) {
   var locals = {};
   locals.articles = req.articles;
-  // TODO: make all of this async
 
-  // First get the contents of "index.jade"
-  var index_entry = git.git_tree_entry_byname(req.views_tree, 'index.jade');
-  var index_blob = ref.alloc(ref.refType(git.git_blob));
-  var err = git.git_tree_entry_to_object(index_blob, repo, index_entry);
-  if (err !== 0) {
-    return next(new Error('bad'));
-  }
-  index_blob = index_blob.deref();
-  var index_size = git.git_blob_rawsize(index_blob);
-  var index_raw = git.git_blob_rawcontent(index_blob).reinterpret(index_size);
-
-  // compile the template
-  // TODO: cache based on SHA
-  var template = jade.compile(index_raw.toString(), {
-    filename: 'views/index.jade'
-  });
+  var layout = req.templates['views/layout.jade'];
+  var index = req.templates['views/index.jade'];
 
   // render the template
   locals.sha = req.sha;
   locals.body = 'Welcome to n8.io!';
   locals.versions = process.versions;
 
-  var html = template(locals);
+  var html = layout(locals);
   res.type('html');
   res.send(html);
 });
@@ -311,29 +316,6 @@ function articles (req, res, next) {
       map[name] = true;
     }
     req.articles = Object.keys(map);
-    next();
-  }
-}
-
-
-/**
- * Populates "req.views_tree".
- */
-
-function views (req, res, next) {
-  var root = req.root_tree;
-  var views;
-  git.git_tree_entry_byname.async(root, 'views', onEntry);
-  function onEntry (err, views_entry) {
-    if (err) return next(err); // ffi error
-    if (views_entry.isNull()) return next(new Error('"views" dir does not exist for this commit'));
-    views = ref.alloc(ref.refType(git.git_tree));
-    git.git_tree_entry_to_object.async(views, repo, views_entry, onTree);
-  }
-  function onTree (err, rtn) {
-    if (err) return next(err); // ffi error
-    if (rtn !== 0) return next(new Error('git_tree_entry_to_object: error ' + rtn)); // libgit2 error
-    req.views_tree = views = views.deref();
     next();
   }
 }
