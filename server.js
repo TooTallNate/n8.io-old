@@ -232,22 +232,21 @@ function compile (filepath) {
  */
 
 app.get('/', articles, file('views/layout.jade'), file('views/index.jade'),
-compile('views/layout.jade'), //compile('views/index.jdae'),
+compile('views/layout.jade'), compile('views/index.jade'),
 function (req, res, next) {
-  var locals = {};
-  locals.articles = req.articles;
-
   var layout = req.templates['views/layout.jade'];
   var index = req.templates['views/index.jade'];
-
-  // render the template
+  var locals = {};
   locals.sha = req.sha;
-  locals.body = 'Welcome to n8.io!';
+  locals.articles = req.articles;
   locals.versions = process.versions;
 
-  var html = layout(locals);
+  // render the index template
+  locals.body = index(locals);
+
+  // render and send the layout template
   res.type('html');
-  res.send(html);
+  res.send(layout(locals));
 });
 
 
