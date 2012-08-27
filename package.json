@@ -1,8 +1,8 @@
 {
   "private": true,
   "author": "Nathan Rajlich <nathan@tootallnate.net> (http://tootallnate.net)",
-  "name": "TooTallNate.net",
-  "description": "The git repo for the \"tootallnate.net\" blog",
+  "name": "n8.io",
+  "description": "The git repo for the \"n8.io\" blog",
   "version": "0.0.0",
   "homepage": "http://tootallnate.net",
   "repository": {
@@ -13,7 +13,7 @@
     "node": ">= 0.8.0"
   },
   "scripts": {
-    "start": "spark"
+    "start": "node server"
   },
   "dependencies": {
     "express": "3",

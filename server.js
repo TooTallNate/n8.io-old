@@ -31,6 +31,15 @@ app.use(express.logger());
 
 
 /**
+ * Relay the node version... why the hell not?
+ */
+
+app.use(function (req, res, next) {
+  res.set('X-Node-Vesion', process.version);
+});
+
+
+/**
  * When an SHA commit was specified.
  */
 
@@ -158,7 +167,7 @@ app.get('*', function (req, res, next) {
 
 
 /**
- * Serve the root articles listings page. Top 10 recent articles.
+ * Render the 10 most recent articles listing page.
  */
 
 app.get('/', articles, views, function (req, res, next) {
@@ -185,6 +194,7 @@ app.get('/', articles, views, function (req, res, next) {
 
   // render the template
   locals.body = 'Welcome to n8.io!';
+  locals.versions = process.versions;
 
   var html = template(locals);
   res.type('html');
@@ -193,12 +203,20 @@ app.get('/', articles, views, function (req, res, next) {
 
 
 /**
- * Attempt to serve a static file from "public".
+ * Render an article.
+ */
+
+/*app.get('*', function (req, res, next) {
+
+});*/
+
+
+/**
+ * Serve a static file from "public".
  */
 
 app.get('*', function (req, res, next) {
   var parsed = url.parse(req.url);
-  console.error('getting static file: %j', parsed);
 
   // TODO: asyncify
 
@@ -213,6 +231,7 @@ app.get('*', function (req, res, next) {
   var entry = git.git_tree_entry_byname(pub_tree, path.basename(parsed.pathname));
   if (entry.isNull()) {
     // requested path does not exist in the "public" dir
+    git.git_tree_free.async(pub_tree, function () {}); // free()
     return next();
   }
 
@@ -228,6 +247,8 @@ app.get('*', function (req, res, next) {
 
   res.set('Content-Type', mime.lookup(path.extname(parsed.pathname)));
   res.send(rawcontent);
+
+  git.git_tree_free.async(pub_tree, function () {}); // free()
 });
 
 
