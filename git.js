@@ -93,6 +93,7 @@ ffi.Library('libgit2', {
   git_tree_entry_id: [ git_oid, [ git_tree_entry ] ],
   git_tree_entry_type: [ git_otype, [ git_tree_entry ] ],
   git_tree_entry_to_object: [ 'int', [ ref.refType(git_object), git_repository, git_tree_entry ] ],
+  git_tree_get_subtree: [ 'int', [ ref.refType(git_tree), git_tree, 'string' ] ],
 
 }, exports);
 
