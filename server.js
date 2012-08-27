@@ -322,6 +322,9 @@ function articles (req, res, next) {
           article[h[0].toLowerCase()] = h[1];
         });
         article.html = marked(article.raw.substring(split));
+
+        // the first paragraph
+        article.desc = article.html.substring(0, article.html.indexOf('</p>'));
       }
     }
     next();
