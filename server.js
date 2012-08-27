@@ -31,7 +31,7 @@ app.use(express.logger());
  * When an SHA commit was specified.
  */
 
-app.get(/^\/[0-9a-f]{5,40}\b/, function (req, res, next) {
+app.get(/^\/([0-9a-f]{5,40})\b/, function (req, res, next) {
   var sha = req.params[0];
   req.sha = sha;
   var origUrl = req.url;
