@@ -20,6 +20,7 @@
     "ffi": "1",
     "jade": "0",
     "marked": "0",
+    "mime": "1",
     "ref": "0",
     "ref-struct": "0"
   },
