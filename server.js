@@ -1,7 +1,9 @@
 var url = require('url');
 var ref = require('ref');
 var git = require('./git');
+var path = require('path');
 var jade = require('jade');
+var mime = require('mime');
 var express = require('express');
 
 var app = module.exports = express();
@@ -176,15 +178,56 @@ app.get('/', articles, views, function (req, res, next) {
   var index_raw = git.git_blob_rawcontent(index_blob).reinterpret(index_size);
 
   // compile the template
-  // TODO: cache when "is_head" is false
+  // TODO: cache based on SHA
   var template = jade.compile(index_raw.toString(), {
     filename: 'views/index.jade'
   });
 
   // render the template
+  locals.body = 'Welcome to n8.io!';
+
   var html = template(locals);
-  res.set('Content-Type', 'text/html');
+  res.type('html');
   res.send(html);
+});
+
+
+/**
+ * Attempt to serve a static file from "public".
+ */
+
+app.get('*', function (req, res, next) {
+  var parsed = url.parse(req.url);
+  console.error('getting static file: %j', parsed);
+
+  // TODO: asyncify
+
+  // get "public/..." subtree
+  var pub_tree = ref.alloc(ref.refType(git.git_tree));
+  var subtree_path = 'public' + parsed.pathname;
+  var err = git.git_tree_get_subtree(pub_tree, req.root_tree, subtree_path)
+  if (err !== 0) return next(new Error('git_tree_get_substree: error ' + err));
+  pub_tree = pub_tree.deref();
+
+  // get file entry
+  var entry = git.git_tree_entry_byname(pub_tree, path.basename(parsed.pathname));
+  if (entry.isNull()) {
+    // requested path does not exist in the "public" dir
+    return next();
+  }
+
+  // get file contents and send
+  var entry_blob = ref.alloc(ref.refType(git.git_blob));
+  err = git.git_tree_entry_to_object(entry_blob, repo, entry);
+  if (err !== 0) return next(new Error('git_tree_entry_to_object: error ' + err));
+  entry_blob = entry_blob.deref();
+
+  // get size and raw buffer
+  var rawsize = git.git_blob_rawsize(entry_blob);
+  var rawcontent = git.git_blob_rawcontent(entry_blob).reinterpret(rawsize);
+
+  res.set('Content-Type', mime.lookup(path.extname(parsed.pathname)));
+  res.send(rawcontent);
 });
 
 
