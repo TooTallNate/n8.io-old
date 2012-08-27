@@ -269,8 +269,13 @@ app.get('*', function (req, res, next) {
   file(subtree_path)(req, res, function (err) {
     if (err) return next(err);
 
-  res.set('Content-Type', mime.lookup(path.extname(parsed.pathname)));
-  res.send(req.files[subtree_path]);
+    if (subtree_path in req.files) {
+      res.set('Content-Type', mime.lookup(path.extname(parsed.pathname)));
+      res.send(req.files[subtree_path]);
+    } else {
+      // file not found in this commit
+      next();
+    }
   });
 });
 
