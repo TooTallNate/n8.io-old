@@ -4,6 +4,7 @@ var git = require('./git');
 var path = require('path');
 var jade = require('jade');
 var mime = require('mime');
+var marked = require('marked');
 var express = require('express');
 
 var app = module.exports = express();
@@ -175,15 +176,19 @@ function file (filepath) {
   return function (req, res, next) {
     if (!req.files) req.files = {};
 
-    // get "public/..." subtree
-    var pub_tree = ref.alloc(ref.refType(git.git_tree));
-    var err = git.git_tree_get_subtree(pub_tree, req.root_tree, filepath)
-    if (err !== 0) return next(new Error('git_tree_get_substree: error ' + err));
-    pub_tree = pub_tree.deref();
+    // get subtree if necessary
+    var dirname = path.dirname(filepath);
+    var dir_tree = req.root_tree;
+    if (dirname && dirname !== '.' && dirname !== '/') {
+      var pub_tree = ref.alloc(ref.refType(git.git_tree));
+      var err = git.git_tree_get_subtree(pub_tree, req.root_tree, filepath)
+      if (err !== 0) return next(new Error('git_tree_get_substree: error ' + err));
+      dir_tree = pub_tree = pub_tree.deref();
+    }
 
     // get file entry
     var filename = path.basename(filepath);
-    var entry = git.git_tree_entry_byname(pub_tree, filename);
+    var entry = git.git_tree_entry_byname(dir_tree, filename);
     if (entry.isNull()) {
       // requested path does not exist in the "public" dir
       console.error('WARN: requested path does not exist for commit %s %j ', req.sha, filepath);
