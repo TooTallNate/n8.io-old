@@ -67,6 +67,7 @@ app.get('*', function (req, res, next) {
   if (req.sha) return next();
   // we must populate "req.sha" with the sha of HEAD
   // TODO: cache probably...
+  res.set('X-Top-Level', 'true');
   var buf; // SHA
   var head = ref.alloc(ref.refType(git.git_repository));
   git.git_repository_head.async(head, repo, onHead);
@@ -196,17 +197,7 @@ function file (filepath) {
       return next();
     }
 
-    // get file contents
-    var entry_blob = ref.alloc(ref.refType(git.git_blob));
-    err = git.git_tree_entry_to_object(entry_blob, repo, entry);
-    if (err !== 0) return next(new Error('git_tree_entry_to_object: error ' + err));
-    entry_blob = entry_blob.deref();
-
-    // get size and raw buffer
-    var rawsize = git.git_blob_rawsize(entry_blob);
-    var rawcontent = git.git_blob_rawcontent(entry_blob).reinterpret(rawsize);
-
-    req.files[filepath] = rawcontent;
+    req.files[filepath] = entry_to_buffer(entry);
 
     //git.git_tree_free.async(pub_tree, function () {}); // free()
     next();
@@ -313,15 +304,43 @@ function articles (req, res, next) {
 
     // TODO: make async, I'm being lazy ATM
     var count = git.git_tree_entrycount(articles);
-    var map = {};
+    req.articles = [];
     for (var i = 0; i < count; i++) {
       var entry = git.git_tree_entry_byindex(articles, i);
-      var name = git.git_tree_entry_name(entry).replace(/\.markdown$/, '');
-      map[name] = true;
+      var name = git.git_tree_entry_name(entry);
+      var is_article = path.extname(name) == '.markdown';
+      if (is_article) {
+        var article = {};
+        req.articles.push(article);
+        article.filename = name;
+        article.raw = entry_to_buffer(entry).toString('utf8');
+        var headers = article.raw.substring(0, article.raw.indexOf('\n\n')).split('\n');
+        article.headers = headers;
+        headers.forEach(function (h) {
+          h = h.split(/\: ?/);
+          article[h[0].toLowerCase()] = h[1];
+        });
+      }
     }
-    req.articles = Object.keys(map);
     next();
   }
+}
+
+/**
+ * Gets a Buffer from a "blob" git_tree_entry.
+ */
+
+function entry_to_buffer (entry) {
+  // get file contents
+  var entry_blob = ref.alloc(ref.refType(git.git_blob));
+  err = git.git_tree_entry_to_object(entry_blob, repo, entry);
+  if (err !== 0) return next(new Error('git_tree_entry_to_object: error ' + err));
+  entry_blob = entry_blob.deref();
+
+  // get size and raw buffer
+  var rawsize = git.git_blob_rawsize(entry_blob);
+  var rawcontent = git.git_blob_rawcontent(entry_blob).reinterpret(rawsize);
+  return rawcontent;
 }
 
 
