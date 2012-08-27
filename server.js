@@ -35,7 +35,7 @@ app.use(express.logger());
  */
 
 app.use(function (req, res, next) {
-  res.set('X-Node-Vesion', process.version);
+  res.set('X-Node-Version', process.version);
   next();
 });
 
