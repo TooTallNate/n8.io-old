@@ -314,12 +314,14 @@ function articles (req, res, next) {
         req.articles.push(article);
         article.filename = name;
         article.raw = entry_to_buffer(entry).toString('utf8');
-        var headers = article.raw.substring(0, article.raw.indexOf('\n\n')).split('\n');
+        var split = article.raw.indexOf('\n\n');
+        var headers = article.raw.substring(0, split).split('\n');
         article.headers = headers;
         headers.forEach(function (h) {
           h = h.split(/\: ?/);
           article[h[0].toLowerCase()] = h[1];
         });
+        article.html = marked(article.raw.substring(split));
       }
     }
     next();
