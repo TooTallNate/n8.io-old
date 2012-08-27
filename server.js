@@ -98,8 +98,7 @@ app.get('*', function (req, res, next) {
   if ('string' != typeof sha) return next(new Error('No SHA. This SHOULD NOT HAPPEN!'));
   if (OID_HEXSZ == sha.length) return next(); // SHA is good already
   // need to resolve the short SHA and then redirect
-  //var short_oid = ref.alloc(git.git_oid);
-  var short_oid = new Buffer(OID_HEXSZ + 1); // TODO: use ref.alloc()
+  var short_oid = ref.alloc(git.git_oid);
   var commit, buf, oid;
 
   git.git_oid_fromstrn.async(short_oid, sha, sha.length, onOid);
@@ -141,7 +140,7 @@ app.get('*', function (req, res, next) {
   var sha = req.sha;
   res.set('X-Commit-SHA', sha);
 
-  var oid = new Buffer(OID_HEXSZ + 1); // TODO: use ref.alloc()
+  var oid = ref.alloc(git.git_oid);
   git.git_oid_fromstr.async(oid, sha, onOid);
   function onOid (err, rtn) {
     if (err) return next(err); // ffi error
