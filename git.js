@@ -22,6 +22,10 @@ var git_signature = Struct({
   email: 'string',
   when: git_time
 });
+var git_strarray = Struct({
+  strings: ref.refType('string'),
+  count: 'size_t'
+});
 exports.git_blob = git_blob;
 exports.git_commit = git_commit;
 exports.git_oid = git_oid;
@@ -31,6 +35,7 @@ exports.git_repository = git_repository;
 exports.git_time_t = git_time_t;
 exports.git_time = git_time;
 exports.git_signature = git_signature;
+exports.git_strarray = git_strarray;
 exports.git_tree = git_tree;
 exports.git_tree_entry = git_tree_entry;
 
@@ -42,8 +47,8 @@ var GIT_OBJ_COMMIT = 1;
 // libffi bindings
 ffi.Library('libgit2', {
 
-  git_blog_rawcontent: [ 'void *', [ git_blob ] ],
-  git_blog_rawsize: [ 'size_t', [ git_blob ] ],
+  git_blob_rawcontent: [ 'void *', [ git_blob ] ],
+  git_blob_rawsize: [ 'size_t', [ git_blob ] ],
 
   git_commit_message_encoding: [ 'string', [ git_commit ] ],
   git_commit_message: [ 'string', [ git_commit ] ],
@@ -87,6 +92,7 @@ ffi.Library('libgit2', {
   git_tree_entry_name: [ 'string', [ git_tree_entry ] ],
   git_tree_entry_id: [ git_oid, [ git_tree_entry ] ],
   git_tree_entry_type: [ git_otype, [ git_tree_entry ] ],
+  git_tree_entry_to_object: [ 'int', [ ref.refType(git_object), git_repository, git_tree_entry ] ],
 
 }, exports);
 
