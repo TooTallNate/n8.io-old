@@ -165,12 +165,55 @@ app.get('*', function (req, res, next) {
   }
 });
 
+/**
+ * Loads "req.files[filepath]" with the contents of the file at "filepath" from
+ * the current "req.sha" commit.
+ * TODO: caching based on SHA
+ */
+
+function file (filepath) {
+  return function (req, res, next) {
+    // get "public/..." subtree
+    var pub_tree = ref.alloc(ref.refType(git.git_tree));
+    var err = git.git_tree_get_subtree(pub_tree, req.root_tree, filepath)
+    if (err !== 0) return next(new Error('git_tree_get_substree: error ' + err));
+    pub_tree = pub_tree.deref();
+
+    // get file entry
+    var filename = path.basename(filepath);
+    var entry = git.git_tree_entry_byname(pub_tree, filename);
+    if (entry.isNull()) {
+      // requested path does not exist in the "public" dir
+      console.error('WARN: requested path does not exist for commit %s %j ', req.sha, filepath);
+      git.git_tree_free.async(pub_tree, function () {}); // free()
+      return next();
+    }
+
+    // get file contents
+    var entry_blob = ref.alloc(ref.refType(git.git_blob));
+    err = git.git_tree_entry_to_object(entry_blob, repo, entry);
+    if (err !== 0) return next(new Error('git_tree_entry_to_object: error ' + err));
+    entry_blob = entry_blob.deref();
+
+    // get size and raw buffer
+    var rawsize = git.git_blob_rawsize(entry_blob);
+    var rawcontent = git.git_blob_rawcontent(entry_blob).reinterpret(rawsize);
+
+    if (!req.files) req.files = {};
+    req.files[filepath] = rawcontent;
+
+    git.git_tree_free.async(pub_tree, function () {}); // free()
+    next();
+  }
+}
+
 
 /**
  * Render the 10 most recent articles listing page.
  */
 
-app.get('/', articles, views, function (req, res, next) {
+app.get('/', articles, views, file('views/index.jade'), file('views/layout.jade'),
+function (req, res, next) {
   var locals = {};
   locals.articles = req.articles;
   // TODO: make all of this async
@@ -193,6 +236,7 @@ app.get('/', articles, views, function (req, res, next) {
   });
 
   // render the template
+  locals.sha = req.sha;
   locals.body = 'Welcome to n8.io!';
   locals.versions = process.versions;
 
@@ -206,49 +250,28 @@ app.get('/', articles, views, function (req, res, next) {
  * Render an article.
  */
 
-/*app.get('*', function (req, res, next) {
+/*app.get('*', file('views/article.jade'), file('views/layout.jade'),
+function (req, res, next) {
 
 });*/
 
 
 /**
  * Serve a static file from "public".
+ * It's too bad libgit2 sucks and doesn't have a streaming interface...
  */
 
 app.get('*', function (req, res, next) {
   var parsed = url.parse(req.url);
-
-  // TODO: asyncify
-
-  // get "public/..." subtree
-  var pub_tree = ref.alloc(ref.refType(git.git_tree));
   var subtree_path = 'public' + parsed.pathname;
-  var err = git.git_tree_get_subtree(pub_tree, req.root_tree, subtree_path)
-  if (err !== 0) return next(new Error('git_tree_get_substree: error ' + err));
-  pub_tree = pub_tree.deref();
 
-  // get file entry
-  var entry = git.git_tree_entry_byname(pub_tree, path.basename(parsed.pathname));
-  if (entry.isNull()) {
-    // requested path does not exist in the "public" dir
-    git.git_tree_free.async(pub_tree, function () {}); // free()
-    return next();
-  }
-
-  // get file contents and send
-  var entry_blob = ref.alloc(ref.refType(git.git_blob));
-  err = git.git_tree_entry_to_object(entry_blob, repo, entry);
-  if (err !== 0) return next(new Error('git_tree_entry_to_object: error ' + err));
-  entry_blob = entry_blob.deref();
-
-  // get size and raw buffer
-  var rawsize = git.git_blob_rawsize(entry_blob);
-  var rawcontent = git.git_blob_rawcontent(entry_blob).reinterpret(rawsize);
+  // TODO: caching or something...
+  file(subtree_path)(req, res, function (err) {
+    if (err) return next(err);
 
   res.set('Content-Type', mime.lookup(path.extname(parsed.pathname)));
-  res.send(rawcontent);
-
-  git.git_tree_free.async(pub_tree, function () {}); // free()
+  res.send(req.files[subtree_path]);
+  });
 });
 
 
