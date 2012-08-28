@@ -338,8 +338,11 @@ function articles (req, res, next) {
         var headers = article.raw.substring(0, split).split('\n');
         article.headers = headers;
         headers.forEach(function (h) {
-          h = h.split(/\: ?/);
-          article[h[0].toLowerCase()] = h[1];
+          var split = h.indexOf(':');
+          var name = h.substring(0, split);
+          if (h[split + 1] == ' ') split++;
+          var val = h.substring(split + 1);
+          article[name.toLowerCase()] = val;
         });
         article.html = marked(article.raw.substring(split));
 
