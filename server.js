@@ -273,7 +273,7 @@ function (req, res, next) {
 app.get('*', articles, file('views/article.jade'), file('views/layout.jade'),
 compile('views/article.jade'), compile('views/layout.jade'),
 function (req, res, next) {
-  var valid = req.articles.map(function (a) { return a.href; });
+  var valid = req.articles.map(function (a) { return a.name; });
   var name = req.path.substring(1);
   if (!~valid.indexOf(name)) return next();
 
@@ -281,7 +281,7 @@ function (req, res, next) {
   var article = req.templates['views/article.jade'];
   var locals = {};
   locals.sha = req.sha;
-  locals.article = req.articles.filter(function (a) { return a.href == name })[0];
+  locals.article = req.articles.filter(function (a) { return a.name == name })[0];
   locals.versions = process.versions;
 
   // render the article template
@@ -350,7 +350,8 @@ function articles (req, res, next) {
         var article = {};
         req.articles.push(article);
         article.filename = name;
-        article.href = name.replace(/\.markdown$/, '');
+        article.name = name.replace(/\.markdown$/, '');
+        article.href = '/' + article.name;
         article.raw = entry_to_buffer(entry).toString('utf8');
         var split = article.raw.indexOf('\n\n');
         var headers = article.raw.substring(0, split).split('\n');
