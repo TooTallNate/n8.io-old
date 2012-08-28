@@ -35,6 +35,8 @@ pre {
   overflow: auto;
   border: solid 1px #ccc;
   border-radius: 3px;
+  padding: 5px;
+  margin-bottom: 20px;
 }
 
 a, a:visited {
