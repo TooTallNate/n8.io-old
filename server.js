@@ -267,12 +267,33 @@ function (req, res, next) {
 
 /**
  * Render an article.
+ * TODO: don't use "articles", just get the valid names
  */
 
-/*app.get('*', file('views/article.jade'), file('views/layout.jade'),
+app.get('*', articles, file('views/article.jade'), file('views/layout.jade'),
+compile('views/article.jade'), compile('views/layout.jade'),
 function (req, res, next) {
+  var valid = req.articles.map(function (a) { return a.href; });
+  var name = req.path.substring(1);
+  if (!~valid.indexOf(name)) {
+    console.error('%j is not an article name', name);
+    return next();
+  }
 
-});*/
+  var layout = req.templates['views/layout.jade'];
+  var article = req.templates['views/article.jade'];
+  var locals = {};
+  locals.sha = req.sha;
+  locals.article = req.articles.filter(function (a) { return a.href == name })[0];
+  locals.versions = process.versions;
+
+  // render the article template
+  locals.body = article(locals);
+
+  // render and send the layout template
+  res.type('html');
+  res.send(layout(locals));
+});
 
 
 /**
