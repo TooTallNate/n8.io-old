@@ -1,0 +1,125 @@
+/*
+* Skeleton V1.2
+* Copyright 2011, Dave Gamache
+* www.getskeleton.com
+* Free to use under the MIT license.
+* http://www.opensource.org/licenses/mit-license.php
+* 6/20/2012
+*/
+
+/* Table of Content
+==================================================
+  #Element-level Styles
+  #Class-level Styles
+  #Disqus Overrides
+  #Media Queries
+*/
+
+/* #Element-level Styles
+================================================== */
+
+html, body {
+  font-family: 'Actor', sans-serif;
+  font-size: 13px;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 20px 0;
+}
+
+h1, h2, h3, h4, pre, code {
+  font-family: 'Ubuntu Mono', 'Monaco', monospace;
+}
+
+a, a:visited {
+  color: #9248ed;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* #Class-level Styles
+================================================== */
+
+.bg {
+  border: solid 1px black;
+  border-radius: 125px;
+  position: absolute;
+  opacity: 0.25;
+  top: -15px;
+  right: -15px;
+  width: 250px;
+  height: 250px;
+  z-index: -1;
+  -webkit-filter: grayscale(100%);
+}
+
+.header {
+  display: inline-block;
+  padding-left: 30px;
+}
+
+.footer {
+  text-align: center;
+}
+
+ul.contacts {
+  display: inline;
+  list-style-type: none;
+  padding: 0;
+}
+
+ul.contacts li {
+  display: inline;
+  padding-left: 15px;
+}
+
+.github a {
+  background-image: url(/github.jpg);
+  background-size: 20px 20px;
+  background-position: 0 -2px;
+  background-repeat: no-repeat;
+  padding-left: 24px;
+}
+
+.twitter a {
+  background-image: url(/twitter.png);
+  background-size: 25px 25px;
+  background-position: 0 -4px;
+  background-repeat: no-repeat;
+  padding-left: 24px;
+}
+
+
+/* #Disqus Overrides
+================================================== */
+
+#dsq-content .dsq-tt img,
+#dsq-content .dsq-avatar img {
+  -webkit-filter: grayscale(100%);
+  border-radius: 11px !important;
+}
+
+#dsq-content .dsq-avatar img {
+  border-radius: 18px !important;
+}
+
+
+/* #Media Queries
+================================================== */
+
+  /* Smaller than standard 960 (devices and browsers) */
+  @media only screen and (max-width: 959px) {}
+
+  /* Tablet Portrait size to standard 960 (devices and browsers) */
+  @media only screen and (min-width: 768px) and (max-width: 959px) {}
+
+  /* All Mobile Sizes (devices and browser) */
+  @media only screen and (max-width: 767px) {}
+
+  /* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
+  @media only screen and (min-width: 480px) and (max-width: 767px) {}
+
+  /* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
+  @media only screen and (max-width: 479px) {}

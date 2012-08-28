@@ -1,17 +1,29 @@
 !!! 5
-html
+html(lang='en')
   head
+    meta(charset="utf-8")
     title n8.io: #{locals.title || "TooTallNate's blog"}
+    meta(name="description", content='TooTallNate\'s Blog')
+    meta(name="keywords", content='TooTallNate n8 node.js')
+    meta(name="author", content="Nathan Rajlich")
+    meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1")
     link(href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,400italic|Actor', rel='stylesheet', type='text/css')
-    link(href='styles.css', rel='stylesheet', type='text/css')
+    link(rel="stylesheet", href="hightlight.css")
+    link(rel="stylesheet", href="base.css")
+    link(rel="stylesheet", href="skeleton.css")
+    link(rel="stylesheet", href="layout.css")
   body
     img.bg(src=avatar)
-    h1.header: a(href='/') n8.io
-    ul.contacts
-      li.github: a(href='https://github.com/TooTallNate') @TooTallNate
-      li.twitter: a(href='https://twitter.com/TooTallNate') @TooTallNate
-    .body!= body
-    .footer
-      | node #{process.version}
-      br
-      | git commit #{sha.substring(0, 7)}
+    .container
+      .columns.sixteen
+        .columns.three
+          h1.header: a(href='/') n8.io
+        .columns.three
+          ul.contacts
+            li.github: a(href='https://github.com/TooTallNate') @TooTallNate
+            li.twitter: a(href='https://twitter.com/TooTallNate') @TooTallNate
+      .columns.twelve.body!= body
+      .columns.twelve.footer
+        | node #{process.version}
+        br
+        | git commit #{sha.substring(0, 7)}
