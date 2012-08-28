@@ -1,5 +1,12 @@
+.about
+  | This is the blog of Nathan Rajlich #{'<nathan@tootallnate.net>'}.
+  br
+  | Currently living in San Rafael, CA 94901.
+.status
+  h4 status
+  | Currently an engineer at LearnBoost and am not looking to change any time soon.
 .articles
-  each article in articles
+  each article in articles.slice(0, 3)
     .article
       h4: a(href=article.name)= article.title
       | !{article.desc}
