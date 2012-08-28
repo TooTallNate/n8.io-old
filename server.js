@@ -235,6 +235,12 @@ function compile (filepath) {
   }
 }
 
+function by_date (a, b) {
+  var da = new Date(a.date);
+  var db = new Date(b.date);
+  return db - da;
+}
+
 
 /**
  * Render the 10 most recent articles listing page.
@@ -247,7 +253,7 @@ function (req, res, next) {
   var index = req.templates['views/index.jade'];
   var locals = {};
   locals.sha = req.sha;
-  locals.articles = req.articles;
+  locals.articles = req.articles.sort(by_date);
   locals.versions = process.versions;
 
   // render the index template
