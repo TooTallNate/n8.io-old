@@ -1,5 +1,5 @@
 .articles
   each article in articles
     .article
-      h4= article.title
+      h4: a(href=article.href)= article.title
       | !{article.desc}

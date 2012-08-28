@@ -1,3 +1,4 @@
+var fs = require('fs');
 var url = require('url');
 var ref = require('ref');
 var git = require('./git');
@@ -8,7 +9,8 @@ var marked = require('marked');
 var express = require('express');
 
 var app = module.exports = express();
-var repo_path = __dirname + '/.git';
+var repo_path = __dirname;
+var git_path = repo_path + '/.git';
 var err;
 
 const OID_RAWSZ = 20;
@@ -17,11 +19,12 @@ const OID_HEXSZ = OID_RAWSZ * 2;
 
 // first get the "git_repository" instance for this repo
 var repo = ref.alloc(ref.refType(git.git_repository));
-err = git.git_repository_open(repo, repo_path);
+err = git.git_repository_open(repo, git_path);
 if (err !== 0) {
   throw new Error('git_repository_open: error opening');
 }
 repo = repo.deref();
+var bare = git.git_repository_is_bare(repo);
 
 
 /**
@@ -170,12 +173,22 @@ app.get('*', function (req, res, next) {
 /**
  * Loads "req.files[filepath]" with the contents of the file at "filepath" from
  * the current "req.sha" commit.
- * TODO: caching based on SHA
+ * TODO: caching based on SHA and filepath
  */
 
 function file (filepath) {
   return function (req, res, next) {
     if (!req.files) req.files = {};
+
+    if (req.is_head && !bare) {
+      // return from the local filesystem for DEV MODE!!!
+      fs.readFile(path.join(repo_path, filepath), function (err, buf) {
+        if (err) console.error(err);
+        if (buf) req.files[filepath] = buf;
+        next();
+      });
+      return;
+    }
 
     // get subtree if necessary
     var dirname = path.dirname(filepath);
@@ -313,6 +326,7 @@ function articles (req, res, next) {
         var article = {};
         req.articles.push(article);
         article.filename = name;
+        article.href = name.replace(/\.markdown$/, '');
         article.raw = entry_to_buffer(entry).toString('utf8');
         var split = article.raw.indexOf('\n\n');
         var headers = article.raw.substring(0, split).split('\n');

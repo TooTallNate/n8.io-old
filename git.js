@@ -105,6 +105,7 @@ ffi.Library('libgit2', {
 
   git_repository_open: [ 'int', [ ref.refType(git_repository), 'string' ] ],
   git_repository_head: [ 'int', [ ref.refType(git_reference), git_repository ] ],
+  git_repository_is_bare: [ 'int', [ git_repository ] ],
 
   git_tree_id: [ git_oid_ptr, [ git_tree ] ],
   git_tree_entrycount: [ 'uint', [ git_tree ] ],
