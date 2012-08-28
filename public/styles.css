@@ -1,7 +1,70 @@
+html, body {
+  font-family: 'Actor', sans-serif;
+  font-size: 13px;
+}
+
 h2, pre, code {
   font-family: 'Ubuntu Mono', 'Monaco', monospace;
 }
 
-html, body {
-  font-family: 'Actor', sans-serif;
+a, a:visited {
+  color: #9248ed;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.bg {
+  border: solid 1px black;
+  border-radius: 125px;
+  position: absolute;
+  opacity: 0.25;
+  top: -15px;
+  right: -15px;
+  width: 250px;
+  height: 250px;
+  z-index: -1;
+  -webkit-filter: grayscale(100%);
+}
+
+ul.contacts {
+  display: inline;
+  list-style-type: none;
+  padding: 0;
+}
+
+ul.contacts li {
+  display: inline;
+  padding-left: 15px;
+}
+
+ul.contacts li:first-child {
+  padding-left: 0;
+}
+
+.github a {
+  background-image: url(/github.jpg);
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  padding-left: 20px;
+}
+
+.twitter a {
+  background-image: url(/twitter.png);
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  padding-left: 20px;
+}
+
+/* Disqus overrides */
+#dsq-content .dsq-tt img,
+#dsq-content .dsq-avatar img {
+  -webkit-filter: grayscale(100%);
+  border-radius: 11px !important;
+}
+
+#dsq-content .dsq-avatar img {
+  border-radius: 18px !important;
 }

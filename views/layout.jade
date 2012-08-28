@@ -5,5 +5,9 @@ html
     link(href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,400italic|Actor', rel='stylesheet', type='text/css')
     link(href='styles.css', rel='stylesheet', type='text/css')
   body
-    h2: a(href='/') n8.io
+    img.bg(src=avatar)
+    h1: a(href='/') n8.io
+    ul.contacts
+      li.github: a(href='https://github.com/TooTallNate') @TooTallNate
+      li.twitter: a(href='https://twitter.com/TooTallNate') @TooTallNate
     .body!= body

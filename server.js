@@ -7,6 +7,7 @@ var jade = require('jade');
 var mime = require('mime');
 var marked = require('marked');
 var express = require('express');
+var gravatar = require('gravatar').url;
 
 var app = module.exports = express();
 var repo_path = __dirname;
@@ -251,10 +252,13 @@ compile('views/layout.jade'), compile('views/index.jade'),
 function (req, res, next) {
   var layout = req.templates['views/layout.jade'];
   var index = req.templates['views/index.jade'];
+
+  // TODO: consolidate this rendering logic with the articles page
   var locals = {};
   locals.sha = req.sha;
-  locals.articles = req.articles.sort(by_date);
   locals.versions = process.versions;
+  locals.articles = req.articles.sort(by_date);
+  locals.avatar = gravatar('nathan@tootallnate.net', { s: 500 });
 
   // render the index template
   locals.body = index(locals);
@@ -281,8 +285,9 @@ function (req, res, next) {
   var article = req.templates['views/article.jade'];
   var locals = {};
   locals.sha = req.sha;
-  locals.article = req.articles.filter(function (a) { return a.name == name })[0];
   locals.versions = process.versions;
+  locals.avatar = gravatar('nathan@tootallnate.net', { s: 500 });
+  locals.article = req.articles.filter(function (a) { return a.name == name })[0];
 
   // render the article template
   locals.body = article(locals);
