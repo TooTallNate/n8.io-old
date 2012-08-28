@@ -2,7 +2,8 @@
 html(lang='en')
   head
     meta(charset="utf-8")
-    title n8.io: #{locals.title || "TooTallNate's blog"}
+    title = locals.article ? article.title + ' — ' : ''
+    title #{title}n8.io
     meta(name="description", content='TooTallNate\'s Blog')
     meta(name="keywords", content='TooTallNate n8 node.js')
     meta(name="author", content="Nathan Rajlich")

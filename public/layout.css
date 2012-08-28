@@ -7,13 +7,14 @@
 * 6/20/2012
 */
 
-/* Table of Content
+/* Table of Contents
 ==================================================
   #Element-level Styles
   #Class-level Styles
   #Disqus Overrides
   #Media Queries
 */
+
 
 /* #Element-level Styles
 ================================================== */
@@ -38,6 +39,7 @@ a, a:visited {
 a:hover {
   text-decoration: underline;
 }
+
 
 /* #Class-level Styles
 ================================================== */
