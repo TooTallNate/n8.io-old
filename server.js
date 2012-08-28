@@ -356,7 +356,6 @@ function articles (req, res, next) {
         req.articles.push(article);
         article.filename = name;
         article.name = name.replace(/\.markdown$/, '');
-        article.href = '/' + article.name;
         article.raw = entry_to_buffer(entry).toString('utf8');
         var split = article.raw.indexOf('\n\n');
         var headers = article.raw.substring(0, split).split('\n');
