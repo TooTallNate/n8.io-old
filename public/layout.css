@@ -64,6 +64,12 @@ a:hover {
   text-align: center;
 }
 
+.about h3,
+.status h3,
+.articles h3 {
+  padding-top: 15px;
+}
+
 ul.contacts {
   display: inline;
   list-style-type: none;
