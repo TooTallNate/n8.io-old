@@ -275,10 +275,7 @@ compile('views/article.jade'), compile('views/layout.jade'),
 function (req, res, next) {
   var valid = req.articles.map(function (a) { return a.href; });
   var name = req.path.substring(1);
-  if (!~valid.indexOf(name)) {
-    console.error('%j is not an article name', name);
-    return next();
-  }
+  if (!~valid.indexOf(name)) return next();
 
   var layout = req.templates['views/layout.jade'];
   var article = req.templates['views/article.jade'];
