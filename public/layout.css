@@ -31,13 +31,24 @@ h1, h2, h3, h4, pre, code {
   font-family: 'Ubuntu Mono', 'Monaco', monospace;
 }
 
+pre {
+  overflow: auto;
+  border: solid 1px #ccc;
+  border-radius: 3px;
+}
+
 a, a:visited {
   color: #9248ed;
   text-decoration: none;
+  -webkit-transition-property: color, text-shadow;
+  -webkit-transition-duration: .2s;
+  -webkit-transition-timing-function: ease-in;
 }
 
 a:hover {
+  color: #000;
   text-decoration: underline;
+  text-shadow: .5px .5px 5px #9248ed;
 }
 
 
@@ -45,7 +56,6 @@ a:hover {
 ================================================== */
 
 .bg {
-  border: solid 1px black;
   border-radius: 125px;
   position: absolute;
   opacity: 0.25;
