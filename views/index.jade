@@ -11,6 +11,9 @@
   h3 recent articles
   each article in articles.slice(0, 3)
     .article
-      h4: a(href=article.name)= article.title
+      h4
+        a(href=article.name)= article.title
+        date = new Date(article.date)
+        span= [ date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() ].join('.')
       | !{article.desc}
   a(href='articles') older...
