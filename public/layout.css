@@ -40,6 +40,7 @@ pre {
 }
 
 code {
+  background-color: ghostWhite;
   border: solid 1px #ccc;
   border-radius: 2px;
   padding: 2px;
