@@ -1,13 +1,13 @@
 {
   "private": true,
-  "author": "Nathan Rajlich <nathan@tootallnate.net> (http://tootallnate.net)",
+  "author": "Nathan Rajlich <nathan@tootallnate.net> (http://n8.io)",
   "name": "n8.io",
   "description": "The git repo for the \"n8.io\" blog",
   "version": "0.0.0",
-  "homepage": "http://tootallnate.net",
+  "homepage": "http://n8.io",
   "repository": {
     "type": "git",
-    "url": "nrajlich@tootallnate.net:TooTallNate.blog.git"
+    "url": "git://github.com/TooTallNate/n8.io.git"
   },
   "engines": {
     "node": ">= 0.8.0"
