@@ -36,7 +36,7 @@ pre {
   border-radius: 3px;
   margin-bottom: 20px;
   overflow: auto;
-  padding: 5px;
+  padding: 0;
 }
 
 code {
@@ -48,7 +48,7 @@ code {
 pre code {
   border: none;
   border-radius: 0;
-  padding: 0;
+  padding: 5px;
 }
 
 a, a:visited {
@@ -62,7 +62,7 @@ a, a:visited {
 a:hover {
   color: #000;
   text-decoration: underline;
-  text-shadow: .5px .5px 5px #9248ed;
+  text-shadow: 0 0 5px #9248ed;
 }
 
 

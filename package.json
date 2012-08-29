@@ -19,6 +19,7 @@
     "express": "3",
     "ffi": "1",
     "gravatar": "1",
+    "highlight.js": "7",
     "jade": "0",
     "marked": "0",
     "mime": "1",

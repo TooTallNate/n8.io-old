@@ -6,6 +6,7 @@ var path = require('path');
 var jade = require('jade');
 var mime = require('mime');
 var marked = require('marked');
+var hljs = require('highlight.js');
 var express = require('express');
 var gravatar = require('gravatar').url;
 
@@ -324,8 +325,7 @@ app.get('*', function (req, res, next) {
 
 /**
  * Populates "req.articles" with an Array the names of the "articles" for the
- * current commit. Also populates "req.articles_tree" with the "git_tree"
- * instance.
+ * current commit.
  */
 
 function articles (req, res, next) {
@@ -342,7 +342,6 @@ function articles (req, res, next) {
     if (err) return next(err); // ffi error
     if (rtn !== 0) return next(new Error('git_tree_entry_to_object: error ' + rtn)); // libgit2 error
     articles = articles.deref();
-    req.articles_tree = articles;
 
     // TODO: make async, I'm being lazy ATM
     var count = git.git_tree_entrycount(articles);
@@ -367,7 +366,7 @@ function articles (req, res, next) {
           var val = h.substring(split + 1);
           article[name.toLowerCase()] = val;
         });
-        article.html = marked(article.raw.substring(split));
+        article.html = markdown(article.raw.substring(split));
 
         // the first paragraph
         article.desc = article.html.substring(0, article.html.indexOf('</p>'));
@@ -392,6 +391,34 @@ function entry_to_buffer (entry) {
   var rawsize = git.git_blob_rawsize(entry_blob);
   var rawcontent = git.git_blob_rawcontent(entry_blob).reinterpret(rawsize);
   return rawcontent;
+}
+
+
+/**
+ * Parses Markdown into highlighted HTML.
+ */
+
+function markdown (code) {
+  if (!code) return code;
+  return marked(code, {
+    gfm: true,
+    highlight: highlight
+  });
+}
+
+
+/**
+ * Add syntax highlighting HTML to the given `code` block.
+ * `lang` defaults to "javascript" if no valid name is given.
+ */
+
+function highlight (code, lang) {
+  if (lang) {
+    return hljs.highlight(lang, code).value;
+  } else {
+    return hljs.highlightAuto(code).value;
+    //return code;
+  }
 }
 
 
