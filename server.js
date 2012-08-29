@@ -1,3 +1,8 @@
+
+/**
+ * Module dependencies.
+ */
+
 var fs = require('fs');
 var url = require('url');
 var ref = require('ref');
@@ -10,10 +15,18 @@ var hljs = require('highlight.js');
 var express = require('express');
 var gravatar = require('gravatar').url;
 
+/**
+ * The app.
+ */
+
 var app = module.exports = express();
+
+/**
+ * The repo to use.
+ */
+
 var repo_path = __dirname;
 var git_path = repo_path + '/.git';
-var err;
 
 const OID_RAWSZ = 20;
 const OID_HEXSZ = OID_RAWSZ * 2;
@@ -21,7 +34,7 @@ const OID_HEXSZ = OID_RAWSZ * 2;
 
 // first get the "git_repository" instance for this repo
 var repo = ref.alloc(ref.refType(git.git_repository));
-err = git.git_repository_open(repo, git_path);
+var err = git.git_repository_open(repo, git_path);
 if (err !== 0) {
   throw new Error('git_repository_open: error opening');
 }
