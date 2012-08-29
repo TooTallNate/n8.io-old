@@ -23,8 +23,8 @@ html(lang='en')
           ul.contacts
             li.github: a(href='https://github.com/TooTallNate') @TooTallNate
             li.twitter: a(href='https://twitter.com/TooTallNate') @TooTallNate
-      .columns.twelve.body!= body
-      .columns.twelve.footer
+      .columns.fourteen.body!= body
+      .columns.fourteen.footer
         | node #{process.version}
         br
         | git commit #{sha.substring(0, 7)}
