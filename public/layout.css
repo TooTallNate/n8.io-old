@@ -143,6 +143,15 @@ ul.contacts li {
   border-radius: 18px !important;
 }
 
+#disqus_thread .dsq-comment-header {
+  background: transparent;
+  border: none;
+}
+
+#disqus_thread .dsq-comment-header .dsq-commenter-name {
+  text-decoration: underline;
+}
+
 
 /* #Media Queries
 ================================================== */
