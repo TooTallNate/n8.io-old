@@ -134,14 +134,22 @@ ul.contacts li {
 /* #Disqus Overrides
 ================================================== */
 
-#dsq-content .dsq-tt img,
-#dsq-content .dsq-avatar img {
-  -webkit-filter: grayscale(100%);
-  border-radius: 11px !important;
+#disqus_thread #dsq-content .dsq-avatar {
+  border: none;
 }
 
-#dsq-content .dsq-avatar img {
-  border-radius: 18px !important;
+#disqus_thread #dsq-content .dsq-comment {
+  border-bottom: none;
+}
+
+#disqus_thread #dsq-content .dsq-tt img,
+#disqus_thread #dsq-content .dsq-avatar img {
+  -webkit-filter: grayscale(100%);
+  border-radius: 11px;
+}
+
+#disqus_thread #dsq-content .dsq-avatar img {
+  border-radius: 18px;
 }
 
 #disqus_thread .dsq-comment-header {
