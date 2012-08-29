@@ -31,6 +31,7 @@ h1, h2, h3, h4, pre, code {
 }
 
 pre {
+  background-color: ghostWhite;
   border: solid 1px #ccc;
   border-radius: 3px;
   margin-bottom: 20px;
@@ -45,6 +46,7 @@ code {
 }
 
 pre code {
+  background-color: transparent;
   border: none;
   border-radius: 0;
   padding: 5px;
