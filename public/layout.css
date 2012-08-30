@@ -82,7 +82,7 @@ a:hover {
 }
 
 .bg img {
-  border-radius: 125px;
+  border-radius: 50%;
   opacity: 0.25;
   width: 250px;
   height: 250px;
@@ -151,11 +151,7 @@ ul.contacts li {
 #disqus_thread #dsq-content .dsq-tt img,
 #disqus_thread #dsq-content .dsq-avatar img {
   -webkit-filter: grayscale(100%);
-  border-radius: 11px;
-}
-
-#disqus_thread #dsq-content .dsq-avatar img {
-  border-radius: 18px;
+  border-radius: 50%;
 }
 
 #disqus_thread .dsq-comment-header {
