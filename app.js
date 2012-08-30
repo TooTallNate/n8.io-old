@@ -398,7 +398,7 @@ function articles (req, res, next) {
       var name = git.git_tree_entry_name(entry);
       var is_article = path.extname(name) == '.markdown';
       if (is_article) {
-        debug('populating "req.articles[%d]" with %j', i, name);
+        debug('populating "req.articles[%d]" with %j', req.articles.length, name);
         var article = {};
         req.articles.push(article);
         article.filename = name;
