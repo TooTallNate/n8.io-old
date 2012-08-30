@@ -50,16 +50,6 @@ app.use(express.logger('dev'));
 
 
 /**
- * Relay the node version... why the hell not?
- */
-
-app.use(function (req, res, next) {
-  res.set('X-Node-Version', process.version);
-  next();
-});
-
-
-/**
  * When an SHA commit was specified.
  */
 
