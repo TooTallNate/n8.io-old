@@ -111,6 +111,15 @@ a:hover {
   font-size: 12px;
 }
 
+.article ol,
+.article ul {
+  margin-left: 20px;
+}
+
+.article ul li:before {
+  content: "→ ";
+}
+
 ul.contacts {
   display: inline;
   list-style-type: none;
