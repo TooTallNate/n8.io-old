@@ -61,7 +61,8 @@ app.get(/^\/([0-9a-f]{5,40})\b/, function (req, res, next) {
   if (!req.path) {
     // only an SHA, no trailing "/" or anything else, redirect to "/"
     var parsed = url.parse(origUrl);
-    return res.redirect('/' + sha + '/' + (parsed.query ? '?' + parsed.query : ''));
+    parsed.pathname = '/' + sha + '/';
+    return res.redirect(url.format(parsed));
   }
   next();
 });
