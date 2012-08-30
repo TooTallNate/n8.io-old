@@ -14,12 +14,21 @@ var marked = require('marked');
 var hljs = require('highlight.js');
 var express = require('express');
 var gravatar = require('gravatar').url;
+var debug = require('debug')('n8.io');
 
 /**
  * The app.
  */
 
 var app = module.exports = express();
+
+/**
+ * Running in "production" mode?
+ *   - Don't serve from "fs", lookup HEAD instead and use that SHA (cache)
+ */
+
+var prod = /^production$/i.test(app.settings.env);
+debug('running in %j mode%s', app.settings.env, prod ? ' (prod) ' : '');
 
 /**
  * The repo to use.
@@ -34,10 +43,12 @@ const OID_HEXSZ = OID_RAWSZ * 2;
 
 // first get the "git_repository" instance for this repo
 var repo = ref.alloc(ref.refType(git.git_repository));
+debug('creating "git_repository" instance for repo', git_path);
 var err = git.git_repository_open(repo, git_path);
 if (err !== 0) {
   throw new Error('git_repository_open: error opening');
 }
+debug('successfully create "git_repository" instance');
 repo = repo.deref();
 var bare = git.git_repository_is_bare(repo);
 
@@ -55,11 +66,13 @@ app.use(express.logger('dev'));
 
 app.get(/^\/([0-9a-f]{5,40})\b/, function (req, res, next) {
   var sha = req.params[0];
+  debug('got request for SHA commit', sha);
   req.sha = sha;
   var origUrl = req.url;
   req.url = req.url.substring(sha.length + 1);
   if (!req.path) {
-    // only an SHA, no trailing "/" or anything else, redirect to "/"
+    // only an SHA, no trailing "/" or anything else, redirect to "/{sha}/"
+    debug('no trailing "/", redirecting');
     var parsed = url.parse(origUrl);
     parsed.pathname = '/' + sha + '/';
     return res.redirect(url.format(parsed));
@@ -72,8 +85,14 @@ app.get(/^\/([0-9a-f]{5,40})\b/, function (req, res, next) {
  * Resolve HEAD if no SHA was specified.
  */
 
+var head_cache;
 app.get('*', function (req, res, next) {
   if (req.sha) return next();
+  debug('top-level request: resolving HEAD');
+  if (head_cache) {
+    debug('resolved HEAD from cache', head_cache);
+    return setSha(head_cache);
+  }
   // we must populate "req.sha" with the sha of HEAD
   // TODO: cache probably...
   res.set('X-Top-Level', 'true');
@@ -93,7 +112,16 @@ app.get('*', function (req, res, next) {
   }
   function onSha (err) {
     if (err) return next(err); // ffi error
-    req.sha = buf.toString('ascii');
+    var sha = buf.toString('ascii');
+    debug('resolved HEAD', sha);
+    if (prod) {
+      debug('setting "head_cache" to HEAD SHA', sha)
+      head_cache = sha;
+    }
+    setSha(sha);
+  }
+  function setSha (sha) {
+    req.sha = sha;
     req.is_head = true;
     next(); // done
   }
@@ -109,6 +137,7 @@ app.get('*', function (req, res, next) {
   if ('string' != typeof sha) return next(new Error('No SHA. This SHOULD NOT HAPPEN!'));
   if (OID_HEXSZ == sha.length) return next(); // SHA is good already
   // need to resolve the short SHA and then redirect
+  debug('need to resolve short SHA', sha);
   var short_oid = ref.alloc(git.git_oid);
   var commit, buf, oid;
 
@@ -135,6 +164,7 @@ app.get('*', function (req, res, next) {
   function onSha (err) {
     if (err) return next(err); // ffi error
     var full_sha = buf.toString('ascii');
+    debug('resolved full SHA (%s)', sha, full_sha);
     res.redirect('/' + full_sha + req.url);
     //git.git_commit_free.async(commit, function () {});
   }
@@ -142,7 +172,7 @@ app.get('*', function (req, res, next) {
 
 
 /**
- * Populate "req.oid", "req.commit" and "req.root_tree".
+ * Populates "req.root_tree".
  * Also sets the "X-Commit-SHA" header.
  */
 
@@ -152,11 +182,11 @@ app.get('*', function (req, res, next) {
   res.set('X-Commit-SHA', sha);
 
   var oid = ref.alloc(git.git_oid);
+  debug('getting "git_tree" instance for the root dir of commit', sha);
   git.git_oid_fromstr.async(oid, sha, onOid);
   function onOid (err, rtn) {
     if (err) return next(err); // ffi error
     if (rtn !== 0) return next(new Error('git_oid_fromstr: error ' + rtn)); // libgit2 error
-    req.oid = oid;
     commit = ref.alloc(ref.refType(git.git_commit));
     // TODO: use inline wrapper
     git.git_object_lookup.async(commit, repo, oid, 1, onCommit);
@@ -164,13 +194,14 @@ app.get('*', function (req, res, next) {
   function onCommit (err, rtn) {
     if (err) return next(err); // ffi error
     if (rtn !== 0) return next(new Error('git_commit_lookup: error ' + rtn)); // libgit2 error
-    req.commit = commit = commit.deref();
+    commit = commit.deref();
     tree = ref.alloc(ref.refType(git.git_tree));
     git.git_commit_tree.async(tree, commit, onTree);
   }
   function onTree (err, rtn) {
     if (err) return next(err); // ffi error
     if (rtn !== 0) return next(new Error('git_commit_tree: error ' + rtn)); // libgit2 error
+    debug('created "git_tree" instance successfully');
     req.root_tree = tree = tree.deref();
     next();
   }
@@ -184,10 +215,12 @@ app.get('*', function (req, res, next) {
 
 function file (filepath) {
   return function (req, res, next) {
+    debug('retrieving file %j (%s)', filepath, req.sha);
     if (!req.files) req.files = {};
 
-    if (req.is_head && !bare) {
+    if (req.is_head && !bare && !prod) {
       // return from the local filesystem for DEV MODE!!!
+      debug('reading file using "fs" module for %j', filepath);
       fs.readFile(path.join(repo_path, filepath), function (err, buf) {
         if (err) console.error(err);
         if (buf) req.files[filepath] = buf;
@@ -200,21 +233,23 @@ function file (filepath) {
     var dirname = path.dirname(filepath);
     var dir_tree = req.root_tree;
     if (dirname && dirname !== '.' && dirname !== '/') {
+      debug('need to get subtree "git_tree" instance for dir', dirname);
       var pub_tree = ref.alloc(ref.refType(git.git_tree));
-      var err = git.git_tree_get_subtree(pub_tree, req.root_tree, filepath)
+      var err = git.git_tree_get_subtree(pub_tree, req.root_tree, filepath);
       if (err !== 0) return next(new Error('git_tree_get_substree: error ' + err));
       dir_tree = pub_tree = pub_tree.deref();
     }
 
     // get file entry
     var filename = path.basename(filepath);
+    debug('getting "git_tree_entry" for file', filename);
     var entry = git.git_tree_entry_byname(dir_tree, filename);
     if (entry.isNull()) {
-      // requested path does not exist in the "public" dir
-      console.error('WARN: requested path does not exist for commit %s %j ', req.sha, filepath);
+      debug('filepath does not exist for %j (%s)', req.sha, filepath);
       //git.git_tree_free.async(pub_tree, function () {}); // free()
       return next();
     }
+    debug('successfully got "git_tree_entry" instance for file', filename);
 
     req.files[filepath] = entry_to_buffer(entry);
 
@@ -230,13 +265,14 @@ function file (filepath) {
 
 function compile (filepath) {
   return function (req, res, next) {
+    debug('compiling Jade template for filepath', filepath);
     if (!req.templates) req.templates = {};
     var raw = req.files[filepath];
     if (!raw) return next(new Error('no data available for: ' + filepath));
-
     req.templates[filepath] = jade.compile(raw.toString(), {
       filename: filepath
     });
+    debug('done compiling Jade template (%s)', filepath);
     next();
   }
 }
@@ -255,6 +291,7 @@ function by_date (a, b) {
 app.get('/', articles, file('views/layout.jade'), file('views/index.jade'),
 compile('views/layout.jade'), compile('views/index.jade'),
 function (req, res, next) {
+  debug('rendering "/" route');
   var layout = req.templates['views/layout.jade'];
   var index = req.templates['views/index.jade'];
 
@@ -271,6 +308,7 @@ function (req, res, next) {
   // render and send the layout template
   res.type('html');
   res.send(layout(locals));
+  debug('sending "/" route result HTML');
 });
 
 
@@ -285,6 +323,7 @@ function (req, res, next) {
   var valid = req.articles.map(function (a) { return a.name; });
   var name = req.path.substring(1);
   if (!~valid.indexOf(name)) return next();
+  debug('rendering article "%s" route', name);
 
   var layout = req.templates['views/layout.jade'];
   var article = req.templates['views/article.jade'];
@@ -300,26 +339,29 @@ function (req, res, next) {
   // render and send the layout template
   res.type('html');
   res.send(layout(locals));
+  debug('sending "/%s" route result HTML');
 });
 
 
 /**
  * Serve a static file from "public".
- * It's too bad libgit2 sucks and doesn't have a streaming interface...
+ * TODO: write a streaming interface on top of the "void *" that libgit2 gives us
  */
 
 app.get('*', function (req, res, next) {
-  var parsed = url.parse(req.url);
-  var subtree_path = 'public' + parsed.pathname;
+  var name = req.path;
+  var subtree_path = 'public' + name;
+  debug('attempting to serve static file %j', subtree_path);
 
-  // TODO: caching or something...
   file(subtree_path)(req, res, function (err) {
     if (err) return next(err);
 
     if (subtree_path in req.files) {
-      res.set('Content-Type', mime.lookup(path.extname(parsed.pathname)));
+      debug('serving static file %j (%s)', subtree_path, req.sha);
+      res.type(path.extname(name));
       res.send(req.files[subtree_path]);
     } else {
+      debug('file does not exist %j (%s)', subtree_path, req.sha);
       // file not found in this commit
       next();
     }

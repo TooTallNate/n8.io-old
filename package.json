@@ -16,6 +16,7 @@
     "start": "node server"
   },
   "dependencies": {
+    "debug": "*",
     "express": "3",
     "ffi": "1",
     "gravatar": "1",
