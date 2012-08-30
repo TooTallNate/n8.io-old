@@ -375,6 +375,7 @@ app.get('*', function (req, res, next) {
  */
 
 function articles (req, res, next) {
+  debug('populating "req.articles"');
   var root = req.root_tree;
   var articles;
   git.git_tree_entry_byname.async(root, 'articles', onEntry);
@@ -397,6 +398,7 @@ function articles (req, res, next) {
       var name = git.git_tree_entry_name(entry);
       var is_article = path.extname(name) == '.markdown';
       if (is_article) {
+        debug('populating "req.articles[%d]" with %j', i, name);
         var article = {};
         req.articles.push(article);
         article.filename = name;
@@ -416,8 +418,11 @@ function articles (req, res, next) {
 
         // the first paragraph
         article.desc = article.html.substring(0, article.html.indexOf('</p>'));
+      } else {
+        debug('skipping %j since it doesn\'t end with ".markdown"', name);
       }
     }
+    debug('done populating "req.articles"');
     next();
   }
 }
@@ -430,7 +435,7 @@ function entry_to_buffer (entry) {
   // get file contents
   var entry_blob = ref.alloc(ref.refType(git.git_blob));
   err = git.git_tree_entry_to_object(entry_blob, repo, entry);
-  if (err !== 0) return next(new Error('git_tree_entry_to_object: error ' + err));
+  if (err !== 0) throw new Error('git_tree_entry_to_object: error ' + err);
   entry_blob = entry_blob.deref();
 
   // get size and raw buffer
