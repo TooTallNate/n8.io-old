@@ -60,6 +60,8 @@ exports.git_signature = git_signature;
 exports.git_strarray = git_strarray;
 exports.git_tree = git_tree;
 exports.git_tree_entry = git_tree_entry;
+exports.OID_RAWSZ = 20;
+exports.OID_HEXSZ = exports.OID_RAWSZ * 2;
 
 
 var git_otype = 'int'; // enum

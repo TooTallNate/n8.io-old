@@ -46,9 +46,6 @@ debug('running in %j mode%s', app.settings.env, prod ? ' (prod) ' : '');
 var repo_path = __dirname;
 var git_path = repo_path + '/.git';
 
-const OID_RAWSZ = 20;
-const OID_HEXSZ = OID_RAWSZ * 2;
-
 
 // first get the "git_repository" instance for this repo
 var repo = ref.alloc(ref.refType(git.git_repository));
@@ -116,7 +113,7 @@ app.get('*', function (req, res, next) {
   }
   function onOid (err, head_oid) {
     if (err) return next(err); // ffi error
-    buf = new Buffer(OID_HEXSZ);
+    buf = new Buffer(git.OID_HEXSZ);
     git.git_oid_fmt.async(buf, head_oid, onSha);
   }
   function onSha (err) {
@@ -144,7 +141,7 @@ app.get('*', function (req, res, next) {
 app.get('*', function (req, res, next) {
   var sha = req.sha;
   if ('string' != typeof sha) return next(new Error('No SHA. This SHOULD NOT HAPPEN!'));
-  if (OID_HEXSZ == sha.length) return next(); // SHA is good already
+  if (git.OID_HEXSZ == sha.length) return next(); // SHA is good already
   // need to resolve the short SHA and then redirect
   debug('need to resolve short SHA', sha);
   var short_oid = ref.alloc(git.git_oid);
@@ -166,7 +163,7 @@ app.get('*', function (req, res, next) {
   }
   function onCommitId (err, _oid) {
     if (err) return next(err); // ffi error
-    buf = new Buffer(OID_HEXSZ);
+    buf = new Buffer(git.OID_HEXSZ);
     oid = _oid;
     git.git_oid_fmt.async(buf, oid, onSha);
   }
