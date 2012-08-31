@@ -17,6 +17,15 @@ var gravatar = require('gravatar').url;
 var debug = require('debug')('n8.io');
 
 /**
+ * The months.
+ */
+
+var months = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December'
+];
+
+/**
  * The app.
  */
 
@@ -297,6 +306,7 @@ function (req, res, next) {
 
   // TODO: consolidate this rendering logic with the articles page
   var locals = {};
+  locals.months = months;
   locals.sha = req.sha;
   locals.versions = process.versions;
   locals.articles = req.articles.sort(by_date);
@@ -328,6 +338,7 @@ function (req, res, next) {
   var layout = req.templates['views/layout.jade'];
   var article = req.templates['views/article.jade'];
   var locals = {};
+  locals.months = months;
   locals.sha = req.sha;
   locals.versions = process.versions;
   locals.avatar = gravatar('nathan@tootallnate.net', { s: 500 });

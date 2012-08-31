@@ -14,6 +14,9 @@
       h4
         a(href=article.name)= article.title
         date = new Date(article.date)
-        span= [ date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() ].join('.')
+        year = date.getUTCFullYear()
+        month = date.getUTCMonth()
+        day = date.getUTCDate()
+        span(title=([months[month], day, ',', year, 'UTC'].join(' ')))= [ year, month + 1, day ].join('.')
       | !{article.desc}
   a(href='articles') older...

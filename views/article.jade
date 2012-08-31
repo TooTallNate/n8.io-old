@@ -1,4 +1,11 @@
 h1= article.title
+h4
+  | Published: 
+  date = new Date(article.date)
+  year = date.getUTCFullYear()
+  month = date.getUTCMonth()
+  day = date.getUTCDate()
+  span(title=([months[month], day, ',', year, 'UTC'].join(' ')))= [ year, month + 1, day ].join('.')
 .article!= article.html
 
 #disqus_thread
@@ -10,7 +17,7 @@ script(type="text/javascript")
 
   (function() {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 noscript Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
