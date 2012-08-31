@@ -6,7 +6,7 @@
 var fs = require('fs');
 var url = require('url');
 var ref = require('ref');
-var git = require('./git');
+var git = require('./lib/git');
 var path = require('path');
 var jade = require('jade');
 var mime = require('mime');
@@ -21,8 +21,8 @@ var debug = require('debug')('n8.io');
  */
 
 var months = [
-  'January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December'
+  'January', 'February', 'March',     'April',   'May',      'June',
+  'July',    'August',   'September', 'October', 'November', 'December'
 ];
 
 /**
@@ -36,7 +36,7 @@ var app = module.exports = express();
  *   - Don't serve from "fs", lookup HEAD instead and use that SHA (cache)
  */
 
-var prod = /^production$/i.test(app.settings.env);
+var prod = app.settings.prod = /^production$/i.test(app.settings.env);
 debug('running in %j mode%s', app.settings.env, prod ? ' (prod) ' : '');
 
 /**
@@ -46,17 +46,17 @@ debug('running in %j mode%s', app.settings.env, prod ? ' (prod) ' : '');
 var repo_path = __dirname;
 var git_path = repo_path + '/.git';
 
+/**
+ * Load the the "git_repository" instance for this repo.
+ */
 
-// first get the "git_repository" instance for this repo
 var repo = ref.alloc(ref.refType(git.git_repository));
 debug('creating "git_repository" instance for repo', git_path);
 var err = git.git_repository_open(repo, git_path);
-if (err !== 0) {
-  throw new Error('git_repository_open: error opening');
-}
+if (err !== 0) throw new Error('git_repository_open: error ' + err);
 debug('successfully create "git_repository" instance');
-repo = repo.deref();
-var bare = git.git_repository_is_bare(repo);
+repo = app.settings.repo = repo.deref();
+var bare = app.settings.bare = git.git_repository_is_bare(repo);
 
 
 /**
@@ -67,151 +67,12 @@ app.use(express.logger('dev'));
 
 
 /**
- * When an SHA commit was specified.
+ * Routes.
  */
 
-app.get(/^\/([0-9a-f]{5,40})\b/, function (req, res, next) {
-  var sha = req.params[0];
-  debug('got request for SHA commit', sha);
-  req.sha = sha;
-  var origUrl = req.url;
-  req.url = req.url.substring(sha.length + 1);
-  if (!req.path) {
-    // only an SHA, no trailing "/" or anything else, redirect to "/{sha}/"
-    debug('no trailing "/", redirecting');
-    var parsed = url.parse(origUrl);
-    parsed.pathname = '/' + sha + '/';
-    return res.redirect(url.format(parsed));
-  }
-  next();
-});
-
-
-/**
- * Resolve HEAD if no SHA was specified.
- */
-
-var head_cache;
-app.get('*', function (req, res, next) {
-  if (req.sha) return next();
-  debug('top-level request: resolving HEAD');
-  if (head_cache) {
-    debug('resolved HEAD from cache', head_cache);
-    return setSha(head_cache);
-  }
-  // we must populate "req.sha" with the sha of HEAD
-  // TODO: cache probably...
-  res.set('X-Top-Level', 'true');
-  var buf; // SHA
-  var head = ref.alloc(ref.refType(git.git_repository));
-  git.git_repository_head.async(head, repo, onHead);
-  function onHead (err, rtn) {
-    if (err) return next(err); // ffi error
-    if (rtn !== 0) return next(new Error('git_repository_head: error ' + rtn)); // libgit2 error
-    head = head.deref();
-    git.git_reference_oid.async(head, onOid);
-  }
-  function onOid (err, head_oid) {
-    if (err) return next(err); // ffi error
-    buf = new Buffer(git.OID_HEXSZ);
-    git.git_oid_fmt.async(buf, head_oid, onSha);
-  }
-  function onSha (err) {
-    if (err) return next(err); // ffi error
-    var sha = buf.toString('ascii');
-    debug('resolved HEAD', sha);
-    if (prod) {
-      debug('setting "head_cache" to HEAD SHA', sha)
-      head_cache = sha;
-    }
-    setSha(sha);
-  }
-  function setSha (sha) {
-    req.sha = sha;
-    req.is_head = true;
-    next(); // done
-  }
-});
-
-
-/**
- * Resolve the short SHA if a short one was given.
- */
-
-app.get('*', function (req, res, next) {
-  var sha = req.sha;
-  if ('string' != typeof sha) return next(new Error('No SHA. This SHOULD NOT HAPPEN!'));
-  if (git.OID_HEXSZ == sha.length) return next(); // SHA is good already
-  // need to resolve the short SHA and then redirect
-  debug('need to resolve short SHA', sha);
-  var short_oid = ref.alloc(git.git_oid);
-  var commit, buf, oid;
-
-  git.git_oid_fromstrn.async(short_oid, sha, sha.length, onOid);
-  function onOid (err, rtn) {
-    if (err) return next(err); // ffi error
-    if (rtn !== 0) return next(new Error('git_oid_fromstrn: error ' + rtn)); // libgit2 error
-    commit = ref.alloc(ref.refType(git.git_commit));
-    // TODO: use inline wrapper
-    git.git_object_lookup_prefix.async(commit, repo, short_oid, sha.length, 1, onCommit);
-  }
-  function onCommit (err, rtn) {
-    if (err) return next(err); // ffi error
-    if (rtn !== 0) return next(new Error('git_commit_lookup_prefix: error ' + rtn)); // libgit2 error
-    commit = commit.deref();
-    git.git_commit_id.async(commit, onCommitId);
-  }
-  function onCommitId (err, _oid) {
-    if (err) return next(err); // ffi error
-    buf = new Buffer(git.OID_HEXSZ);
-    oid = _oid;
-    git.git_oid_fmt.async(buf, oid, onSha);
-  }
-  function onSha (err) {
-    if (err) return next(err); // ffi error
-    var full_sha = buf.toString('ascii');
-    debug('resolved full SHA (%s)', sha, full_sha);
-    res.redirect('/' + full_sha + req.url);
-    //git.git_commit_free.async(commit, function () {});
-  }
-});
-
-
-/**
- * Populates "req.root_tree".
- * Also sets the "X-Commit-SHA" header.
- */
-
-app.get('*', function (req, res, next) {
-  var commit, tree;
-  var sha = req.sha;
-  res.set('X-Commit-SHA', sha);
-
-  var oid = ref.alloc(git.git_oid);
-  debug('getting "git_tree" instance for the root dir of commit', sha);
-  git.git_oid_fromstr.async(oid, sha, onOid);
-  function onOid (err, rtn) {
-    if (err) return next(err); // ffi error
-    if (rtn !== 0) return next(new Error('git_oid_fromstr: error ' + rtn)); // libgit2 error
-    commit = ref.alloc(ref.refType(git.git_commit));
-    // TODO: use inline wrapper
-    git.git_object_lookup.async(commit, repo, oid, 1, onCommit);
-  }
-  function onCommit (err, rtn) {
-    if (err) return next(err); // ffi error
-    if (rtn !== 0) return next(new Error('git_commit_lookup: error ' + rtn)); // libgit2 error
-    commit = commit.deref();
-    tree = ref.alloc(ref.refType(git.git_tree));
-    git.git_commit_tree.async(tree, commit, onTree);
-  }
-  function onTree (err, rtn) {
-    if (err) return next(err); // ffi error
-    if (rtn !== 0) return next(new Error('git_commit_tree: error ' + rtn)); // libgit2 error
-    debug('created "git_tree" instance successfully');
-    req.root_tree = tree = tree.deref();
-    next();
-  }
-});
+app.get(/^\/([0-9a-f]{5,40})\b/, require('./lib/get-sha'));
+app.get('*', require('./lib/get-head'));
+app.get('*', require('./lib/req-root_tree'));
 
 /**
  * Loads "req.files[filepath]" with the contents of the file at "filepath" from
