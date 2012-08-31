@@ -40,7 +40,9 @@ to install the rest of the dependencies because using just Cydia is too slow.
 
 Run this:
 
-    $ apt-get install uuid csu odcctools rsync
+``` bash
+$ apt-get install uuid csu odcctools rsync
+```
 
 
 ## Install lib and header files
@@ -54,11 +56,13 @@ So open a new Terminal tab, and run the following commands. Be sure to replace
 the IP Address in the examples (`10.0.1.93`) with the actual ip address of your
 device:
 
-    $ rsync -avz --ignore-existing -e ssh /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk/usr/lib/ root@10.0.1.93:/usr/lib
-    $ rsync -avz --ignore-existing -e ssh /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk/usr/include/ root@10.0.1.93:/usr/include
-    $ rsync -avz --ignore-existing -e ssh /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk/System/Library/PrivateFrameworks/ root@10.0.1.93:/System/Library/PrivateFrameworks/
-    $ rsync -avz --ignore-existing -e ssh /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk/System/Library/Frameworks/ root@10.0.1.93:/System/Library/Frameworks/
-    $ scp /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/usr/include/crt_externs.h root@10.0.1.93:/usr/include/crt_externs.h
+``` bash
+$ rsync -avz --ignore-existing -e ssh /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk/usr/lib/ root@10.0.1.93:/usr/lib
+$ rsync -avz --ignore-existing -e ssh /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk/usr/include/ root@10.0.1.93:/usr/include
+$ rsync -avz --ignore-existing -e ssh /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk/System/Library/PrivateFrameworks/ root@10.0.1.93:/System/Library/PrivateFrameworks/
+$ rsync -avz --ignore-existing -e ssh /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk/System/Library/Frameworks/ root@10.0.1.93:/System/Library/Frameworks/
+$ scp /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/usr/include/crt_externs.h root@10.0.1.93:/usr/include/crt_externs.h
+```
 
 These `rsync` commands copy over the missing files from your iDevice's:
 
@@ -85,13 +89,17 @@ walkthough:
 
 On _the SSH session to your device_, run:
 
-    $ curl -O https://tootallnate.net/how-to-set-up-gcc-on-ios-4/fake-libgcc_1.0_iphoneos-arm.deb
-    $ dpkg -i fake-libgcc_1.0_iphoneos-arm.deb
+``` bash
+$ curl -O https://tootallnate.net/how-to-set-up-gcc-on-ios-4/fake-libgcc_1.0_iphoneos-arm.deb
+$ dpkg -i fake-libgcc_1.0_iphoneos-arm.deb
+```
 
 That gets the _"fake"_ libgcc package installed. Now run:
 
-    $ curl -O https://tootallnate.net/how-to-set-up-gcc-on-ios-4/iphone-gcc_4.2-20080604-1-8_iphoneos-arm.deb
-    $ dpkg -i iphone-gcc_4.2-20080604-1-8_iphoneos-arm.deb
+``` bash
+$ curl -O https://tootallnate.net/how-to-set-up-gcc-on-ios-4/iphone-gcc_4.2-20080604-1-8_iphoneos-arm.deb
+$ dpkg -i iphone-gcc_4.2-20080604-1-8_iphoneos-arm.deb
+```
 
 And that's pretty much it! You now have `gcc` installed with the needed header
 and library files from the Apple SDK as well. Congrats!
@@ -103,7 +111,9 @@ Well a lot of build scripts of popular open source projects need more than just
 `gcc` to compile, so let's install some more (optional) packages from Cydia's
 repos:
 
-    $ apt-get install gawk make python coreutils inetutils git less
+``` bash
+$ apt-get install gawk make python coreutils inetutils git less
+```
 
 These packages will make your iDevice more "Unixey" by installing a lot of
 _standard_ Unix applications, that a lot of build scripts will depend on.
@@ -114,10 +124,12 @@ _standard_ Unix applications, that a lot of build scripts will depend on.
 The version in Cydia's repo is **7.1** but I rely on some features only made
 available in **7.3**, so I wanted to compile that first:
 
-    $ curl -O ftp://ftp.vim.org/pub/vim/unix/vim-7.3.tar.bz2
-    $ tar xjvf vim-7.3.tar.bz2 && cd vim73
-    $ ./configure --enable-multibyte --with-features=huge --disable-darwin
-    $ make
+``` bash
+$ curl -O ftp://ftp.vim.org/pub/vim/unix/vim-7.3.tar.bz2
+$ tar xjvf vim-7.3.tar.bz2 && cd vim73
+$ ./configure --enable-multibyte --with-features=huge --disable-darwin
+$ make
+```
 
 Ironic, but `--diable-darwin` was required to disable trying to use the
 __Carbon__ Framework, which isn't available on iOS.
@@ -128,10 +140,12 @@ __Carbon__ Framework, which isn't available on iOS.
 Again, the version in Cydia's repo is super outdated, and git's versions move
 rather quickly, so being able to re-compile on-demand is useful:
 
-    $ curl -O http://kernel.org/pub/software/scm/git/git-1.7.6.tar.bz2
-    $ tar xjvf git-1.7.6.tar.bz2 && cd git-1.7.6
-    $ ./configure
-    $ make NO_PERL=1 NO_TCLTK=1
+``` bash
+$ curl -O http://kernel.org/pub/software/scm/git/git-1.7.6.tar.bz2
+$ tar xjvf git-1.7.6.tar.bz2 && cd git-1.7.6
+$ ./configure
+$ make NO_PERL=1 NO_TCLTK=1
+```
 
 It's necessary to tell the makefile to _not_ use Perl nor Tcl/Tk (GUI library)
 in order to build on iOS.
@@ -141,10 +155,12 @@ in order to build on iOS.
 
 Duh! My fork makes this super simple now that we've done the dirty work above:
 
-    $ git clone git://github.com/TooTallNate/node.git
-    $ cd node
-    $ ./configure
-    $ make
+``` bash
+$ git clone git://github.com/TooTallNate/node.git
+$ cd node
+$ ./configure
+$ make
+```
 
 And that's it!
 
