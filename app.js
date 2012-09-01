@@ -59,7 +59,7 @@ app.get(/^\/([0-9a-f]{5,40})\b/, require('./lib/sha'));
 app.get('*', require('./lib/head'));
 
 // by now `req.sha` is guaranteed to be set
-app.get('*', require('./lib/req-root_tree'));
+app.get('*', require('./lib/root-tree'));
 
 // by now `req.root_tree` is a "git_tree" instance to the resolved SHA
 //app.get('/', require('./lib/homepage'));
