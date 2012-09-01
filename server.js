@@ -8,6 +8,12 @@ var app = require('./app');
 var port = parseInt(process.env.N8_IO_PORT, 10) || 3000;
 
 /**
+ * Set the process title.
+ */
+
+process.title = 'n8.io';
+
+/**
  * Create dev server.
  */
 
@@ -18,5 +24,5 @@ var server = http.createServer(app);
  */
 
 server.listen(port, function () {
-  console.log('n8.io dev server listening:', this.address());
+  console.log('n8.io %s server listening on port %d', app.settings.env, this.address().port);
 });
