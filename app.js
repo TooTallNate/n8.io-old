@@ -27,8 +27,8 @@ debug('running in %j mode%s', app.settings.env, prod ? ' (prod) ' : '');
  * The repo to use.
  */
 
-var repo_path = __dirname;
-var git_path = repo_path + '/.git';
+var repo_path = app.settings.repo_path = __dirname;
+var git_path = app.settings.git_path = repo_path + '/.git';
 
 /**
  * Load the the "git_repository" instance for this repo.
@@ -70,7 +70,7 @@ app.get('*', require('./lib/article-names'));
 //app.get('*', require('./lib/article'));
 
 // finally attempt to serve static files from the public/ dir
-//app.get('*', require('./lib/static'));
+app.get('*', require('./lib/static'));
 
 
 /**
@@ -145,34 +145,6 @@ function (req, res, next) {
   res.type('html');
   res.send(layout(locals));
   debug('sending "/%s" route result HTML');
-});
-*/
-
-
-/**
- * Serve a static file from "public".
- * TODO: write a streaming interface on top of the "void *" that libgit2 gives us
- */
-
-/*
-app.get('*', function (req, res, next) {
-  var name = req.path;
-  var subtree_path = 'public' + name;
-  debug('attempting to serve static file %j', subtree_path);
-
-  file(subtree_path)(req, res, function (err) {
-    if (err) return next(err);
-
-    if (subtree_path in req.files) {
-      debug('serving static file %j (%s)', subtree_path, req.sha);
-      res.type(path.extname(name));
-      res.send(req.files[subtree_path]);
-    } else {
-      debug('file does not exist %j (%s)', subtree_path, req.sha);
-      // file not found in this commit
-      next();
-    }
-  });
 });
 */
 
