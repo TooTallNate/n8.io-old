@@ -67,7 +67,7 @@ app.get('*', require('./lib/root-tree'));
 
 // attempt to render an article if this a request for one
 app.get('*', require('./lib/article-names'));
-//app.get('*', require('./lib/article'));
+app.get('*', require('./lib/article'));
 
 // finally attempt to serve static files from the public/ dir
 app.get('*', require('./lib/static'));
