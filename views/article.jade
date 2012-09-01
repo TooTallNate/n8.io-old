@@ -1,7 +1,7 @@
 h1= article.title
 h4
   | Published: 
-  date = new Date(article.date)
+  date = article.date
   span(title=strftime('%B %d, %Y %H:%M UTC', date))= strftime('%Y.%m.%d', date)
 .article!= article.html
 

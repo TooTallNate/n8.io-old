@@ -13,10 +13,7 @@
     .article
       h4
         a(href=article.name)= article.title
-        date = new Date(article.date)
-        year = date.getUTCFullYear()
-        month = date.getUTCMonth()
-        day = date.getUTCDate()
+        date = article.date
         span(title=strftime('%B %d, %Y %H:%M UTC', date))= strftime('%Y.%m.%d', date)
       | !{article.desc}
   a(href='articles') older...
