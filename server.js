@@ -8,9 +8,15 @@ var app = require('./app');
 var port = parseInt(process.env.N8_IO_PORT, 10) || 3000;
 
 /**
- * Create server and listen.
+ * Create dev server.
  */
 
-http.createServer(app).listen(port, function () {
-  console.log('TooTallNate.net dev server listening:', this.address());
+var server = http.createServer(app);
+
+/**
+ * Listen.
+ */
+
+server.listen(port, function () {
+  console.log('n8.io dev server listening:', this.address());
 });
