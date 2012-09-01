@@ -10,7 +10,7 @@ h4
 
 #disqus_thread
 script(type="text/javascript")
-  var disqus_shortname = 'tootallnate'; // required: replace example with your forum shortname
+  var disqus_shortname = 'tootallnate';
   var disqus_developer = 1; // dev mode
   var disqus_title = '#{article.title}';
   var disqus_url = 'https://tootallnate.net/#{article.name}';
@@ -20,4 +20,6 @@ script(type="text/javascript")
       dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
-noscript Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+noscript
+  | Please enable JavaScript to view the
+  a(href="http://disqus.com/?ref_noscript")comments powered by Disqus.

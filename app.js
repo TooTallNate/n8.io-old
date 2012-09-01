@@ -21,7 +21,7 @@ var app = module.exports = express();
  */
 
 var prod = app.settings.prod = /^production$/i.test(app.settings.env);
-debug('running in %j mode%s', app.settings.env, prod ? ' (prod) ' : '');
+debug('running in %j mode (prod: %s)', app.settings.env, prod);
 
 /**
  * The repo to use.
