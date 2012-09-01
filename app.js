@@ -55,7 +55,7 @@ app.use(express.logger('dev'));
  */
 
 // first we need to figure out which commit SHA we will use
-app.get(/^\/([0-9a-f]{5,40})\b/, require('./lib/get-sha'));
+app.get(/^\/([0-9a-f]{5,40})\b/, require('./lib/sha'));
 app.get('*', require('./lib/head'));
 
 // by now `req.sha` is guaranteed to be set
