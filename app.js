@@ -47,7 +47,11 @@ var bare = app.settings.bare = git.git_repository_is_bare(repo);
  * Connect logger.
  */
 
-app.use(express.logger('dev'));
+if (prod) {
+  app.use(express.logger());
+} else {
+  app.use(express.logger('dev'));
+}
 
 
 /**
