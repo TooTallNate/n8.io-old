@@ -206,20 +206,3 @@ function articles (req, res, next) {
     next();
   }
 }
-
-/**
- * Gets a Buffer from a "blob" git_tree_entry.
- */
-
-function entry_to_buffer (entry) {
-  // get file contents
-  var entry_blob = ref.alloc(ref.refType(git.git_blob));
-  err = git.git_tree_entry_to_object(entry_blob, repo, entry);
-  if (err !== 0) throw new Error('git_tree_entry_to_object: error ' + err);
-  entry_blob = entry_blob.deref();
-
-  // get size and raw buffer
-  var rawsize = git.git_blob_rawsize(entry_blob);
-  var rawcontent = git.git_blob_rawcontent(entry_blob).reinterpret(rawsize);
-  return rawcontent;
-}
