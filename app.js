@@ -62,8 +62,8 @@ app.get('*', require('./lib/head'));
 app.get('*', require('./lib/root-tree'));
 
 // by now `req.root_tree` is a "git_tree" instance to the resolved SHA
-//app.get('/', require('./lib/homepage'));
-//app.get('/articles', require('./lib/articles'));
+app.get('/', require('./lib/homepage'));
+app.get('/articles', require('./lib/articles'));
 
 // attempt to render an article if this a request for one
 app.get('*', require('./lib/article-names'));
