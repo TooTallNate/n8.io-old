@@ -17,6 +17,6 @@
         year = date.getUTCFullYear()
         month = date.getUTCMonth()
         day = date.getUTCDate()
-        span(title=([months[month], day, ',', year, 'UTC'].join(' ')))= [ year, month + 1, day ].join('.')
+        span(title=strftime('%B %d, %Y %H:%M UTC', date))= strftime('%Y.%m.%d', date)
       | !{article.desc}
   a(href='articles') older...
