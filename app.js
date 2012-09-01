@@ -3,27 +3,11 @@
  * Module dependencies.
  */
 
-var fs = require('fs');
-var url = require('url');
 var ref = require('ref');
-var git = require('./lib/git');
 var path = require('path');
-var jade = require('jade');
-var mime = require('mime');
-var marked = require('marked');
-var hljs = require('highlight.js');
+var git = require('./lib/git');
 var express = require('express');
-var gravatar = require('gravatar').url;
 var debug = require('debug')('n8.io');
-
-/**
- * The months.
- */
-
-var months = [
-  'January', 'February', 'March',     'April',   'May',      'June',
-  'July',    'August',   'September', 'October', 'November', 'December'
-];
 
 /**
  * The app.
@@ -70,79 +54,28 @@ app.use(express.logger('dev'));
  * Routes.
  */
 
+// first we need to figure out which commit SHA we will use
 app.get(/^\/([0-9a-f]{5,40})\b/, require('./lib/get-sha'));
 app.get('*', require('./lib/get-head'));
+
+// by now `req.sha` is guaranteed to be set
 app.get('*', require('./lib/req-root_tree'));
 
-/**
- * Loads "req.files[filepath]" with the contents of the file at "filepath" from
- * the current "req.sha" commit.
- * TODO: caching based on SHA and filepath
- */
+// by now `req.root_tree` is a "git_tree" instance to the resolved SHA
+//app.get('/', require('./lib/homepage'));
+//app.get('/articles', require('./lib/articles'));
 
-function file (filepath) {
-  return function (req, res, next) {
-    debug('retrieving file %j (%s)', filepath, req.sha);
-    if (!req.files) req.files = {};
+// attempt to render an article if this a request for one
+app.get('*', require('./lib/article-names'));
+//app.get('*', require('./lib/article'));
 
-    if (req.is_head && !bare && !prod) {
-      // return from the local filesystem for DEV MODE!!!
-      debug('reading file using "fs" module for %j', filepath);
-      fs.readFile(path.join(repo_path, filepath), function (err, buf) {
-        if (err) console.error(err);
-        if (buf) req.files[filepath] = buf;
-        next();
-      });
-      return;
-    }
-
-    // get subtree if necessary
-    var dirname = path.dirname(filepath);
-    var dir_tree = req.root_tree;
-    if (dirname && dirname !== '.' && dirname !== '/') {
-      debug('need to get subtree "git_tree" instance for dir', dirname);
-      var pub_tree = ref.alloc(ref.refType(git.git_tree));
-      var err = git.git_tree_get_subtree(pub_tree, req.root_tree, filepath);
-      if (err !== 0) return next(new Error('git_tree_get_substree: error ' + err));
-      dir_tree = pub_tree = pub_tree.deref();
-    }
-
-    // get file entry
-    var filename = path.basename(filepath);
-    debug('getting "git_tree_entry" for file', filename);
-    var entry = git.git_tree_entry_byname(dir_tree, filename);
-    if (entry.isNull()) {
-      debug('filepath does not exist for %j (%s)', req.sha, filepath);
-      //git.git_tree_free.async(pub_tree, function () {}); // free()
-      return next();
-    }
-    debug('successfully got "git_tree_entry" instance for file', filename);
-
-    req.files[filepath] = entry_to_buffer(entry);
-
-    //git.git_tree_free.async(pub_tree, function () {}); // free()
-    next();
-  }
-}
+// finally attempt to serve static files from the public/ dir
+//app.get('*', require('./lib/static'));
 
 
 /**
- * TODO: caching based on sha and filepath
+ * Sort 2 objects by their "date" properties.
  */
-
-function compile (filepath) {
-  return function (req, res, next) {
-    debug('compiling Jade template for filepath', filepath);
-    if (!req.templates) req.templates = {};
-    var raw = req.files[filepath];
-    if (!raw) return next(new Error('no data available for: ' + filepath));
-    req.templates[filepath] = jade.compile(raw.toString(), {
-      filename: filepath
-    });
-    debug('done compiling Jade template (%s)', filepath);
-    next();
-  }
-}
 
 function by_date (a, b) {
   var da = new Date(a.date);
@@ -152,9 +85,10 @@ function by_date (a, b) {
 
 
 /**
- * Render the 10 most recent articles listing page.
+ * Render the homepage.
  */
 
+/*
 app.get('/', articles, file('views/layout.jade'), file('views/index.jade'),
 compile('views/layout.jade'), compile('views/index.jade'),
 function (req, res, next) {
@@ -178,6 +112,7 @@ function (req, res, next) {
   res.send(layout(locals));
   debug('sending "/" route result HTML');
 });
+*/
 
 
 /**
@@ -185,6 +120,7 @@ function (req, res, next) {
  * TODO: don't use "articles", just get the valid names
  */
 
+/*
 app.get('*', articles, file('views/article.jade'), file('views/layout.jade'),
 compile('views/article.jade'), compile('views/layout.jade'),
 function (req, res, next) {
@@ -210,6 +146,7 @@ function (req, res, next) {
   res.send(layout(locals));
   debug('sending "/%s" route result HTML');
 });
+*/
 
 
 /**
@@ -217,6 +154,7 @@ function (req, res, next) {
  * TODO: write a streaming interface on top of the "void *" that libgit2 gives us
  */
 
+/*
 app.get('*', function (req, res, next) {
   var name = req.path;
   var subtree_path = 'public' + name;
@@ -236,6 +174,7 @@ app.get('*', function (req, res, next) {
     }
   });
 });
+*/
 
 
 /**
@@ -311,32 +250,4 @@ function entry_to_buffer (entry) {
   var rawsize = git.git_blob_rawsize(entry_blob);
   var rawcontent = git.git_blob_rawcontent(entry_blob).reinterpret(rawsize);
   return rawcontent;
-}
-
-
-/**
- * Parses Markdown into highlighted HTML.
- */
-
-function markdown (code) {
-  if (!code) return code;
-  return marked(code, {
-    gfm: true,
-    highlight: highlight
-  });
-}
-
-
-/**
- * Add syntax highlighting HTML to the given `code` block.
- * `lang` defaults to "javascript" if no valid name is given.
- */
-
-function highlight (code, lang) {
-  if (lang) {
-    return hljs.highlight(lang, code).value;
-  } else {
-    return hljs.highlightAuto(code).value;
-    //return code;
-  }
 }
