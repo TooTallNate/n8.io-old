@@ -14,7 +14,7 @@ var port = parseInt(process.env.N8_IO_PORT, 10) || 3000;
 process.title = 'n8.io';
 
 /**
- * Create dev server.
+ * Create HTTP server.
  */
 
 var server = http.createServer(app);
@@ -24,5 +24,6 @@ var server = http.createServer(app);
  */
 
 server.listen(port, function () {
-  console.log('n8.io %s server listening on port %d', app.settings.env, this.address().port);
+  port = server.address.port();
+  console.log('n8.io %s server listening on port %d', app.settings.env, port);
 });
