@@ -27,6 +27,5 @@
     "ref": "0",
     "ref-struct": "0",
     "strftime": "0"
-  },
-  "devDependencies": {}
+  }
 }
