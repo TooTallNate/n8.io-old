@@ -23,7 +23,7 @@ html, body {
   font-family: 'Actor', sans-serif;
   font-size: 13px;
   margin: 0;
-  padding: 20px 0;
+  padding: 0;
 }
 
 h1, h2, h3, h4, pre, code {
@@ -98,6 +98,21 @@ a:hover {
 
 .footer {
   text-align: center;
+}
+
+.book {
+  background-color: rgba(255, 250, 180, 0.5);
+  font-weight: bold;
+  padding: 6px;
+  text-align: center;
+}
+
+.amazon {
+  font-style: italic;
+}
+
+.container {
+  padding-top: 20px;
 }
 
 .about h3,
