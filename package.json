@@ -24,7 +24,6 @@
     "jade": "0",
     "lru-cache": "2",
     "marked": "0",
-    "mime": "1",
     "ref": "0",
     "ref-struct": "0",
     "strftime": "0"
