@@ -13,11 +13,13 @@ server in Node, using a __FREE__ validated signed certificate from StartSSL.
 
 ## First, our regular "hello world" server
 
-    function onConnection(req, res) {
-      res.setHeader('Content-Type', 'text/plain');
-      res.end("Hello World!\n");
-    }
-    require('http').createServer(onConnection).listen(80);
+``` javascript
+function onConnection(req, res) {
+  res.setHeader('Content-Type', 'text/plain');
+  res.end("Hello World!\n");
+}
+require('http').createServer(onConnection).listen(80);
+```
 
 Consider this our "baseline" HTTP server. We're using the new `setHeader` API that has
 been introduced in `v0.4.0`, so it looks a little different than the version on the
@@ -52,11 +54,15 @@ This will involve responding to emails to verify that you are who you say you ar
 Once you're all validated, it's time to generate a certificate request. They offer an interface
 on their website to generate one, but it's only two lines to do in theh Terminal:
 
-    $ openssl genrsa -out ssl.key 2048
+``` bash
+$ openssl genrsa -out ssl.key 2048
+```
 
 This first command generates the private key. It's private...
 
-    $ openssl req -new -key ssl.key -out ssl.csr
+``` bash
+$ openssl req -new -key ssl.key -out ssl.csr
+```
 
 The second command generates the CSR (Certificate Signing Request). You will be asked a
 series of like 5 questions like country code among others. Just answer them truthfully.
@@ -67,7 +73,9 @@ series of like 5 questions like country code among others. Just answer them trut
 Now this `ssl.csr` file that you have is what we need to send to [StartSSL][]. Copy it's
 contents to your clipboard. On OS X, this works:
 
-    $ pbcopy < ssl.csr
+``` bash
+$ pbcopy < ssl.csr
+```
 
 Now on the StartSSL Control Panel, click "Certificate Wizard" and attempt to set up a
 "Web Server SSL/TLS Certificate".
@@ -82,7 +90,9 @@ The following page contains the signed certificate in a new text box. Copy all t
 of the text box ("Select All...") and copy it to your clipboard. And then paste that
 into a new file, let's call it `ssl.crt`. Again, on OS X, do it from Terminal:
 
-    $ pbpaste > ssl.crt
+``` bash
+$ pbpaste > ssl.crt
+```
 
 Also at the bottom of the page are the intermediate certs and ca cert. They are needed as well,
 so right click on them and "Save File As...". There are two files: `ca.pem` and
@@ -102,16 +112,18 @@ Now we have all the files we need. A total of 5 should remain from the SSL cert 
 All that's needed now is to add use these files with the new `https` module in Node. Here's
 a refactoring of our baseline "hello world" server from above:
 
-    function onConnection(req, res) {
-      res.setHeader('Content-Type', 'text/plain');
-      res.end("Hello World!\n");
-    }
-    var options = {
-      ca:   fs.readFileSync('sub.class1.server.ca.pem'),
-      key:  fs.readFileSync('ssl.key'),
-      cert: fs.readFileSync('ssl.crt')
-    };
-    require('https').createServer(options, onConnection).listen(443);
+``` javascript
+function onConnection(req, res) {
+  res.setHeader('Content-Type', 'text/plain');
+  res.end("Hello World!\n");
+}
+var options = {
+  ca:   fs.readFileSync('sub.class1.server.ca.pem'),
+  key:  fs.readFileSync('ssl.key'),
+  cert: fs.readFileSync('ssl.crt')
+};
+require('https').createServer(options, onConnection).listen(443);
+```
 
 Aaaahhhhhhhh, nice and simple. Just like you would expect from Node. So with the addition
 of an `options` object, and a very simple change to the final line (note we're not listening
@@ -122,12 +134,16 @@ world.
 
 So lets start the server:
 
-    $ sudo node server.js
+``` bash
+$ sudo node server.js
+```
 
 And in another terminal, we can `curl` it:
 
-    $ curl https://localhost
-    // Hello World!
+``` bash
+$ curl https://localhost
+Hello World!
+```
 
 Notice how we don't need the `-k` or `--insecure` switches anymore? That's the result of
 creating a signed cert over a self-signed cert.
@@ -138,13 +154,13 @@ into the address bar, and you should see it work!
 
 ## Conclusion
 
-The new SSL stuff in [NodeJS][] `v0.4.0` is _awesome_! In other words, this will make my employer
-very happy, and probably yours too!
+The new SSL stuff in [NodeJS][] `v0.4.0` is _awesome_! In other words, this will
+make my employer very happy, and probably yours too!
 
-I upgraded this blog to HTTPS as a proof-of-concept, and to try out the new APIs. So far
-I am very pleased with the results. The only downside so far is that DISQUS, the guys
-providing the commenting system at the bottom, [doesn't offer an SSL endpoint
-_yet_](http://groups.google.com/group/disqus-dev/browse_thread/thread/37c9b5db95c7f0a1/3fc2fce8c28d5806),
+I upgraded this blog to HTTPS as a proof-of-concept, and to try out the new APIs.
+So far I am very pleased with the results. The only downside so far is that DISQUS,
+the guys providing the commenting system at the bottom, [doesn't offer an SSL
+endpoint _yet_](http://groups.google.com/group/disqus-dev/browse_thread/thread/37c9b5db95c7f0a1/3fc2fce8c28d5806),
 and so the blog currently is mixed with secure and insecure resources, with triggers
 similar warnings in some browsers...
 
