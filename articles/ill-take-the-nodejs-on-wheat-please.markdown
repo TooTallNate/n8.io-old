@@ -3,6 +3,9 @@ Author: Nathan Rajlich
 Date: Tue Jun 30 2010 12:04:52 GMT-0700 (PDT)
 
 
+__UPDATE__: This blog actually doesn't use "Wheat" anymore! See
+"[Starting Over][]" for the details.
+
 Ok, well this is gonna be the first blog entry on `TooTallNate.net`.
 And while there's nothing else here, it's probably a good time to talk
 about what's powering this blog, because I think it's pretty awesome!
@@ -140,3 +143,4 @@ finally have a place to document the crap I'm working on and whatnot. See ya!
 [node.js]: http://nodejs.org/
 [V8]: http://code.google.com/apis/v8/
 [Wheat]: http://github.com/creationix/wheat
+[Starting Over]: starting-over
