@@ -28,20 +28,24 @@ So get the 'node-v0.4.5-ios-arm-1.deb' file from the link above (or a newer vers
 one exists), and get it onto your iDevice somehow (scp, wget, curl, etc.). Once it's
 downloaded onto your device, you should be able to run:
 
-    $ dpkg -i node-v0.4.5-ios-arm-1.deb
+``` bash
+$ dpkg -i node-v0.4.5-ios-arm-1.deb
+```
 
 And that's it! After that try to mess around with node:
 
-    $ node
-    > require('os').cpus()
-    [ { model: 'N90AP',
-        speed: 0,
-        times: 
-         { user: 9209240,
-           nice: 0,
-           sys: 6997410,
-           idle: 255377220,
-           irq: 0 } } ]
+``` bash
+$ node
+> require('os').cpus()
+[ { model: 'N90AP',
+    speed: 0,
+    times:
+     { user: 9209240,
+       nice: 0,
+       sys: 6997410,
+       idle: 255377220,
+       irq: 0 } } ]
+```
 
 The [N90AP][] is the CPU my iPhone 4 is running, so hot damn, we're running node on
 an iPhone!

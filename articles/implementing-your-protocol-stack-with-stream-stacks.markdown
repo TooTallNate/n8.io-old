@@ -29,7 +29,28 @@ called `DoubleWrite`. This class' job is to intercept any `write()` calls on
 the writable stream passed to it's constructor, and instead write each byte or
 char _twice_ on the resulting stream:
 
-<implementing-your-protocol-stack-with-stream-stacks/writable-example.js*>
+``` js
+var StreamStack = require('stream-stack').StreamStack;
+
+// Define a 'StreamStack' subclass: DoubleWrite
+function DoubleWrite(stream) {
+  StreamStack.call(this, stream);
+}
+require('util').inherits(DoubleWrite, StreamStack);
+
+// Overwrite the default `write()` function.
+DoubleWrite.prototype.write = function(data) {
+  for (var i=0, l=data.length; i<l; i++) {
+    this.stream.write(data[i] + data[i]);
+  }
+}
+```
+
+``` js
+// How to Use:
+var doubleStdout = new DoubleWrite(process.stdout);
+doubleStdout.end("hello world!");
+```
 
 I like to use `process.stdout` as a _development_ writable stream,
 since what gets written is visibly printed to the terminal, and I can manually
@@ -50,7 +71,29 @@ The same principle can be used with readable streams as well. In this example,
 we'll define the `DoubleRead` class, which, when 'data' is received from the
 parent stream, emits the data _twice_ on the DoubleRead instance.
 
-<implementing-your-protocol-stack-with-stream-stacks/readable-example.js*>
+``` js
+var Stream = require('stream').Stream;
+var StreamStack = require('stream-stack').StreamStack;
+
+// Define a 'StreamStack' subclass: DoubleRead
+function DoubleRead(stream) {
+  var self = this;
+  StreamStack.call(self, stream);
+  stream.on('data', function(data) {
+    for (var i=0, l=data.length; i<l; i++) {
+      self.emit('data', data[i] + data[i]);
+    }
+  });
+}
+require('util').inherits(DoubleRead, StreamStack);
+```
+
+``` js
+// How to Use:
+var dummyStream = new Stream();
+(new DoubleRead(dummyStream)).pipe(process.stdout);
+dummyStream.emit('data', "hello world!");
+```
 
 What's written to `process.stdout` here is the output of the `DoubleRead`
 instance. It acts as a replica of the original dummy stream, except that it
@@ -72,7 +115,42 @@ you can blissfully `pipe()` into or from a "stacked" stream.
 Consider this (currently theoretical) example of an
 [HTTP client request][http-stack] based on `StreamStack`s:
 
-<implementing-your-protocol-stack-with-stream-stacks/http-request.js>
+``` js
+var HttpRequestStack = require('http-stack').HttpRequestStack;
+var GzipDecoderStack = require('gzip-stack').GzipDecoderStack;
+
+// The low-level Stream instance.
+var conn = require('net').createConnection('www.example.com', 80);
+
+// The 'req' var exposes a 'request' function, that `write()`s an
+// HTTP request to the underlying writable Stream.
+var req = new HttpRequestStack(conn);
+req.request('POST', '/form', [
+  'Host: www.example.com',
+  'Accept-Encoding: gzip'
+]);
+
+// `write()` calls transparently add HTTP chunked encoding beind the scenes.
+req.write("formdata=whatever");
+// `end()` DOES NOT call end() on the net.Stream, but ends the HTTP request.
+// The net.Stream could theoretically be reused for a 'keep-alive' connection.
+req.end();
+
+// Gets emitted after HTTP response headers have been received and parsed.
+req.on('response', function(res) {
+  if (res.headers['Content-Encoding'] == 'gzip') {
+    // Oh noes, the response is 'gzip'ed, guess we'll have to decode it.
+    res = new GzipDecoderStack(res);
+  }
+  // Just `pipe()` the clear-text response body to 'stdout'.
+  res.pipe(process.stdout);
+  
+  // When the HTTP response has ended, close the underlying `net.Stream`.
+  res.on('end', function() {
+    conn.end();
+  });
+});
+```
 
 For debugging purposes, create a `HttpRequestStack` instance with
 `process.stdout`, and the request will be printed to stdout for inspection.
