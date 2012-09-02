@@ -1,8 +1,9 @@
-h1= article.title
-h4
-  | Published: 
-  date = article.date
-  span(title=strftime('%B %d, %Y %H:%M UTC', date))= strftime('%Y.%m.%d', date)
+.article-title
+  h1= article.title
+  strong
+    | Published: 
+    date = article.date
+    span(title=strftime('%B %d, %Y %H:%M UTC', date))= strftime('%Y.%m.%d', date)
 .article!= article.html
 
 #disqus_thread

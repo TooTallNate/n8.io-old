@@ -111,6 +111,10 @@ a:hover {
   font-size: 12px;
 }
 
+.article-title {
+  padding-bottom: 40px;
+}
+
 .article ol,
 .article ul {
   margin-left: 20px;
