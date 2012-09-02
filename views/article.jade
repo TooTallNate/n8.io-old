@@ -9,7 +9,7 @@ h4
 script(type="text/javascript")
   var disqus_shortname = 'tootallnate';
   var disqus_developer = 1; // dev mode
-  var disqus_title = '#{article.title}';
+  var disqus_title = !{JSON.stringify(article.title)};
   var disqus_url = 'https://tootallnate.net/#{article.name}';
 
   (function() {
