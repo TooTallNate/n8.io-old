@@ -22,7 +22,7 @@
     "gravatar": "1",
     "highlight.js": "7",
     "jade": "0",
-    "lru-cache": "2",
+    "lru-cache": "https://github.com/TooTallNate/node-lru-cache/tarball/fix/call-dispose-on-too-big-items",
     "marked": "0",
     "ref": "0",
     "ref-struct": "0",
