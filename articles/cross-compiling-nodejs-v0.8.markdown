@@ -66,7 +66,7 @@ assumes that you're building for the host platform, but in this case we're not.
 
 I had to apply a patch like the one below in order to _force_ the "linux flavor"
 in gyp. This `GetFlavor` function _seems_ like it's configurable, but I haven't
-yet figured out a way to configure that a runtime.
+yet figured out a way to configure that at runtime.
 
 ``` diff
 diff --git a/tools/gyp/pylib/gyp/common.py b/tools/gyp/pylib/gyp/common.py
