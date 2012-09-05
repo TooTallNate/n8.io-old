@@ -88,7 +88,7 @@ index 6144d2f..fdd32a9 100644
 
 At this point we can execute the `./configure` step. The only catch here is that
 we have to disable V8 "snapshot" support, since it requires being able to _run_
-the compiled copmile natively, which is not possible when cross-compiling.
+the compiled code natively, which is not possible when cross-compiling.
 
 ``` bash
 $ ./configure --without-snapshot
