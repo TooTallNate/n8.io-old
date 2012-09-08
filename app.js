@@ -60,9 +60,11 @@ if (prod) {
 
 // first we need to figure out which commit SHA we will use
 app.get(/^\/([0-9a-f]{5,40})\b/, require('./lib/sha'));
+
+// every request needs to resolve HEAD for the templates
 app.get('*', require('./lib/head'));
 
-// by now `req.sha` is guaranteed to be set
+// by now `req.sha` and `req.head_sha` are guaranteed to be set
 app.get('*', require('./lib/root-tree'));
 
 // `req.article_names` is used by every request
