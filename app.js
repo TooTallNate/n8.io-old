@@ -24,6 +24,18 @@ var prod = app.settings.prod = /^production$/i.test(app.settings.env);
 debug('running in %j mode (prod: %s)', app.settings.env, prod);
 
 /**
+ * Get the libgit2 version.
+ */
+
+app.settings.version = (function () {
+  var major = ref.alloc('int');
+  var minor = ref.alloc('int');
+  var patch = ref.alloc('int');
+  git.git_libgit2_version(major, minor, patch);
+  return [ major.deref(), minor.deref(), patch.deref() ].join('.');
+})();
+
+/**
  * The repo to use.
  */
 
