@@ -7,6 +7,7 @@ var ref = require('ref');
 var path = require('path');
 var git = require('./lib/git');
 var express = require('express');
+var GitError = require('./lib/git-error');
 var debug = require('debug')('n8.io');
 
 /**
@@ -49,7 +50,7 @@ var git_path = app.settings.git_path = repo_path + '/.git';
 var repo = ref.alloc(ref.refType(git.git_repository));
 debug('creating "git_repository" instance for repo', git_path);
 var err = git.git_repository_open(repo, git_path);
-if (err !== 0) throw new Error('git_repository_open: error ' + err);
+if (err !== 0) throw new GitError('git_repository_open', err);
 debug('successfully create "git_repository" instance');
 repo = app.settings.repo = repo.deref();
 var bare = app.settings.bare = git.git_repository_is_bare(repo);
