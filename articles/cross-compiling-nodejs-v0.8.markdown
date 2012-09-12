@@ -56,33 +56,8 @@ $ export CXX=arm-unknown-linux-gnueabi-g++
 $ export LINK=arm-unknown-linux-gnueabi-g++
 ```
 
-Note that the `LINK` variable (autotools uses `LD` I think but `gyp` is weird)
-points to your `g++` program.
-
-#### Force "linux" mode on gyp (OS X only)
-
-Skip this part if you're already on Linux, but I'm doing this on OS X, and gyp
-assumes that you're building for the host platform, but in this case we're not.
-
-I had to apply a patch like the one below in order to _force_ the "linux flavor"
-in gyp. This `GetFlavor` function _seems_ like it's configurable, but I haven't
-yet figured out a way to configure that at runtime.
-
-``` diff
-diff --git a/tools/gyp/pylib/gyp/common.py b/tools/gyp/pylib/gyp/common.py
-index 6144d2f..fdd32a9 100644
---- a/tools/gyp/pylib/gyp/common.py
-+++ b/tools/gyp/pylib/gyp/common.py
-@@ -367,7 +367,7 @@ def GetFlavor(params):
-     'freebsd9': 'freebsd',
-   }
-   flavor = flavors.get(sys.platform, 'linux')
--  return params.get('flavor', flavor)
-+  return 'linux'
- 
- 
- def CopyTool(flavor, out_path):
-```
+Note that the `LINK` variable points to your `g++` program rather than your `ld`
+program, since the Makefile uses some flags that ld does not recognize.
 
 ### The "configure" step
 
@@ -91,12 +66,11 @@ we have to disable V8 "snapshot" support, since it requires being able to _run_
 the compiled code natively, which is not possible when cross-compiling.
 
 ``` bash
-$ ./configure --without-snapshot
+$ ./configure --without-snapshot --dest-cpu=arm --dest-os=linux
 ```
 
-You might also need to set `--dest-cpu=arm`, but it was not necessary for
-me because the `./configure` script auto-detected the arch type from the `gcc`
-program specified in the `CC` variable. Your mileage may vary.
+The `--dest-os` flag is only available in `v0.8.9` of node and newer (or just
+use my "pi" branch mentioned above).
 
 ### The "make" step
 
