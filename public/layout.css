@@ -67,6 +67,21 @@ a:hover {
   text-shadow: 0 0 5px #9248ed;
 }
 
+table {
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+th {
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 2px;
+}
+
+td, th {
+  border: solid 1px #ccc;
+  text-align: center;
+}
 
 /* #Class-level Styles
 ================================================== */
