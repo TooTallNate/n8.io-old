@@ -204,8 +204,8 @@ The key to defining proper targets is, again, visually inspecting the
 added, and which flags are used. You can also get part of the picture by looking
 at the `Makefile.am` files in the library.
 
-So based off the make output in the case of `libmp3lame`, there's gonne be 3 total
-"targets" that will be defined:
+So based off the make output in the case of `libmp3lame`, there's going to be
+3 total "targets" that will be defined:
 
  * `mpglib` - libmp3lame's decoder (an old version of libmpg123 apparently)
  * `liblamevectorroutines` - some internal routines used by libmp3lame
