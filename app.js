@@ -87,6 +87,10 @@ app.get('*', require('./lib/article-names'));
 app.get('/', require('./lib/homepage'));
 app.get('/articles', require('./lib/articles'));
 
+// redirect blog articles to have a trailing "/" (this is necessary because of
+// the way the browser serves files from relative URLs)
+app.get('*', require('./lib/article-redirect'));
+
 // attempt to render an article if this a request for one
 app.get('*', require('./lib/article'));
 
