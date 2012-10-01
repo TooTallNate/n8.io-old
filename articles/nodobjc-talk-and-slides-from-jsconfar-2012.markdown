@@ -14,8 +14,7 @@ Enjoy the video and slides!
   <param name="allowfullscreen" value="true">
   <param name="quality" value="best">
   <param name="wmode" value="transparent">
-  <embed id="video_player_embed" class="blip" src="http://a.blip.tv/scripts/flash/stratos.swf#file=http://blip.tv/rss/flash/6369999&amp;autostart=true&amp;showinfo=true&amp;nopostroll=true&amp;noendcap=true&amp;captionson=true&amp;showsharebutton=false&amp;removebrandlink=true&amp;page=episode&amp;skin=BlipClassic&amp;backcolor=0x000000&amp;frontcolor=0x999999&amp;lightcolor=0xAAAAAA&amp;floatcontrols=true&amp;fixedcontrols=true&amp;largeplaybutton=true&amp;controlsalpha=.8&amp;autohideidle=6000&amp;referrer=http://n8.io"
-allowfullscreen="true" allowscriptaccess="always" wmode="transparent" type="application/x-shockwave-flash">
+  <embed id="video_player_embed" class="blip" src="http://a.blip.tv/scripts/flash/stratos.swf#file=http://blip.tv/rss/flash/6369999&amp;autostart=true&amp;showinfo=true&amp;nopostroll=true&amp;noendcap=true&amp;captionson=true&amp;showsharebutton=false&amp;removebrandlink=true&amp;page=episode&amp;skin=BlipClassic&amp;backcolor=0x000000&amp;frontcolor=0x999999&amp;lightcolor=0xAAAAAA&amp;floatcontrols=true&amp;fixedcontrols=true&amp;largeplaybutton=true&amp;controlsalpha=.8&amp;autohideidle=6000&amp;referrer=http://n8.io" allowfullscreen="true" allowscriptaccess="always" wmode="transparent" type="application/x-shockwave-flash">
 </object>
 
 <script async class="speakerdeck-embed" data-id="4fb9c9de9d60b902f7001527" data-ratio="1.3333333333333333" src="//speakerdeck.com/assets/embed.js"></script>
