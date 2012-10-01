@@ -12,7 +12,7 @@ module to use `gyp` to build, and bundle them with the native module. This
 allows the library to be statically linked to your native module, rather than
 dynamically linked. There are pros and cons to both kinds of linking,
 but node.js has gone with static linking, mostly because of portability
-and for Windows.
+and to ease Windows support.
 
 Now converting the build system of some odd C library that you haven't written
 can be a daunting task, so that's what this article hopes to address. I'll
