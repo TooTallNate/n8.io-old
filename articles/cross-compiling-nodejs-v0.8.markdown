@@ -44,6 +44,9 @@ VFP2, but not VFP3. You can check that out here if you'd like:
 
   * https://github.com/TooTallNate/node/compare/joyent:v0.8...TooTallNate:pi
 
+___Update:___ My `pi` branch has been merged upstream into node, so `v0.8.10` and
+newer should _"just work"_ on Raspberry Pi and many other ARM platforms.
+
 ### Set "exports"
 
 Cross-compiling with `gyp` is actually not so bad. It turns out we only need to
