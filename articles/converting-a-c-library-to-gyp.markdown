@@ -4,7 +4,7 @@ Date: Sat, 29 Sep 2012 06:53:28 GMT
 `gyp` is basically like the module system of C, similar to how node.js has its own
 module system. In gyp, you construct chains of dependencies which each get
 _statically_ linked together to build one big compiled unit. The same mindset is
-applied when building small, independent node.js modules.
+applied when writing small, independent node.js modules.
 
 One thing that I want to see more of in the node community from native module
 authors is the additional work done to convert the dependencies of the native
