@@ -17,7 +17,7 @@ and to ease Windows support.
 Now converting the build system of some odd C library that you haven't written
 can be a daunting task, so that's what this article hopes to address. I'll
 explain my method of converting a C library originally using `autotools` to build
-into using `gyp`, and hopefully you will do the same (or improve on my method!) in
+using `gyp`, and hopefully you will do the same (or improve on my method!) in
 order to make your native module more portable. Your users will thank you for the
 easier installation process (i.e. not having to `apt-get install` some external
 libraries).
