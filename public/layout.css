@@ -180,6 +180,38 @@ ul.contacts li {
   background-size: 18px 18px;
 }
 
+/* 16:9 aspect ratio for blip.tv embeds
+ * This shit is super lame @blip.tv!!! */
+#video_player_embed.blip,
+#video_player_object.blip {
+  width: 820px;
+  height: 462px;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+  #video_player_embed.blip,
+  #video_player_object.blip {
+    width: 652px;
+    height: 367px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  #video_player_embed.blip,
+  #video_player_object.blip {
+    width: 300px;
+    height: 169px;
+  }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+  #video_player_embed.blip,
+  #video_player_object.blip {
+    width: 420px;
+    height: 237px;
+  }
+}
+
 
 /* #Disqus Overrides
 ================================================== */
