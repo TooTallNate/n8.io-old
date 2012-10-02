@@ -1,10 +1,22 @@
 Title: Converting a C library to gyp
 Date: Sat, 29 Sep 2012 06:53:28 GMT
 
-`gyp` is basically like the module system of C, similar to how node.js has its own
-module system. In gyp, you construct chains of dependencies which each get
-_statically_ linked together to build one big compiled unit. The same mindset is
-applied when writing small, independent node.js modules.
+[`gyp`][gyp], short for "Generate Your Projects", is a build system written by
+Google that was specifically designed to build their Chromium web browser.
+`gyp` makes it easy to develop such a large project because the developers can
+create and test each piece individually by defining self-contained "targets".
+Then at Release-time, `gyp` makes it easy to stitch the "targets" together into
+a single _statically linked_ executable. Ryan Dahl once called it
+"the module-system of C".
+
+Node.js recently adopted `gyp` as its build system because V8 was already using it
+(through Chromium), and because of its explicit Windows support.
+[`node-gyp`][node-gyp] was created to help the community create node.js native
+addons by writing simple gyp files. This article is targeted towards Node.js
+native module authors, so hopefully you are somewhat familiar will all of this
+already.
+
+### gyp-ify all the things!
 
 One thing that I want to see more of in the node community from native module
 authors is the additional work done to convert the dependencies of the native
@@ -626,7 +638,8 @@ to the main `binding.gyp` file like so:
 The `binding.gyp` file remains nice and simple. __NOW__ we're done. Grab a pint!
 
 
-
+[gyp]: http://code.google.com/p/gyp/
+[node-gyp]: https://github.com/TooTallNate/node-gyp
 [lame]: http://lame.sourceforge.net
 [configure]: ./configure-output.txt
 [make]: ./make-output.txt
