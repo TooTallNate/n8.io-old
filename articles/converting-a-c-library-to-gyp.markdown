@@ -412,7 +412,7 @@ build output and be able to determine any differences for the build on Windows.
 
 For `libmp3lame`, there's a `Makefile.MSVC` file that is compatible with the
 `nmake` command on Windows. If we run it and [inspect the output][make-windows], we
-can see that there are a few different defines used on Windows, but all the same \
+can see that there are a few different defines used on Windows, but all the same
 sources files.
 
 Let's adjust the gyp file to reflect that:
@@ -630,7 +630,7 @@ The `binding.gyp` file remains nice and simple. __NOW__ we're done. Grab a pint!
 [lame]: http://lame.sourceforge.net
 [configure]: ./configure-output.txt
 [make]: ./make-output.txt
-[make-windows]: ./make-output.txt
+[make-windows]: ./make-windows-output.txt
 [google]: http://lmgtfy.com/?q=how+do+i+compile+lame+on+windows%3F
 [something]: http://wehuberconsultingllc.com/wordpress/2007/12/30/building-the-lame-mp3-encoder-using-visual-studio-8-express
 [PIC]: http://wikipedia.org/wiki/Position-independent_code
