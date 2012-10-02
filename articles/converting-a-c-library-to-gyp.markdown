@@ -381,7 +381,7 @@ Success!
 So after generating all the config files for the other platforms (mac, linux,
 solaris), the last one is Windows (win). Windows usually takes some special
 dedication to get working. At the very least, a [Google search][google] asking
-"how to build library xxxx on Windows" should yield [something](http://wehuberconsultingllc.com/wordpress/2007/12/30/building-the-lame-mp3-encoder-using-visual-studio-8-express).
+"how to build library xxxx on Windows" should yield [something][].
 
 If there are any major differences, you can introduce a `conditions` block in your
 gyp file targeting Windows like so:
@@ -632,4 +632,5 @@ The `binding.gyp` file remains nice and simple. __NOW__ we're done. Grab a pint!
 [make]: ./make-output.txt
 [make-windows]: ./make-output.txt
 [google]: http://lmgtfy.com/?q=how+do+i+compile+lame+on+windows%3F
+[something]: http://wehuberconsultingllc.com/wordpress/2007/12/30/building-the-lame-mp3-encoder-using-visual-studio-8-express
 [PIC]: http://wikipedia.org/wiki/Position-independent_code
