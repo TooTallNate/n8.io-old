@@ -1,5 +1,5 @@
 Title: Converting a C library to gyp
-Date: Sat, 29 Sep 2012 06:53:28 GMT
+Date: Tue, 02 Oct 2012 03:46:50 GMT
 
 [`gyp`][gyp], short for "Generate Your Projects", is a build system written by
 Google that was specifically designed to build their Chromium web browser.
