@@ -80,9 +80,11 @@ We're gonna start with a baseline `gyp` file to use. Let's call it
 ```
 
 The `msvs_settings` configuration stuff at the top ensures that we end up with
-statically built libraries and executables. These values match up with how node.js
-addons are build, which is important. The empty `targets` array will end up with
-the definitions to build the lame library, as well as a simple test program.
+statically built libraries and executables on Windows. This boilerplate isn't
+strictly necessary, but it matches up with some defaults set in node.js'
+`common.gypi` file, and I like to stay consistent. The empty `targets` array will
+end up with the definitions to build `libmp3lame`, as well as a simple test
+program.
 
 ### Adding the platform-specific files
 
