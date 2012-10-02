@@ -36,7 +36,7 @@ libraries).
 
 ### libmp3lame, I choose you!
 
-Our test subject for this aricle will be [`libmp3lame`][lame], a library that does
+Our test subject for this article will be [`libmp3lame`][lame], a library that does
 MP3 encoding and decoding. This is a nice, medium complexity library that will be
 a good demonstration of my method.
 
@@ -151,7 +151,7 @@ $ ./configure --enable-static --disable-shared --with-pic
 
 These flags are basically saying, build the static version of the library (the
 `.a`/`.lib` files), and don't bother with the shared version (the
-`.so`/`.dylib`/`.dll` files). Also, build "[position independant code][PIC]".
+`.so`/`.dylib`/`.dll` files). Also, build "[position independent code][PIC]".
 
 In some cases, that will be all that you need. But for `libmp3lame`, I'm also
 gonna need to specify a few additional flags to disable some unnecessary stuff
@@ -457,7 +457,7 @@ index de2984d..bb4b010 100644
 ```
 
 Sometimes additional sources files are used (or not used) so in that case you
-would add a `sources` block withing that conditional.
+would add a `sources` block within that conditional.
 
 At this point, Windows should work as well:
 
