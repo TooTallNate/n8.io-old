@@ -1,0 +1,217 @@
+C:\Users\Nathan\Desktop\repos\node-lame\deps\lame>nmake -f Makefile.MSVC COMP=MS
+ GTK=NO ASM=NO SNDFILE=NO
+
+Microsoft (R) Program Maintenance Utility Version 10.00.30319.01
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+----------------------------------------------------------------------
+building LAME featuring RH
+using MS COMPILER
++ optimizing for Pentium II/III
++ using Single precision
+----------------------------------------------------------------------
+Pass ASM=YES to build the assembler optimizations
+
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Folibmp3lame/bitstream.obj  -c libmp3lame
+/bitstream.c
+bitstream.c
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Folibmp3lame/encoder.obj  -c libmp3lame/e
+ncoder.c
+encoder.c
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Folibmp3lame/fft.obj  -c libmp3lame/fft.c
+
+fft.c
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Folibmp3lame/gain_analysis.obj  -c libmp3
+lame/gain_analysis.c
+gain_analysis.c
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Folibmp3lame/id3tag.obj  -c libmp3lame/id
+3tag.c
+id3tag.c
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Folibmp3lame/lame.obj  -c libmp3lame/lame
+.c
+lame.c
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Folibmp3lame/newmdct.obj  -c libmp3lame/n
+ewmdct.c
+newmdct.c
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Folibmp3lame/psymodel.obj  -c libmp3lame/
+psymodel.c
+psymodel.c
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Folibmp3lame/quantize.obj  -c libmp3lame/
+quantize.c
+quantize.c
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Folibmp3lame/quantize_pvt.obj  -c libmp3l
+ame/quantize_pvt.c
+quantize_pvt.c
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Folibmp3lame/vector/xmm_quantize_sub.obj
+ -c libmp3lame/vector/xmm_quantize_sub.c
+xmm_quantize_sub.c
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Folibmp3lame/set_get.obj  -c libmp3lame/s
+et_get.c
+set_get.c
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Folibmp3lame/vbrquantize.obj  -c libmp3la
+me/vbrquantize.c
+vbrquantize.c
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Folibmp3lame/reservoir.obj  -c libmp3lame
+/reservoir.c
+reservoir.c
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Folibmp3lame/tables.obj  -c libmp3lame/ta
+bles.c
+tables.c
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Folibmp3lame/takehiro.obj  -c libmp3lame/
+takehiro.c
+takehiro.c
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Folibmp3lame/util.obj  -c libmp3lame/util
+.c
+util.c
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Folibmp3lame/mpglib_interface.obj  -c lib
+mp3lame/mpglib_interface.c
+mpglib_interface.c
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Folibmp3lame/VbrTag.obj  -c libmp3lame/Vb
+rTag.c
+VbrTag.c
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Folibmp3lame/presets.obj  -c libmp3lame/p
+resets.c
+presets.c
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Folibmp3lame/version.obj  -c libmp3lame/v
+ersion.c
+version.c
+.
+--- LAME MP3 ENCODING LIBRARY UPTODATE ---
+.
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Fompglib/common.obj  -c mpglib/common.c
+common.c
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Fompglib/dct64_i386.obj  -c mpglib/dct64_
+i386.c
+dct64_i386.c
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Fompglib/decode_i386.obj  -c mpglib/decod
+e_i386.c
+decode_i386.c
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Fompglib/layer1.obj  -c mpglib/layer1.c
+layer1.c
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Fompglib/layer2.obj  -c mpglib/layer2.c
+layer2.c
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Fompglib/layer3.obj  -c mpglib/layer3.c
+layer3.c
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Fompglib/tabinit.obj  -c mpglib/tabinit.c
+
+tabinit.c
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Fompglib/interface.obj  -c mpglib/interfa
+ce.c
+interface.c
+.
+--- HIP DECODING LIBRARY UPTODATE ---
+.
+.
+--=* .\output\libmp3lame-static.lib ready *=--
+.
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Fofrontend/main.obj  -c frontend/main.c
+main.c
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Fofrontend/get_audio.obj  -c frontend/get
+_audio.c
+get_audio.c
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Fofrontend/parse.obj  -c frontend/parse.c
+
+parse.c
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Fofrontend/timestatus.obj  -c frontend/ti
+mestatus.c
+timestatus.c
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Fofrontend/lametime.obj  -c frontend/lame
+time.c
+lametime.c
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Fofrontend/console.obj  -c frontend/conso
+le.c
+console.c
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Fofrontend/brhist.obj  -c frontend/brhist
+.c
+brhist.c
+.
+--- COMMON FRONTEND STUFF UPTODATE ---
+.
+        cl /DHAVE_CONFIG_H -I. /DTAKEHIRO_IEEE754_HACK /nologo /O2 /Ob2 /GAy /Gs
+1024 /Zp8 /Zi /w /DFLOAT8=float /DREAL_IS_FLOAT=1 /DNDEBUG /MT    /DBS_FORMAT=BI
+NARY -Iinclude -Ilibmp3lame -Impglib  /Fofrontend/lame_main.obj  -c frontend/lam
+e_main.c
+lame_main.c
+Microsoft (R) Windows (R) Resource Compiler Version 6.1.7600.16385
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+.
+--=* .\output\lame.exe ready *=--
+.
+.
+--=* lame.exe uptodate *=--
+.
+
+C:\Users\Nathan\Desktop\repos\node-lame\deps\lame>

@@ -1,0 +1,149 @@
+☮ ~/lame-3.99.5 (master) ↝ make
+make  all-recursive
+Making all in mpglib
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H  -I. -I.. -I../include -I. -I../libmp3lame -I..    -Wall -arch x86_64 -fno-common -MT common.lo -MD -MP -MF .deps/common.Tpo -c -o common.lo common.c
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I../include -I. -I../libmp3lame -I.. -Wall -arch x86_64 -fno-common -MT common.lo -MD -MP -MF .deps/common.Tpo -c common.c  -fno-common -DPIC -o common.o
+mv -f .deps/common.Tpo .deps/common.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H  -I. -I.. -I../include -I. -I../libmp3lame -I..    -Wall -arch x86_64 -fno-common -MT dct64_i386.lo -MD -MP -MF .deps/dct64_i386.Tpo -c -o dct64_i386.lo dct64_i386.c
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I../include -I. -I../libmp3lame -I.. -Wall -arch x86_64 -fno-common -MT dct64_i386.lo -MD -MP -MF .deps/dct64_i386.Tpo -c dct64_i386.c  -fno-common -DPIC -o dct64_i386.o
+mv -f .deps/dct64_i386.Tpo .deps/dct64_i386.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H  -I. -I.. -I../include -I. -I../libmp3lame -I..    -Wall -arch x86_64 -fno-common -MT decode_i386.lo -MD -MP -MF .deps/decode_i386.Tpo -c -o decode_i386.lo decode_i386.c
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I../include -I. -I../libmp3lame -I.. -Wall -arch x86_64 -fno-common -MT decode_i386.lo -MD -MP -MF .deps/decode_i386.Tpo -c decode_i386.c  -fno-common -DPIC -o decode_i386.o
+mv -f .deps/decode_i386.Tpo .deps/decode_i386.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H  -I. -I.. -I../include -I. -I../libmp3lame -I..    -Wall -arch x86_64 -fno-common -MT interface.lo -MD -MP -MF .deps/interface.Tpo -c -o interface.lo interface.c
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I../include -I. -I../libmp3lame -I.. -Wall -arch x86_64 -fno-common -MT interface.lo -MD -MP -MF .deps/interface.Tpo -c interface.c  -fno-common -DPIC -o interface.o
+mv -f .deps/interface.Tpo .deps/interface.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H  -I. -I.. -I../include -I. -I../libmp3lame -I..    -Wall -arch x86_64 -fno-common -MT layer1.lo -MD -MP -MF .deps/layer1.Tpo -c -o layer1.lo layer1.c
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I../include -I. -I../libmp3lame -I.. -Wall -arch x86_64 -fno-common -MT layer1.lo -MD -MP -MF .deps/layer1.Tpo -c layer1.c  -fno-common -DPIC -o layer1.o
+mv -f .deps/layer1.Tpo .deps/layer1.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H  -I. -I.. -I../include -I. -I../libmp3lame -I..    -Wall -arch x86_64 -fno-common -MT layer2.lo -MD -MP -MF .deps/layer2.Tpo -c -o layer2.lo layer2.c
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I../include -I. -I../libmp3lame -I.. -Wall -arch x86_64 -fno-common -MT layer2.lo -MD -MP -MF .deps/layer2.Tpo -c layer2.c  -fno-common -DPIC -o layer2.o
+mv -f .deps/layer2.Tpo .deps/layer2.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H  -I. -I.. -I../include -I. -I../libmp3lame -I..    -Wall -arch x86_64 -fno-common -MT layer3.lo -MD -MP -MF .deps/layer3.Tpo -c -o layer3.lo layer3.c
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I../include -I. -I../libmp3lame -I.. -Wall -arch x86_64 -fno-common -MT layer3.lo -MD -MP -MF .deps/layer3.Tpo -c layer3.c  -fno-common -DPIC -o layer3.o
+mv -f .deps/layer3.Tpo .deps/layer3.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H  -I. -I.. -I../include -I. -I../libmp3lame -I..    -Wall -arch x86_64 -fno-common -MT tabinit.lo -MD -MP -MF .deps/tabinit.Tpo -c -o tabinit.lo tabinit.c
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I../include -I. -I../libmp3lame -I.. -Wall -arch x86_64 -fno-common -MT tabinit.lo -MD -MP -MF .deps/tabinit.Tpo -c tabinit.c  -fno-common -DPIC -o tabinit.o
+mv -f .deps/tabinit.Tpo .deps/tabinit.Plo
+/bin/sh ../libtool --tag=CC   --mode=link gcc  -Wall -arch x86_64 -fno-common   -o libmpgdecoder.la  common.lo dct64_i386.lo decode_i386.lo interface.lo layer1.lo layer2.lo layer3.lo tabinit.lo  
+libtool: link: rm -fr  .libs/libmpgdecoder.a .libs/libmpgdecoder.la
+libtool: link: ar cru .libs/libmpgdecoder.a  common.o dct64_i386.o decode_i386.o interface.o layer1.o layer2.o layer3.o tabinit.o
+libtool: link: ranlib .libs/libmpgdecoder.a
+libtool: link: ( cd ".libs" && rm -f "libmpgdecoder.la" && ln -s "../libmpgdecoder.la" "libmpgdecoder.la" )
+Making all in libmp3lame
+Making all in i386
+make[3]: Nothing to be done for `all'.
+Making all in vector
+/bin/sh ../../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H  -I. -I../.. -I../../include -I. -I../../libmp3lame -I../../mpglib -I../..    -Wall -arch x86_64 -fno-common -MT xmm_quantize_sub.lo -MD -MP -MF .deps/xmm_quantize_sub.Tpo -c -o xmm_quantize_sub.lo xmm_quantize_sub.c
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I../.. -I../../include -I. -I../../libmp3lame -I../../mpglib -I../.. -Wall -arch x86_64 -fno-common -MT xmm_quantize_sub.lo -MD -MP -MF .deps/xmm_quantize_sub.Tpo -c xmm_quantize_sub.c  -fno-common -DPIC -o xmm_quantize_sub.o
+mv -f .deps/xmm_quantize_sub.Tpo .deps/xmm_quantize_sub.Plo
+/bin/sh ../../libtool --tag=CC   --mode=link gcc  -Wall -arch x86_64 -fno-common   -o liblamevectorroutines.la  xmm_quantize_sub.lo  
+libtool: link: rm -fr  .libs/liblamevectorroutines.a .libs/liblamevectorroutines.la
+libtool: link: ar cru .libs/liblamevectorroutines.a  xmm_quantize_sub.o
+libtool: link: ranlib .libs/liblamevectorroutines.a
+libtool: link: ( cd ".libs" && rm -f "liblamevectorroutines.la" && ln -s "../liblamevectorroutines.la" "liblamevectorroutines.la" )
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H  -I. -I.. -I../include -I. -I../mpglib -I..    -Wall -arch x86_64 -fno-common -MT VbrTag.lo -MD -MP -MF .deps/VbrTag.Tpo -c -o VbrTag.lo VbrTag.c
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I../include -I. -I../mpglib -I.. -Wall -arch x86_64 -fno-common -MT VbrTag.lo -MD -MP -MF .deps/VbrTag.Tpo -c VbrTag.c  -fno-common -DPIC -o VbrTag.o
+mv -f .deps/VbrTag.Tpo .deps/VbrTag.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H  -I. -I.. -I../include -I. -I../mpglib -I..    -Wall -arch x86_64 -fno-common -MT bitstream.lo -MD -MP -MF .deps/bitstream.Tpo -c -o bitstream.lo bitstream.c
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I../include -I. -I../mpglib -I.. -Wall -arch x86_64 -fno-common -MT bitstream.lo -MD -MP -MF .deps/bitstream.Tpo -c bitstream.c  -fno-common -DPIC -o bitstream.o
+mv -f .deps/bitstream.Tpo .deps/bitstream.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H  -I. -I.. -I../include -I. -I../mpglib -I..    -Wall -arch x86_64 -fno-common -MT encoder.lo -MD -MP -MF .deps/encoder.Tpo -c -o encoder.lo encoder.c
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I../include -I. -I../mpglib -I.. -Wall -arch x86_64 -fno-common -MT encoder.lo -MD -MP -MF .deps/encoder.Tpo -c encoder.c  -fno-common -DPIC -o encoder.o
+mv -f .deps/encoder.Tpo .deps/encoder.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H  -I. -I.. -I../include -I. -I../mpglib -I..    -Wall -arch x86_64 -fno-common -MT fft.lo -MD -MP -MF .deps/fft.Tpo -c -o fft.lo fft.c
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I../include -I. -I../mpglib -I.. -Wall -arch x86_64 -fno-common -MT fft.lo -MD -MP -MF .deps/fft.Tpo -c fft.c  -fno-common -DPIC -o fft.o
+mv -f .deps/fft.Tpo .deps/fft.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H  -I. -I.. -I../include -I. -I../mpglib -I..    -Wall -arch x86_64 -fno-common -MT gain_analysis.lo -MD -MP -MF .deps/gain_analysis.Tpo -c -o gain_analysis.lo gain_analysis.c
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I../include -I. -I../mpglib -I.. -Wall -arch x86_64 -fno-common -MT gain_analysis.lo -MD -MP -MF .deps/gain_analysis.Tpo -c gain_analysis.c  -fno-common -DPIC -o gain_analysis.o
+mv -f .deps/gain_analysis.Tpo .deps/gain_analysis.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H  -I. -I.. -I../include -I. -I../mpglib -I..    -Wall -arch x86_64 -fno-common -MT id3tag.lo -MD -MP -MF .deps/id3tag.Tpo -c -o id3tag.lo id3tag.c
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I../include -I. -I../mpglib -I.. -Wall -arch x86_64 -fno-common -MT id3tag.lo -MD -MP -MF .deps/id3tag.Tpo -c id3tag.c  -fno-common -DPIC -o id3tag.o
+mv -f .deps/id3tag.Tpo .deps/id3tag.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H  -I. -I.. -I../include -I. -I../mpglib -I..    -Wall -arch x86_64 -fno-common -MT lame.lo -MD -MP -MF .deps/lame.Tpo -c -o lame.lo lame.c
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I../include -I. -I../mpglib -I.. -Wall -arch x86_64 -fno-common -MT lame.lo -MD -MP -MF .deps/lame.Tpo -c lame.c  -fno-common -DPIC -o lame.o
+mv -f .deps/lame.Tpo .deps/lame.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H  -I. -I.. -I../include -I. -I../mpglib -I..    -Wall -arch x86_64 -fno-common -MT newmdct.lo -MD -MP -MF .deps/newmdct.Tpo -c -o newmdct.lo newmdct.c
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I../include -I. -I../mpglib -I.. -Wall -arch x86_64 -fno-common -MT newmdct.lo -MD -MP -MF .deps/newmdct.Tpo -c newmdct.c  -fno-common -DPIC -o newmdct.o
+mv -f .deps/newmdct.Tpo .deps/newmdct.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H  -I. -I.. -I../include -I. -I../mpglib -I..    -Wall -arch x86_64 -fno-common -MT presets.lo -MD -MP -MF .deps/presets.Tpo -c -o presets.lo presets.c
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I../include -I. -I../mpglib -I.. -Wall -arch x86_64 -fno-common -MT presets.lo -MD -MP -MF .deps/presets.Tpo -c presets.c  -fno-common -DPIC -o presets.o
+mv -f .deps/presets.Tpo .deps/presets.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H  -I. -I.. -I../include -I. -I../mpglib -I..    -Wall -arch x86_64 -fno-common -MT psymodel.lo -MD -MP -MF .deps/psymodel.Tpo -c -o psymodel.lo psymodel.c
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I../include -I. -I../mpglib -I.. -Wall -arch x86_64 -fno-common -MT psymodel.lo -MD -MP -MF .deps/psymodel.Tpo -c psymodel.c  -fno-common -DPIC -o psymodel.o
+mv -f .deps/psymodel.Tpo .deps/psymodel.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H  -I. -I.. -I../include -I. -I../mpglib -I..    -Wall -arch x86_64 -fno-common -MT quantize.lo -MD -MP -MF .deps/quantize.Tpo -c -o quantize.lo quantize.c
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I../include -I. -I../mpglib -I.. -Wall -arch x86_64 -fno-common -MT quantize.lo -MD -MP -MF .deps/quantize.Tpo -c quantize.c  -fno-common -DPIC -o quantize.o
+mv -f .deps/quantize.Tpo .deps/quantize.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H  -I. -I.. -I../include -I. -I../mpglib -I..    -Wall -arch x86_64 -fno-common -MT quantize_pvt.lo -MD -MP -MF .deps/quantize_pvt.Tpo -c -o quantize_pvt.lo quantize_pvt.c
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I../include -I. -I../mpglib -I.. -Wall -arch x86_64 -fno-common -MT quantize_pvt.lo -MD -MP -MF .deps/quantize_pvt.Tpo -c quantize_pvt.c  -fno-common -DPIC -o quantize_pvt.o
+mv -f .deps/quantize_pvt.Tpo .deps/quantize_pvt.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H  -I. -I.. -I../include -I. -I../mpglib -I..    -Wall -arch x86_64 -fno-common -MT reservoir.lo -MD -MP -MF .deps/reservoir.Tpo -c -o reservoir.lo reservoir.c
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I../include -I. -I../mpglib -I.. -Wall -arch x86_64 -fno-common -MT reservoir.lo -MD -MP -MF .deps/reservoir.Tpo -c reservoir.c  -fno-common -DPIC -o reservoir.o
+mv -f .deps/reservoir.Tpo .deps/reservoir.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H  -I. -I.. -I../include -I. -I../mpglib -I..    -Wall -arch x86_64 -fno-common -MT set_get.lo -MD -MP -MF .deps/set_get.Tpo -c -o set_get.lo set_get.c
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I../include -I. -I../mpglib -I.. -Wall -arch x86_64 -fno-common -MT set_get.lo -MD -MP -MF .deps/set_get.Tpo -c set_get.c  -fno-common -DPIC -o set_get.o
+mv -f .deps/set_get.Tpo .deps/set_get.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H  -I. -I.. -I../include -I. -I../mpglib -I..    -Wall -arch x86_64 -fno-common -MT tables.lo -MD -MP -MF .deps/tables.Tpo -c -o tables.lo tables.c
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I../include -I. -I../mpglib -I.. -Wall -arch x86_64 -fno-common -MT tables.lo -MD -MP -MF .deps/tables.Tpo -c tables.c  -fno-common -DPIC -o tables.o
+mv -f .deps/tables.Tpo .deps/tables.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H  -I. -I.. -I../include -I. -I../mpglib -I..    -Wall -arch x86_64 -fno-common -MT takehiro.lo -MD -MP -MF .deps/takehiro.Tpo -c -o takehiro.lo takehiro.c
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I../include -I. -I../mpglib -I.. -Wall -arch x86_64 -fno-common -MT takehiro.lo -MD -MP -MF .deps/takehiro.Tpo -c takehiro.c  -fno-common -DPIC -o takehiro.o
+mv -f .deps/takehiro.Tpo .deps/takehiro.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H  -I. -I.. -I../include -I. -I../mpglib -I..    -Wall -arch x86_64 -fno-common -MT util.lo -MD -MP -MF .deps/util.Tpo -c -o util.lo util.c
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I../include -I. -I../mpglib -I.. -Wall -arch x86_64 -fno-common -MT util.lo -MD -MP -MF .deps/util.Tpo -c util.c  -fno-common -DPIC -o util.o
+mv -f .deps/util.Tpo .deps/util.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H  -I. -I.. -I../include -I. -I../mpglib -I..    -Wall -arch x86_64 -fno-common -MT vbrquantize.lo -MD -MP -MF .deps/vbrquantize.Tpo -c -o vbrquantize.lo vbrquantize.c
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I../include -I. -I../mpglib -I.. -Wall -arch x86_64 -fno-common -MT vbrquantize.lo -MD -MP -MF .deps/vbrquantize.Tpo -c vbrquantize.c  -fno-common -DPIC -o vbrquantize.o
+mv -f .deps/vbrquantize.Tpo .deps/vbrquantize.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H  -I. -I.. -I../include -I. -I../mpglib -I..    -Wall -arch x86_64 -fno-common -MT version.lo -MD -MP -MF .deps/version.Tpo -c -o version.lo version.c
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I../include -I. -I../mpglib -I.. -Wall -arch x86_64 -fno-common -MT version.lo -MD -MP -MF .deps/version.Tpo -c version.c  -fno-common -DPIC -o version.o
+mv -f .deps/version.Tpo .deps/version.Plo
+/bin/sh ../libtool --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H  -I. -I.. -I../include -I. -I../mpglib -I..    -Wall -arch x86_64 -fno-common -MT mpglib_interface.lo -MD -MP -MF .deps/mpglib_interface.Tpo -c -o mpglib_interface.lo mpglib_interface.c
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I../include -I. -I../mpglib -I.. -Wall -arch x86_64 -fno-common -MT mpglib_interface.lo -MD -MP -MF .deps/mpglib_interface.Tpo -c mpglib_interface.c  -fno-common -DPIC -o mpglib_interface.o
+mv -f .deps/mpglib_interface.Tpo .deps/mpglib_interface.Plo
+/bin/sh ../libtool --tag=CC   --mode=link gcc  -Wall -arch x86_64 -fno-common -version-info 0:0 -no-undefined  -o libmp3lame.la -rpath /usr/local/lib VbrTag.lo bitstream.lo encoder.lo fft.lo gain_analysis.lo id3tag.lo lame.lo newmdct.lo presets.lo psymodel.lo quantize.lo quantize_pvt.lo reservoir.lo set_get.lo tables.lo takehiro.lo util.lo vbrquantize.lo version.lo mpglib_interface.lo  ../libmp3lame/vector/liblamevectorroutines.la ../mpglib/libmpgdecoder.la -lm 
+libtool: link: rm -fr  .libs/libmp3lame.a .libs/libmp3lame.la .libs/libmp3lame.lai
+libtool: link: (cd .libs/libmp3lame.lax/liblamevectorroutines.a && ar x "/Users/nrajlich/lame-3.99.5/libmp3lame/../libmp3lame/vector/.libs/liblamevectorroutines.a")
+libtool: link: (cd .libs/libmp3lame.lax/libmpgdecoder.a && ar x "/Users/nrajlich/lame-3.99.5/libmp3lame/../mpglib/.libs/libmpgdecoder.a")
+libtool: link: ar cru .libs/libmp3lame.a  VbrTag.o bitstream.o encoder.o fft.o gain_analysis.o id3tag.o lame.o newmdct.o presets.o psymodel.o quantize.o quantize_pvt.o reservoir.o set_get.o tables.o takehiro.o util.o vbrquantize.o version.o mpglib_interface.o  .libs/libmp3lame.lax/liblamevectorroutines.a/xmm_quantize_sub.o  .libs/libmp3lame.lax/libmpgdecoder.a/common.o .libs/libmp3lame.lax/libmpgdecoder.a/dct64_i386.o .libs/libmp3lame.lax/libmpgdecoder.a/decode_i386.o .libs/libmp3lame.lax/libmpgdecoder.a/interface.o .libs/libmp3lame.lax/libmpgdecoder.a/layer1.o .libs/libmp3lame.lax/libmpgdecoder.a/layer2.o .libs/libmp3lame.lax/libmpgdecoder.a/layer3.o .libs/libmp3lame.lax/libmpgdecoder.a/tabinit.o 
+libtool: link: ranlib .libs/libmp3lame.a
+libtool: link: rm -fr .libs/libmp3lame.lax
+libtool: link: ( cd ".libs" && rm -f "libmp3lame.la" && ln -s "../libmp3lame.la" "libmp3lame.la" )
+Making all in frontend
+make[2]: Nothing to be done for `all'.
+Making all in Dll
+make[2]: Nothing to be done for `all'.
+Making all in debian
+make[2]: Nothing to be done for `all'.
+Making all in doc
+Making all in html
+make[3]: Nothing to be done for `all'.
+Making all in man
+make[3]: Nothing to be done for `all'.
+make[3]: Nothing to be done for `all-am'.
+Making all in include
+make[2]: Nothing to be done for `all'.
+Making all in misc
+make[2]: Nothing to be done for `all'.
+Making all in dshow
+make[2]: Nothing to be done for `all'.
+Making all in ACM
+Making all in ADbg
+make[3]: Nothing to be done for `all'.
+Making all in ddk
+make[3]: Nothing to be done for `all'.
+Making all in tinyxml
+make[3]: Nothing to be done for `all'.
+make[3]: Nothing to be done for `all-am'.
+Making all in mac
+make[2]: Nothing to be done for `all'.
+Making all in macosx
+Making all in English.lproj
+make[3]: Nothing to be done for `all'.
+Making all in LAME.xcodeproj
+make[3]: Nothing to be done for `all'.
+make[3]: Nothing to be done for `all-am'.
+Making all in vc_solution
+make[2]: Nothing to be done for `all'.
+make[2]: Nothing to be done for `all-am'.
