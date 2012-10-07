@@ -221,7 +221,7 @@ at the `Makefile.am` files in the library.
 So based off the make output in the case of `libmp3lame`, there's going to be
 3 total "targets" that will be defined:
 
- * `mpglib` - libmp3lame's decoder (an old version of libmpg123 apparently)
+ * `mpglib` - libmp3lame's decoder (an old version of libmpg123 [apparently][lame-decoder-not-thread-safe])
  * `liblamevectorroutines` - some internal routines used by libmp3lame
  * `libmp3lame` the API frontend for libmp3lame
 
@@ -643,6 +643,7 @@ The `binding.gyp` file remains nice and simple. __NOW__ we're done. Grab a pint!
 [gyp]: http://code.google.com/p/gyp/
 [node-gyp]: https://github.com/TooTallNate/node-gyp
 [lame]: http://lame.sourceforge.net
+[lame-decoder-not-thread-safe]: http://sourceforge.net/mailarchive/message.php?msg_id=28398259
 [configure]: ./configure-output.txt
 [make]: ./make-output.txt
 [make-windows]: ./make-windows-output.txt
