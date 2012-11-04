@@ -26,6 +26,7 @@
     "marked": "0",
     "ref": "0",
     "ref-struct": "0",
+    "ref-array": "0",
     "strftime": "0",
     "mime": "~1.2.7"
   }
