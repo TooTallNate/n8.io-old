@@ -12,7 +12,7 @@
   each article in articles.slice(0, 3)
     .article
       h4
-        a(href=article.name)= article.title
+        a(href=article.name + '/')= article.title
         date = article.date
         span(title=strftime('%B %d, %Y %H:%M UTC', date))= strftime('%Y.%m.%d', date)
       | !{article.desc}
