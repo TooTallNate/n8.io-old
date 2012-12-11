@@ -207,7 +207,7 @@ next section) before worrying about the other platforms...
 
 So usually the next step when building these libraries is to run the `make`
 command. Sometimes you will need something additonal like overwriting a specific
-variable or something, but in this case we're just invoke it stright up.
+variable, but in this case we'll just invoke it stright up.
 
 ``` bash
 $ make
