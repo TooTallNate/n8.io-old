@@ -143,4 +143,4 @@ finally have a place to document the crap I'm working on and whatnot. See ya!
 [node.js]: http://nodejs.org/
 [V8]: http://code.google.com/apis/v8/
 [Wheat]: http://github.com/creationix/wheat
-[Starting Over]: starting-over
+[Starting Over]: ../starting-over
