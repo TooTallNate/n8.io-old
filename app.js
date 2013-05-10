@@ -71,6 +71,9 @@ if (prod) {
  * Routes.
  */
 
+// serve the /favicon.ico file (redirect to gravatar)
+app.get('/favicon.ico', require('./lib/favicon'));
+
 // first we need to figure out which commit SHA we will use
 app.get(/^\/([0-9a-f]{5,40})\b/, require('./lib/sha'));
 
