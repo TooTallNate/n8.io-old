@@ -104,6 +104,7 @@ td, th {
   position: relative;
   top: -15px;
   -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
 }
 
 .header {
@@ -227,6 +228,7 @@ ul.contacts li {
 #disqus_thread #dsq-content .dsq-tt img,
 #disqus_thread #dsq-content .dsq-avatar img {
   -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
   border-radius: 50%;
 }
 
