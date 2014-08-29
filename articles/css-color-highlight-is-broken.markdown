@@ -24,4 +24,11 @@ I'm talking about **Highlight** and **HighlightText**.
 
 <script src="select-span.js"></script>
 
-More testing and screenshots to come...
+Embedded below is a Cloudup stream of screenshots from various browser and
+operating system combinations. See for yourself what a mess it all is:
+
+<iframe src="https://cloudup.com/c82uX04JUh3?chromeless" width="100%" height="300"></iframe>
+
+I'm sad to say that to this day I'm still looking for a good cross-browser and
+cross-OS solution to emulating text selection from within a web page. If you end
+up with any clever ideas for solving this issue then please leave a comment!
