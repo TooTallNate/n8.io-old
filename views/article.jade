@@ -7,7 +7,7 @@
 .article!= article.html
 
 #disqus_thread
-script(type="text/javascript")
+script(type="text/javascript").
   var disqus_shortname = 'tootallnate';
   var disqus_developer = 1; // dev mode
   var disqus_title = !{JSON.stringify(article.title)};
@@ -20,4 +20,4 @@ script(type="text/javascript")
   })();
 noscript
   | Please enable JavaScript to view the
-  a(href="http://disqus.com/?ref_noscript")comments powered by Disqus.
+  a(href="http://disqus.com/?ref_noscript") comments powered by Disqus.
