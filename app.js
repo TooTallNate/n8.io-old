@@ -89,6 +89,7 @@ app.get('*', require('./lib/article-names'));
 // by now `req.root_tree` is a "git_tree" instance to the resolved SHA
 app.get('/', require('./lib/homepage'));
 app.get('/articles', require('./lib/articles'));
+app.get('/feed.xml', require('./lib/feed'));
 
 // redirect blog articles to have a trailing "/" (this is necessary because of
 // the way the browser serves files from relative URLs)
