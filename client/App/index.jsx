@@ -45,7 +45,7 @@ const App = React.createClass({
 
   onLoad(err, res) {
     if (err) throw err;
-    store.dispatch({
+    this.props.store.dispatch({
       type: 'POSTS_LOADED',
       total: res.body.total,
       articles: res.body.articles
@@ -70,7 +70,7 @@ const App = React.createClass({
           <InfiniteScroll
               pageStart={ pageStart }
               loadMore={ this.loadMore }
-              hasMore={ !this.doneLoading }
+              hasMore={ !state.doneLoading }
               loader={ <Loading maxDots={ 10 } speed={ 100 } /> }>
             { articles }
           </InfiniteScroll>

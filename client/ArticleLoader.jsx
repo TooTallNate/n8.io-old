@@ -41,7 +41,7 @@ const ArticleLoader = React.createClass({
       // continue through to the `404` handler
       this.props.next();
     } else {
-      store.dispatch({
+      this.props.store.dispatch({
         type: 'POSTS_LOADED',
         total: res.body.total,
         articles: res.body.articles
