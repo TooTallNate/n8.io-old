@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import request from 'superagent';
 import InfiniteScrollFactory from 'react-infinite-scroll';
 
@@ -6,7 +7,7 @@ import Loading from '../Loading';
 import Section from './section';
 import ArticleStub from './stub';
 
-const InfiniteScroll = InfiniteScrollFactory(React);
+const InfiniteScroll = InfiniteScrollFactory(React, ReactDOM);
 
 const App = React.createClass({
   propTypes: {
