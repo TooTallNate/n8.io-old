@@ -14,13 +14,11 @@ const Article = React.createClass({
 
   render() {
     const article = this.props.article;
-    const date = new Date(article.date);
-
     return (
       <div className="article-wrapper">
         <div className="article-title">
           <h1>{ article.title }</h1>
-          <strong>Published: <UTCDate date={ date } /></strong>
+          <strong>Published: <UTCDate date={ article.date } /></strong>
         </div>
         <div className="article" dangerouslySetInnerHTML={ { __html: article.html } } >
         </div>

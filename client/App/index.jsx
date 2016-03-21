@@ -45,31 +45,18 @@ const App = React.createClass({
 
   onLoad(err, res) {
     if (err) throw err;
-    const store = this.props.store;
-    const state = store.getState();
-    const loaded = state.articles ? Object.keys(state.articles).length : 0;
-
-    var $set = {
-      done: res.body.total === res.body.articles.length + loaded,
-    };
-    res.body.articles.forEach(function (article) {
-      $set['articles.' + article.name] = article;
+    store.dispatch({
+      type: 'POSTS_LOADED',
+      total: res.body.total,
+      articles: res.body.articles
     });
-    var op = {
-      $set: $set,
-      type: 'MONGO_UPDATE'
-    };
-
-    store.dispatch(op);
   },
 
   render() {
     const state = this.props.store.getState();
-    const slugs = Object.keys(state.articles || {});
-    const articles = slugs.map(function (slug) {
-      return state.articles[slug];
-    });
-    const pageStart = (slugs.length / this.props.perPage) | 0;
+    const sorted = state.sorted || [];
+    const articles = sorted.map((slug) => <ArticleStub article={ state.articles[slug] } key={ 'stub-' + slug } />);
+    const pageStart = (articles.length / this.props.perPage) | 0;
 
     return (
       <div className="homepage">
@@ -83,9 +70,9 @@ const App = React.createClass({
           <InfiniteScroll
               pageStart={ pageStart }
               loadMore={ this.loadMore }
-              hasMore={ !state.done }
+              hasMore={ articles.length !== state.total }
               loader={ <Loading maxDots={ 10 } speed={ 100 } /> }>
-            { articles.map((article) => <ArticleStub article={ article } key={ 'stub-' + article.name } />) }
+            { articles }
           </InfiniteScroll>
         </Section>
       </div>

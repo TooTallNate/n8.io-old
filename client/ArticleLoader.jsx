@@ -35,28 +35,16 @@ const ArticleLoader = React.createClass({
 
   onLoad(err, res) {
     if (err) throw err;
-    const store = this.props.store;
-    const state = store.getState();
-    const loaded = state.articles ? Object.keys(state.articles).length : 0;
-
     if (res.body.articles.length === 0) {
       // slug name is not a valid blog post slug,
       // continue through to the `404` handler
       this.props.next();
     } else {
-      var $set = {
-        done: res.body.total === res.body.articles.length + loaded,
-      };
-      res.body.articles.forEach(function (article) {
-        $set['articles.' + article.name] = article;
+      store.dispatch({
+        type: 'POSTS_LOADED',
+        total: res.body.total,
+        articles: res.body.articles
       });
-      var op = {
-        $set: $set,
-        type: 'MONGO_UPDATE'
-      };
-      console.log(op);
-
-      store.dispatch(op);
     }
   },
 

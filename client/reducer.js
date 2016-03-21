@@ -1,21 +1,20 @@
-import query from 'mongo-query';
 import deepClone from 'deep-clone';
 
-export default function reducer (state, action) {
-  if (!state) return {};
-  const newState = deepClone(state);
-  const result = query(newState, {}, action);
-  //console.log(result);
-  return newState;
+export default function reducer (_state, action) {
+  const state = _state ? deepClone(_state) : {};
+  switch (action.type) {
+    case 'POSTS_LOADED':
+      state.total = action.total;
+      if (!state.articles) state.articles = {};
+      action.articles.forEach((article) => {
+        state.articles[article.name] = article;
+      });
+      state.sorted = Object.keys(state.articles).sort((a, b) => {
+        const aa = state.articles[a];
+        const ab = state.articles[b];
+        return new Date(ab.date) - new Date(aa.date);
+      });
+      break;
+  }
+  return state;
 }
-
-/*
-var store = redux.createStore(reducer);
-
-store.subscribe(function () {
-  console.log(store.getState());
-});
-
-store.dispatch({ $set: { foo: 'bar' }, type: 'mongo-query' });
-store.dispatch({ $unset: { foo: 1 }, $set: { a: new Date() }, type: 'mongo-query' });
-*/
