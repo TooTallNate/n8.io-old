@@ -14,6 +14,7 @@ export default function reducer (_state, action) {
         const ab = state.articles[b];
         return new Date(ab.date) - new Date(aa.date);
       });
+      state.doneLoading = state.total === state.sorted.total;
       break;
   }
   return state;

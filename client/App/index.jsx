@@ -70,7 +70,7 @@ const App = React.createClass({
           <InfiniteScroll
               pageStart={ pageStart }
               loadMore={ this.loadMore }
-              hasMore={ articles.length !== state.total }
+              hasMore={ !this.doneLoading }
               loader={ <Loading maxDots={ 10 } speed={ 100 } /> }>
             { articles }
           </InfiniteScroll>

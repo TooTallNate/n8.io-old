@@ -11,7 +11,6 @@ import reducer from './reducer';
 const body = document.getElementById('body');
 
 const store = createStore(reducer, window.__initialStore__);
-window.store = store;
 
 page('/', function () {
   render(<App store={ store } />, body);
@@ -19,7 +18,8 @@ page('/', function () {
 
 // check for an article "slug"
 page('*', function (ctx, next) {
-  render(<ArticleLoader store={ store } ctx={ ctx } next={ next } />, body);
+  const slug = ctx.path.match(/^\/([^\/]*)\/?$/)[1];
+  render(<ArticleLoader store={ store } slug={ slug } next={ next } />, body);
 });
 
 // 404

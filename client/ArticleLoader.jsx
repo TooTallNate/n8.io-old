@@ -9,23 +9,24 @@ const ArticleLoader = React.createClass({
     const store = this.props.store;
     this.unsubscribe = store.subscribe(this.forceUpdate.bind(this));
 
-    const state = store.getState();
-
-    this.slug = this.props.ctx.path.match(/^\/([^\/]*)\/?$/)[1];
-    if (!this.getArticle(this.slug, state) && !state.done) {
-      this.loadArticle(this.slug);
-    }
+    this.loadArticle(this.props.slug);
   },
 
   componentWillUnmount() {
     this.unsubscribe();
   },
 
-  loadArticle(slug) {
-    request
-      .get('/articles.json')
-      .query({ slug: slug })
-      .end(this.onLoad);
+  componentWillReceiveProps(nextProps) {
+    this.loadArticle(nextProps.slug);
+  },
+
+  loadArticle(slug, state = this.props.store.getState()) {
+    if (!this.getArticle(slug, state) && !state.doneLoading) {
+      request
+        .get('/articles.json')
+        .query({ slug: slug })
+        .end(this.onLoad);
+    }
   },
 
   getArticle(slug, state = this.props.store.getState()) {
@@ -49,9 +50,9 @@ const ArticleLoader = React.createClass({
   },
 
   render() {
-    const article = this.getArticle(this.slug);
+    const article = this.getArticle(this.props.slug);
     if (article) {
-      return <Article article={ article } />;
+      return <Article article={ article } slug={ this.props.slug } />;
     } else {
       return <Loading maxDots={ 10 } speed={ 100 } />;
     }
