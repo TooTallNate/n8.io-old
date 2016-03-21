@@ -87,16 +87,15 @@ app.get('*', require('./lib/root-tree'));
 app.get('*', require('./lib/article-names'));
 
 // by now `req.root_tree` is a "git_tree" instance to the resolved SHA
-app.get('/', require('./lib/homepage'));
-app.get('/articles', require('./lib/articles'));
+
+// the Atom XML feed
 app.get('/feed.xml', require('./lib/feed'));
 
-// redirect blog articles to have a trailing "/" (this is necessary because of
-// the way the browser serves files from relative URLs)
-app.get('*', require('./lib/article-redirect'));
+// API
+app.get('/articles.json', require('./lib/articles-json'));
 
-// attempt to render an article if this a request for one
-app.get('*', require('./lib/article'));
-
-// finally attempt to serve static files from the public/ dir
+// attempt to serve static files from the public/ dir
 app.get('*', require('./lib/static'));
+
+// finally serve the HTML page
+app.get('*', require('./lib/homepage'));

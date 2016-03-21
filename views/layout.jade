@@ -38,10 +38,11 @@ html(lang='en')
           ul.contacts
             li.github: a(href='https://github.com/TooTallNate') @TooTallNate
             li.twitter: a(href='https://twitter.com/TooTallNate') @TooTallNate
-      .columns.fourteen.body!= body
+      .columns.fourteen.body#body!= body
       .columns.fourteen.footer
         | node #{process.version}
         br
         | git commit #{sha.substring(0, 7)}
         br
         a(href='https://github.com/TooTallNate/n8.io', title='Fork me!') source code
+    script(type='text/javascript', src='/build.js')

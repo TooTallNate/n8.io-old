@@ -3,9 +3,10 @@
  * Module dependencies.
  */
 
+var argv = require('minimist')(process.argv.slice(2));
 var http = require('http');
 var app = require('./app');
-var port = parseInt(process.env.N8_IO_PORT, 10) || 3000;
+var port = parseInt(process.env.N8_IO_PORT, 10) || argv.port || 3000;
 
 /**
  * Create HTTP server.

@@ -138,6 +138,10 @@ td, th {
   padding-top: 15px;
 }
 
+.loading {
+  font-style: italic;
+}
+
 .article h4 span {
   float: right;
   font-size: 12px;
@@ -179,6 +183,22 @@ ul.contacts li {
 .twitter a {
   background-image: url(twitter.png);
   background-size: 18px 18px;
+}
+
+.not-found {
+  font-size: 2em;
+  text-align: center;
+  padding-top: 14px;
+}
+
+.not-found > h2,
+.not-found > h3,
+.not-found > div {
+  padding-bottom: 10px;
+}
+
+.not-found img {
+  width: 100%;
 }
 
 /* 16:9 aspect ratio for blip.tv embeds
