@@ -6,6 +6,8 @@ module.exports = {
     path: path.resolve(__dirname, 'public'),
     filename: 'build.js'
   },
+  debug: true,
+  devtool: 'source-map',
   module: {
     loaders: [
       {
