@@ -1,27 +1,19 @@
 var path = require('path');
 
 module.exports = {
-  entry: './client/index.jsx',
+  entry: './build/client/index.js',
   output: {
     path: path.resolve(__dirname, 'public'),
     filename: 'build.js'
   },
-  debug: true,
-  devtool: 'source-map',
-  module: {
-    loaders: [
+  module: {
+    preLoaders: [
       {
-        test: /.jsx?$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/,
-        query: {
-          presets: ['es2015', 'react'],
-          plugins: ['transform-runtime']
-        }
+        test: /\.js$/,
+        loader: 'source-map-loader'
       }
     ]
-  },
-  resolve: {
-    extensions: [ '', '.json', '.js', '.jsx' ],
-  }
+  },
+  debug: true,
+  devtool: 'source-map'
 };

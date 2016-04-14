@@ -2,4 +2,9 @@
 *~
 /node_modules
 /libgit2
+/nginx/*.conf
+/logs
+/pids
+/ports
+/build
 /public/build*
