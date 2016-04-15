@@ -43,7 +43,7 @@ const server = createServer((req, res) => {
       length = val.length;
     } else if ('object' === typeof val) {
       // assume a plain object, JSON stringify
-      val = JSON.stringify(val, null, 2);
+      val = JSON.stringify(val, null, 2) + '\n';
       res.setHeader('Content-Type', 'application/json; charset=utf8');
     }
 
