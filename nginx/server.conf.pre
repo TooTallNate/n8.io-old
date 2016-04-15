@@ -1,15 +1,9 @@
-server {
-    listen       PORT;
-    server_name  SERVER_NAME;
-
+location / {
+    autoindex on;
     charset utf-8;
+    root   DIRNAME/../public;
+}
 
-    location / {
-        autoindex on;
-        root   DIRNAME/../public;
-    }
-
-    location = /favicon.ico {
-        proxy_pass http://localhost:include(DIRNAME`/../ports/favicon')/;
-    }
+location = /favicon.ico {
+    proxy_pass http://localhost:include(DIRNAME`/../ports/favicon')/;
 }
