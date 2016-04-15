@@ -4,9 +4,6 @@ import DEBUG from 'debug';
 
 const debug = DEBUG('n8.io:favicon');
 
-process.name = 'favicon';
-process.title = 'GET /favicon';
-
 export default async function (req, res) {
   const img = gravatar('nathan@tootallnate.net', { s: 32 });
   const url = photon(img, { filter: 'grayscale' });

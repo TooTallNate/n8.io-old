@@ -76,9 +76,11 @@ const server = createServer((req, res) => {
 server.listen(port, (err) => {
   if (err) throw err;
   port = server.address().port;
+
   console.log('listening on port %d', port);
-  process.title = 'n8.io:' + port + ': ' + process.title;
-  write('ports/' + process.name, String(port), 'ascii');
+
+  var name = process.env.MONGROUP_NAME;
+  write('ports/' + name, String(port), 'ascii');
 });
 
 // simply log unhandled rejections, like Chrome does
@@ -88,14 +90,13 @@ process.on('unhandledRejection', (err, promise) => {
 
 // delete the "ports" file
 process.on('SIGQUIT', () => {
-  console.log('SIGQUIT');
   process.exit();
 });
 
 process.on('exit', () => {
-  console.log('exit');
   try {
-    unlink('ports/' + process.name);
+    var name = process.env.MONGROUP_NAME;
+    unlink('ports/' + name);
   } catch (e) {
     console.error(e.stack);
   }
