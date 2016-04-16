@@ -13,7 +13,7 @@ COMPILED_FILES := $(addprefix build/, $(addsuffix .js,$(basename $(SOURCE_FILES)
 PORTS_FILES := $(addprefix ports/, $(shell mongroup names))
 
 
-build: public/build.js nginx/server.conf $(COMPILED_FILES)
+build: public/build.js nginx/server.conf $(COMPILED_FILES) $(PORTS_FILES)
 
 article:
 	@./create-article.sh
