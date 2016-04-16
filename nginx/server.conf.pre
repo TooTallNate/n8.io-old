@@ -1,9 +1,16 @@
+define(`FAVICON_PORT', include(DIRNAME`/../ports/favicon'))
+define(`RENDER_PORT', include(DIRNAME`/../ports/render'))
+
 location / {
-    autoindex on;
     charset utf-8;
     root   DIRNAME/../public;
+    try_files $uri @render;
+}
+
+location @render {
+    proxy_pass http://127.0.0.1:RENDER_PORT;
 }
 
 location = /favicon.ico {
-    proxy_pass http://localhost:include(DIRNAME`/../ports/favicon')/;
+    proxy_pass http://localhost:FAVICON_PORT;
 }
