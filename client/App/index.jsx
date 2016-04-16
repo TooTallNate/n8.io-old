@@ -64,7 +64,7 @@ const App = React.createClass({
         <Section name="about">
           <p>This is the blog of Nathan Rajlich &lt;n@n8.io&gt;.<br />Currently living in San Francisco, CA right by AT&T Park.</p>
         </Section>
-        <Section name="atatus">
+        <Section name="status">
           <p>Currently a JavaScript engineer at <a href="https://automattic.com/about">Automattic</a> (formerly <a href="https://cloudup.com/blog/cloudup-automattic">Cloudup</a>), and having a blast revolutionizing the sharing scene!</p>
         </Section>
         <Section name="articles">
