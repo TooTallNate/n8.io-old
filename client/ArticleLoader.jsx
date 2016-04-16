@@ -17,7 +17,9 @@ const ArticleLoader = React.createClass({
   },
 
   componentWillReceiveProps(nextProps) {
-    this.loadArticle(nextProps.slug);
+    if (nextProps.slug !== this.props.slug) {
+      this.loadArticle(nextProps.slug);
+    }
   },
 
   loadArticle(slug, state = this.props.store.getState()) {
