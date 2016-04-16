@@ -39,6 +39,7 @@
     "minimist": "^1.2.0",
     "page": "^1.7.0",
     "photon": "^1.0.4",
+    "pug-cli": "^1.0.0-alpha1",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-infinite-scroll": "https://github.com/rikukissa/react-infinite-scroll/archive/react0.14.tar.gz",

@@ -4,7 +4,7 @@ export PATH := $(shell npm bin):$(PATH)
 export NODE_ENV ?= development
 
 # source file extensions to process
-EXTENSIONS = js jsx json
+EXTENSIONS = js jsx json pug
 
 SOURCE_FILES := $(subst ./,,$(foreach ext,$(EXTENSIONS),$(shell find . -name "*.$(ext)" -not -path "./build/*" -not -path "./node_modules/*" -not -path "./webpack.config.js" -not -path "./public/*" -print)))
 
@@ -43,6 +43,10 @@ build/%.js: %.*
 		.json) echo "$<": JSON source file && \
 			printf "module.exports = " > "$@" && \
 			node -pe "require('fs').readFileSync('$(abspath $<)', 'utf8').trim()" >> "$@" \
+			;; \
+		.pug) echo "$<": PUG source file && \
+			pug --client < "$<" > "$@" && \
+			echo "module.exports = template;" >> "$@" \
 			;; \
 		esac
 
