@@ -12,8 +12,10 @@ COMPILED_FILES := $(addprefix build/, $(addsuffix .js,$(basename $(SOURCE_FILES)
 
 PORTS_FILES := $(addprefix ports/, $(shell mongroup names))
 
+SHA_FILE := $(addprefix .git/, $(shell git symbolic-ref HEAD))
 
-build: public/build.js nginx/server.conf $(COMPILED_FILES) $(PORTS_FILES)
+
+build: public/build.js nginx/server.conf build/sha.js $(COMPILED_FILES) $(PORTS_FILES)
 
 article:
 	@./create-article.sh
@@ -49,6 +51,9 @@ build/%.js: %.*
 			echo "module.exports = template;" >> "$@" \
 			;; \
 		esac
+
+build/sha.js: $(SHA_FILE)
+	echo "module.exports = '$(shell cat "$<")';" > "$@"
 
 public/build.js: package.json $(COMPILED_FILES)
 	@mkdir -p $(dir $@)
