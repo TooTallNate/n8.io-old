@@ -53,7 +53,8 @@ build/%.js: %.*
 		esac
 
 build/sha.js: $(SHA_FILE)
-	echo "module.exports = '$(shell cat "$<")';" > "$@"
+	@echo "sha.js: Generating git HEAD SHA file"
+	@echo "module.exports = '$(shell cat "$<")';" > "$@"
 
 public/build.js: package.json $(COMPILED_FILES)
 	@mkdir -p $(dir $@)
