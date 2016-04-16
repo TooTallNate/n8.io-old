@@ -5,6 +5,7 @@
   "plugins": [
     "transform-runtime",
     "syntax-async-functions",
-    "transform-async-to-generator"
+    "transform-async-to-generator",
+    "transform-dirname-filename"
   ]
 }
