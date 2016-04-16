@@ -1,5 +1,6 @@
 define(`FAVICON_PORT', include(DIRNAME`/../ports/favicon'))
 define(`RENDER_PORT', include(DIRNAME`/../ports/render'))
+define(`ARTICLES_PORT', include(DIRNAME`/../ports/articles'))
 
 location / {
     charset utf-8;
@@ -8,9 +9,13 @@ location / {
 }
 
 location @render {
-    proxy_pass http://127.0.0.1:RENDER_PORT;
+    proxy_pass http://localhost:RENDER_PORT;
 }
 
 location = /favicon.ico {
     proxy_pass http://localhost:FAVICON_PORT;
+}
+
+location = /articles.json {
+    proxy_pass http://localhost:ARTICLES_PORT;
 }
