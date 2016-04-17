@@ -64,7 +64,7 @@ public/build.js: package.json $(COMPILED_FILES)
 	@webpack # config is in `webpack.config.js`
 
 clean:
-	@rm -rfv nginx/*.conf build public/build.* ports/*
+	@rm -rfv nginx/*.conf build public/build.*
 
 distclean:
 	@rm -rfv node_modules
