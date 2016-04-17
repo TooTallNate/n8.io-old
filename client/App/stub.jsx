@@ -9,7 +9,7 @@ const ArticleStub = ({ article }) => {
         <a href={ article.name }>{ article.title }</a>
         <UTCDate date={ article.date } />
       </h4>
-      <div dangerouslySetInnerHTML={ { __html: article.desc } } ></div>
+      <div dangerouslySetInnerHTML={ { __html: article.preview } } ></div>
     </div>
   );
 }
