@@ -1,7 +1,6 @@
 ._*
 *~
 /node_modules
-/libgit2
 /nginx/*.conf
 /logs
 /pids
