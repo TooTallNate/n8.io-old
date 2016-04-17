@@ -12,6 +12,12 @@ module.exports = {
         test: /\.js$/,
         loader: 'source-map-loader'
       }
+    ],
+    loaders: [
+      {
+        test: /\.json$/,
+        loader: 'json-loader'
+      }
     ]
   },
   debug: true,
