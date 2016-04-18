@@ -2,7 +2,7 @@ doctype html
 html(lang='en')
   head
     meta(charset='utf-8')
-    title = locals.article ? article.title + ' — ' : ''
+    - title = locals.article ? article.title + ' — ' : ''
     title #{title}n8.io
     meta(name='description', content='TooTallNate\'s Personal Blog')
     meta(name='keywords', content='TooTallNate n8 node.js')
