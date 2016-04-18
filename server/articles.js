@@ -15,14 +15,20 @@ export default async function (req, res) {
   const names = await getArticleNames();
   const total = names.length;
 
+  let articles;
+
   // a single article was requested
   const slug = query.slug;
-  if (slug && -1 !== names.indexOf(slug)) {
-    let article = await getArticleBySlug(slug);
-    return { total, articles: [ article ] };
+  if (slug) {
+    try {
+      articles = [ await getArticleBySlug(slug) ];
+    } catch (e) {
+      articles = [];
+    }
+    return { total, articles };
   }
 
-  let articles = await getSortedArticles();
+  articles = await getSortedArticles();
 
   // get the "page" selection
   const start = parseInt(query.start, 10) || 0;
