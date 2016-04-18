@@ -21,6 +21,11 @@ if (!isAbsolute(filename)) {
   filename = resolve(filename);
 }
 
+const statusCodes = {
+  ENOENT: 404,
+  ENOTFOUND: 404
+};
+
 let mod = require(filename);
 if (mod.default) mod = mod.default;
 
@@ -57,7 +62,7 @@ const server = createServer((req, res) => {
   }
 
   function onError (err) {
-    const code = err.statusCode || 500;
+    let code = err.statusCode || statusCodes[err.code] || 500;
 
     if (code < 400 || code >= 500) {
       // print non-4xx stack traces to the server log
