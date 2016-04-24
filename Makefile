@@ -15,7 +15,7 @@ PORTS_FILES := $(addprefix ports/, $(shell mongroup names))
 SHA_FILE := $(addprefix .git/, $(shell git symbolic-ref HEAD))
 
 
-build: public/build.js nginx/server.conf build/sha.js $(COMPILED_FILES) $(PORTS_FILES)
+build: public/build.js build/sha.js $(COMPILED_FILES)
 
 article:
 	@./create-article.sh
