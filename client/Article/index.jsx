@@ -77,7 +77,7 @@ const Article = React.createClass({
         <div className="article">
           <ReactMarkdown
             renderers={ { CodeBlock, HtmlBlock } }
-            source={ article.markdown } />
+            source={ article.body } />
         </div>
         <DisqusThread
           shortname="tootallnate"

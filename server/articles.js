@@ -1,7 +1,6 @@
 import { parse } from 'url';
 import { resolve } from 'path';
 import { readdir, readFile } from '../lib/fs';
-import markdown from '../lib/markdown';
 import DEBUG from 'debug';
 
 const debug = DEBUG('n8.io:articles');
@@ -105,12 +104,11 @@ function processArticle (contents) {
   // turn "date" into a Date instance
   article.date = new Date(article.date);
 
-  // process the markdown into HTML
-  article.markdown = contents.substring(split + delimiter.length);
-  article.html = markdown(article.markdown);
+  // process the contents into `body` and `preview`
+  article.body = contents.substring(split + delimiter.length);
 
   // the first paragraph
-  article.preview = article.html.substring(0, article.html.indexOf('</p>'));
+  article.preview = article.body.substring(0, article.body.indexOf('\n\n'));
 
   return article;
 }
