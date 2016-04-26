@@ -639,6 +639,8 @@ to the main `binding.gyp` file like so:
 
 The `binding.gyp` file remains nice and simple. __NOW__ we're done. Grab a pint!
 
+<div style="font-size: 3em;">🍻</div>
+
 
 [gyp]: http://code.google.com/p/gyp/
 [node-gyp]: https://github.com/TooTallNate/node-gyp
