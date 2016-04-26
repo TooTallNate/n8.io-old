@@ -51,14 +51,27 @@ const HtmlToReactParser = new HtmlToReact.Parser(React);
 const HtmlBlock = (props) => {
   console.log('HtmlBlock:', props);
   const el = HtmlToReactParser.parse(props.literal);
-  console.log(el);
-  return el;
+  //console.log(el);
+  if (el.type === 'script') {
+    console.log(location.href);
+    const script = document.createElement('script');
+    script.setAttribute('src', el.props.src);
+    const s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(script, s);
+    return null;
+  } else {
+    return el;
+  }
 };
-
-
 
 const Article = React.createClass({
   componentWillMount() {
+    console.log('componentWillMount: %s', location.href);
+    document.title = `${this.props.article.title} - n8.io`;
+  },
+
+  componentDidMount() {
+    console.log('componentDidMount: %s', location.href);
     document.title = `${this.props.article.title} - n8.io`;
   },
 
@@ -68,6 +81,7 @@ const Article = React.createClass({
 
   render() {
     const article = this.props.article;
+    console.log('article', article);
     return (
       <div className="article-wrapper">
         <div className="article-title">
