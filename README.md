@@ -8,6 +8,7 @@ the latest and buzziest tech, so that I can stay up to date on these
 libraries and frameworks. Current buzzwords:
 
  - React.js
+ - JSX
  - Babel
  - ES2015
  - webpack
@@ -23,15 +24,23 @@ To run this blog locally, you will need a few external dependencies:
  - [mon][]
  - [mongroup][] (you'll need to use my fork which has the `mongroup names` subcommand)
 
-Once those are installed, running `make` will build all the necessary files,
-and start the mongroup cluster.
+Once those are installed, it takes a few commands to re-compile the script files,
+restart the mongroup cluster, regenerate the nginx config file and finally reload
+nginx's config:
+
+``` bash
+$ make                    # build all source files into the `build` dir
+$ mongroup restart        # restart mongroup cluster
+$ make nginx/server.conf  # build the `nginx/server.conf` with new port numbers
+$ nginx -s reload         # standard way of hot-reloading nginx's config
+```
 
 The `nginx/server.conf.pre` file gets pre-processed by `m4` so that the individual
 servers can bind to ephemeral ports which get compiled into the nginx config file.
 
 The contents of the `nginx/server.conf` are meant to be used with the `include`
-clause inside a `server {}` block in your nginx config file. For example, for
-local development:
+statement inside a `server {}` block in your nginx config file. For example,
+local development could use something basic like:
 
 ``` nginx
 server {
