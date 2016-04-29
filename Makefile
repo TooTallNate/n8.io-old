@@ -44,6 +44,8 @@ build/%.json: %.*
 	@cat "$<" > "$@"
 
 # Source files that need to be compiled into regular .js files.
+# Optionally, a `build/%.js.map` file may be created with Source
+# Map information mapping back to the source.
 build/%.js: %.* build/sha.js
 	@mkdir -p $(dir $@)
 	@case "$(suffix $<)" in \
@@ -59,6 +61,7 @@ build/%.js: %.* build/sha.js
 			;; \
 		esac
 
+# Requireable access to the latest git commit SHA
 build/sha.js: $(SHA_FILE)
 	@mkdir -p $(dir $@)
 	@echo "sha.js: Generating git HEAD SHA file"
