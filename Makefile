@@ -4,18 +4,19 @@ export PATH := $(shell npm bin):$(PATH)
 export NODE_ENV ?= development
 
 # source file extensions to process
-EXTENSIONS = js jsx json pug
+EXTENSIONS = js jsx pug
 
 SOURCE_FILES := $(subst ./,,$(foreach ext,$(EXTENSIONS),$(shell find . -name "*.$(ext)" -not -path "./build/*" -not -path "./node_modules/*" -not -path "./webpack.config.js" -not -path "./public/*" -print)))
+JSON_SOURCE_FILES := $(subst ./,,$(shell find . -name "*.json" -not -path "./build/*" -not -path "./node_modules/*" -not -path "./public/*" -print))
 
-COMPILED_FILES := $(addprefix build/, $(addsuffix .js,$(basename $(SOURCE_FILES))))
+COMPILED_FILES := $(addprefix build/, $(addsuffix .js,$(basename $(SOURCE_FILES))) $(JSON_SOURCE_FILES))
 
 PORTS_FILES := $(addprefix ports/, $(shell mongroup names))
 
 SHA_FILE := $(addprefix .git/, $(shell git symbolic-ref HEAD))
 
-
 build: public/build.js build/sha.js $(COMPILED_FILES)
+
 
 article:
 	@./create-article.sh
@@ -35,6 +36,14 @@ nginx/%.conf: nginx/%.conf.pre $(PORTS_FILES)
 		< "$<" \
 		>> "$@"
 
+# JSON files are a special-case, just copy them over as-is:
+#   Node.js can load them by default
+#   Webpack can use "json-loader"
+build/%.json: %.*
+	@echo "$<: JSON source file"
+	@cat "$<" > "$@"
+
+# Source files that need to be compiled into regular .js files.
 build/%.js: %.* build/sha.js
 	@mkdir -p $(dir $@)
 	@case "$(suffix $<)" in \
@@ -43,10 +52,6 @@ build/%.js: %.* build/sha.js
 			;; \
 		.jsx) echo "$<": JSX source file && \
 			babel --presets react "$<" --out-file "$@" --source-maps \
-			;; \
-		.json) echo "$<": JSON source file && \
-			printf "module.exports = " > "$@" && \
-			node -pe "require('fs').readFileSync('$(abspath $<)', 'utf8').trim()" >> "$@" \
 			;; \
 		.pug) echo "$<": PUG source file && \
 			pug --client < "$<" > "$@" && \
