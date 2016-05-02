@@ -40,6 +40,7 @@ nginx/%.conf: nginx/%.conf.pre $(PORTS_FILES)
 #   Node.js can load them by default
 #   Webpack can use "json-loader"
 build/%.json: %.*
+	@mkdir -p $(dir $@)
 	@echo "$<: JSON source file"
 	@cat "$<" > "$@"
 
