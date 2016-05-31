@@ -2,7 +2,7 @@ import photon from 'photon';
 import { url as gravatar } from 'gravatar';
 import DEBUG from 'debug';
 
-const debug = DEBUG('n8.io:favicon');
+const debug = DEBUG('n8.io:server:favicon');
 
 export default async function (req, res) {
   const img = gravatar('nathan@tootallnate.net');
