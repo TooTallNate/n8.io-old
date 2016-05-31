@@ -197,6 +197,12 @@ ul.contacts li {
   padding-bottom: 10px;
 }
 
+.giphy {
+  display: block;
+  margin: 10px auto;
+  max-width: 100%;
+}
+
 .not-found img {
   width: 100%;
 }
