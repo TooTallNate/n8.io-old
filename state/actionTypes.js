@@ -1,0 +1,3 @@
+export const GIPHY_INVALIDATE = 'GIPHY_INVALIDATE';
+export const GIPHY_LOADING = 'GIPHY_LOADING';
+export const GIPHY_LOADED = 'GIPHY_LOADED';
