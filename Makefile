@@ -21,11 +21,10 @@ build: public/build.js build/sha.js $(COMPILED_FILES)
 article:
 	@./create-article.sh
 
-ports/%: $(COMPILED_FILES)
+ports/%:
 	@mkdir -p $(dir $@)
 	@mongroup restart $*
 	@while [ ! -f $@ ]; do sleep 1; done
-
 
 nginx/%.conf: nginx/%.conf.pre $(PORTS_FILES)
 	@echo "$@: Generating nginx config file"
