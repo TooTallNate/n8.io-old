@@ -1,30 +1,26 @@
-import page from 'page';
+// Common routing logic used on the client-side and server-side.
+// The client-side entry point is `client/main.jsx`.
+// The server-side rendering server is `server/render.jsx`.
+
 import React from 'react';
-import { render } from 'react-dom';
-import { createStore } from 'redux';
+import DEBUG from 'debug';
+import { Provider } from 'react-redux'
 
 import App from './App';
 import ArticleLoader from './ArticleLoader';
-import NotFound from './NotFound';
-import reducer from './reducer';
 
-const body = document.getElementById('body');
+const debug = DEBUG('n8.io:client:index');
 
-const store = createStore(reducer, window.__initialStore__);
+export default function (ctx) {
+  debug('ctx: %o', ctx);
 
-page('/', function () {
-  render(<App store={ store } />, body);
-});
+  let el;
+  if (ctx.path === '/') {
+    el = <App />;
+  } else {
+    const slug = ctx.path.match(/^\/([^\/]*)\/?$/)[1];
+    el = <ArticleLoader slug={ slug } />;
+  }
 
-// check for an article "slug"
-page('*', function (ctx, next) {
-  const slug = ctx.path.match(/^\/([^\/]*)\/?$/)[1];
-  render(<ArticleLoader store={ store } slug={ slug } next={ next } />, body);
-});
-
-// 404
-page('*', function (ctx) {
-  render(<NotFound path={ ctx.path } />, body);
-});
-
-page.start();
+  return <Provider store={ ctx.store }>{ el }</Provider>;
+};
