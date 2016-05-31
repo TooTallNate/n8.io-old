@@ -1,7 +1,7 @@
 var path = require('path');
 
 module.exports = {
-  entry: './build/client/index.js',
+  entry: './build/client/main.js',
   output: {
     path: path.resolve(__dirname, 'public'),
     filename: 'build.js'
